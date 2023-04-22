@@ -18,10 +18,10 @@ public class TranslateManager {
     /**
      * Translates a material name.
      * @param material Material to get It's name translated
-     * @return Translated name.
+     * @return A TranslatableComponent for the material. Use {@link TranslatableComponent#toLegacyText()}
      */
     @NotNull
-    public static String translateMaterial(Material material){
+    public static TranslatableComponent translateMaterial(Material material){
         TranslatableComponent component = new TranslatableComponent();
 
         if(material.isBlock()){
@@ -29,7 +29,7 @@ public class TranslateManager {
         } else if(material.isItem()){
             component.setTranslate("block.minecraft."+material.getKey().getKey());
         }
-        return component.toLegacyText();
+        return component;
     }
 
     /**
@@ -38,8 +38,8 @@ public class TranslateManager {
      * @return Translated name.
      */
     @NotNull
-    public static String translateEntity(@NotNull EntityType type){
-        return new TranslatableComponent("entity.minecraft."+type.getKey().getKey()).toLegacyText();
+    public static TranslatableComponent translateEntity(@NotNull EntityType type){
+        return new TranslatableComponent("entity.minecraft."+type.getKey().getKey());
     }
 
     /**
@@ -48,8 +48,8 @@ public class TranslateManager {
      * @return Translated name.
      */
     @NotNull
-    public static String translateEnchantment(@NotNull Enchantment enchantment){
-        return new TranslatableComponent("enchantment.minecraft."+enchantment.getKey().getKey()).toLegacyText();
+    public static TranslatableComponent translateEnchantment(@NotNull Enchantment enchantment){
+        return new TranslatableComponent("enchantment.minecraft."+enchantment.getKey().getKey());
     }
 
     /**
@@ -58,30 +58,29 @@ public class TranslateManager {
      * @return Translated name
      */
     @NotNull
-    public static String translateEffect(@NotNull PotionEffectType type){
-        return new TranslatableComponent("effect.minecraft"+type.getKey().getKey()).toLegacyText();
-    }
-
-    /**
-     * Translates a custom translation key.
-     * @param key Key to translate.
-     * @return Translated message.
-     */
-    @NotNull
-    public static String translateKey(@NotNull String key){
-        return new TranslatableComponent(key).toLegacyText();
+    public static TranslatableComponent translateEffect(@NotNull PotionEffectType type){
+        return new TranslatableComponent("effect.minecraft"+type.getKey().getKey());
     }
 
     @NotNull
-    public static String translate(@NotNull Material material){return translateMaterial(material);}
+    public static TranslatableComponent translateKey(@NotNull String key){
+        return new TranslatableComponent(key);
+    }
+
     @NotNull
-    public static String translate(@NotNull EntityType type){return translateEntity(type);}
+    public static TranslatableComponent translate(@NotNull Material material){return translateMaterial(material);}
+
     @NotNull
-    public static String translate(@NotNull Enchantment enchantment){return translateEnchantment(enchantment);}
+    public static TranslatableComponent translate(@NotNull EntityType type){return translateEntity(type);}
+
     @NotNull
-    public static String translate(@NotNull PotionEffectType effectType){return translateEffect(effectType);}
+    public static TranslatableComponent translate(@NotNull Enchantment enchantment){return translateEnchantment(enchantment);}
+
     @NotNull
-    public static String translate(@NotNull String key){return translateKey(key);}
+    public static TranslatableComponent translate(@NotNull PotionEffectType effectType){return translateEffect(effectType);}
+
+    @NotNull
+    public static TranslatableComponent translate(@NotNull String key){return translateKey(key);}
 
     @NotNull
     public static String translateColors(@NotNull String message){

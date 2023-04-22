@@ -9,10 +9,12 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
 public abstract class BaseCommand extends Command {
+
     public BaseCommand(@NotNull String name) {
         super(name);
     }
