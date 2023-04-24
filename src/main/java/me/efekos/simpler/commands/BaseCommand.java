@@ -158,7 +158,7 @@ public abstract class BaseCommand extends Command {
 
             int num = args.length-1;
 
-            if(arguments.get(num)!=null){
+            if(num<arguments.size()&&arguments.get(num)!=null){
                 Argument arg = arguments.get(num);
                 return Utils.fromStreamToArrayList(arg.getList(p,args[num]).stream().map(ArgumentResult::getName));
             }
