@@ -8,15 +8,18 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
+/**
+ * Static command manager for registering commands.
+ */
 public class CommandManager {
 
     /**
      * Registers multiple base commands at the same time.
-     * @param plugin An instance of your plugin that is using this API. If called within plugin main class, provide this keyword
+     * @param plugin An Instance of your plugin that is using this API. If called within plugin main class, provide this keyword
      * @param commands A class reference of every base command to be registered
      * @throws NoSuchFieldException If there is no commandMap, which is not usual in a healthy server.
      * @throws IllegalAccessException If we can't access commandField
-     * @throws NoSuchMethodException If there is no constructor in command parameter, or creating a new Instance of command fails
+     * @throws NoSuchMethodException If there is no constructor in one of the command classes, or creating a new Instance of a command class fails
      * @throws InvocationTargetException If creating a new Instance of command fails
      * @throws InstantiationException If creating a new Instance of command fails
      */
@@ -35,7 +38,7 @@ public class CommandManager {
 
     /**
      * Registers one base command
-     * @param plugin An instance of your plugin that is using this API. If called within plugin main class, provide this keyword
+     * @param plugin An Instance of your plugin that is using this API. If called within plugin main class, provide this keyword
      * @param command a class reference of the base command class.
      * @throws NoSuchFieldException If there is no commandMap, which is not usual in a healthy server.
      * @throws IllegalAccessException If we can't access commandField

@@ -1,5 +1,9 @@
 package me.efekos.simpler.commands;
 
+import me.efekos.simpler.Utils;
+import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentResult;
+import me.efekos.simpler.commands.syntax.Syntax;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -9,10 +13,13 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.lang.annotation.Annotation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Used for base commands like /feed, /god etc.
+ * Requires {@link me.efekos.simpler.annotations.Command} to be used in {@link me.efekos.simpler.commands.CommandManager}
+ */
 public abstract class BaseCommand extends Command {
 
     public BaseCommand(@NotNull String name) {
@@ -58,10 +65,11 @@ public abstract class BaseCommand extends Command {
 
 
     /**
-     * @return Syntax of this command.
+     * Used for handling tab completion, making examples and providing valid usages for this command. You can create your own arguments with a class extends {@link Argument}. This is really helpful at making sure your arguments are good.
+     * @return A Syntax class for this command.
      */
     @NotNull
-    public abstract String getSyntax();
+    public abstract Syntax getSyntax();
 
     /**
      * Gets an example usage of this command
@@ -71,7 +79,7 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public String getUsage() {
-        return "/"+getSyntax();
+        return "/"+getSyntax().getArguments().stream().map(Argument::toString);
     }
 
     /**
@@ -131,14 +139,6 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
-     * Used to get arguments for this command.
-     * @param player The player typing this command.
-     * @param args List of the arguments player gave us so far.
-     * @return A list of new arguments to suggest player.
-     */
-    public abstract List<String> getArgs(Player player,String[] args);
-
-    /**
      * Executed on tab completion for this command, returning a list of
      * options the player can tab through.
      *
@@ -153,10 +153,17 @@ public abstract class BaseCommand extends Command {
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         if(sender instanceof Player){
-            return getArgs((Player) sender,args);
-        } else {
-            return new ArrayList<>();
+            Player p = (Player) sender;
+            ArrayList<Argument> arguments = getSyntax().getArguments();
+
+            int num = args.length-1;
+
+            if(arguments.get(num)!=null){
+                Argument arg = arguments.get(num);
+                return Utils.fromStreamToArrayList(arg.getList(p,args[num]).stream().map(ArgumentResult::getName));
+            }
         }
+        return new ArrayList<>();
     }
 
     /**
@@ -175,9 +182,16 @@ public abstract class BaseCommand extends Command {
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
         if(sender instanceof Player){
-            return getArgs((Player) sender,args);
-        } else {
-            return new ArrayList<>();
+            Player p = (Player) sender;
+            ArrayList<Argument> arguments = getSyntax().getArguments();
+
+            int num = args.length-1;
+
+            if(arguments.get(num)!=null){
+                Argument arg = arguments.get(num);
+                return Utils.fromStreamToArrayList(arg.getList(p,args[num]).stream().map(ArgumentResult::getName));
+            }
         }
+        return new ArrayList<>();
     }
 }
