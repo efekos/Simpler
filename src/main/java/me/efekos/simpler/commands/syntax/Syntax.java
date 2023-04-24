@@ -5,7 +5,9 @@ import java.util.ArrayList;
 public class Syntax {
     private ArrayList<Argument> arguments;
 
-    public Syntax() {}
+    public Syntax() {
+        arguments = new ArrayList<>();
+    }
 
     public ArrayList<Argument> getArguments() {
         return arguments;
