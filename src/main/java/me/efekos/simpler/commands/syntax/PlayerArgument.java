@@ -2,6 +2,7 @@ package me.efekos.simpler.commands.syntax;
 
 import me.efekos.simpler.Utils;
 import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -31,7 +32,10 @@ public class PlayerArgument extends Argument {
 
     @Override
     public boolean handleCorrection(String given) {
-        return Bukkit.getServer().getPlayer(given) != null;
+        OfflinePlayer p = Bukkit.getServer().getPlayer(given);
+        if(p == null) return false;
+
+        return p.getName().equals(given);
     }
 
     @Override

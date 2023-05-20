@@ -1,6 +1,5 @@
 package me.efekos.simpler.commands;
 
-import me.efekos.simpler.annotations.Command;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
 
