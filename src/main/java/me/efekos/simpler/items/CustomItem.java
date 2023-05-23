@@ -32,7 +32,7 @@ public abstract class CustomItem {
     public abstract void onPickup(Player player);
 
     /**
-     * @return An ID for this item. This ID is unique and used to know that an ItemStack is this item.
+     * @return An ID for this item. This ID is unique and used to know that an {@link org.bukkit.inventory.ItemStack} is this item.
      */
     @NotNull
     public abstract String getId();
@@ -48,4 +48,7 @@ public abstract class CustomItem {
      */
     @NotNull
     public abstract Material getMaterial();
+
+    public CustomItem() {
+    }
 }

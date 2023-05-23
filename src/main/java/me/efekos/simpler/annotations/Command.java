@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 /**
- Used to give information about a command class. A {@link me.efekos.simpler.commands.BaseCommand},CoreCommand and SubCommand requires {@link Command} annotation to be used.
+ Used to give information about a command class. A {@link me.efekos.simpler.commands.BaseCommand},{@link me.efekos.simpler.commands.CoreCommand} and {@link me.efekos.simpler.commands.SubCommand} requires {@link Command} annotation to be used.
  */
 public @interface Command {
     /**

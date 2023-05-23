@@ -4,7 +4,7 @@ Simpler is an API to help you making Minecraft plugins. It has a lot of features
 For example, here is a feed command made with Spigot API,
 
 ````java
-    import org.bukkit.command.Command;
+import org.bukkit.command.Command;
 
 class feed extends Command {
     @Override
@@ -42,11 +42,3 @@ And this is a feed command with same functionality, but made with Simpler.
         }
     }
 ````
-
-As you can see, we removed a lot of if statements here and made our code so much more understandable. There is also a lot more features at this API, such as:
-- Core/Sub Commands
-- Translation
-- JSON/YAML Message config
-- Custom Items
-- Custom Reds
-- Data Storing
