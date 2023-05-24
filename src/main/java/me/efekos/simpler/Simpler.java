@@ -17,12 +17,12 @@ public final class Simpler extends JavaPlugin {
     private static Simpler plugin;
 
     public static Simpler getPlugin() {
-        return plugin;
+       return plugin;
     }
 
     @Override
     public void onEnable() {
-        plugin = this;
+       plugin = this;
     }
 
     @Override

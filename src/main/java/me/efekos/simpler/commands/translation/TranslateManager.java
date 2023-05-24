@@ -24,7 +24,7 @@ public class TranslateManager {
      * @return A TranslatableComponent for the material. Use {@link TranslatableComponent#toLegacyText()} with {@link Player#spigot()}>{@link Spigot#sendMessage(BaseComponent...)}
      */
     @NotNull
-    public static TranslatableComponent translateMaterial(Material material){
+    public static TranslatableComponent translateMaterial(@NotNull Material material){
         TranslatableComponent component = new TranslatableComponent();
 
         if(material.isBlock()){
