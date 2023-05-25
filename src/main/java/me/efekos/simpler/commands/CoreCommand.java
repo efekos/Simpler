@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
@@ -88,29 +89,52 @@ public abstract class CoreCommand extends Command {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        if(sender instanceof Player){ //sender is a player
-            me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
-            Player p = (Player) sender;
+        try{
+            if(sender instanceof Player){ //sender is a player
+                me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+                Player p = (Player) sender;
 
-            if(command.permission()!=null&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
+                if(command.permission()!=null&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
-                p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
+                    p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
 
-            } else { // @Command don't have a permission or player has the permission
+                } else { // @Command don't have a permission or player has the permission
                     if(getSub(args[0])!=null){
                         Class<? extends SubCommand> cmd = getSub(args[0]);
                         me.efekos.simpler.annotations.Command cmdA = cmd.getAnnotation(me.efekos.simpler.annotations.Command.class);
 
+                        if(cmdA.permission()!=null&&!p.hasPermission(cmdA.permission())){ // SubCommand's @Command has a permisison and player don't have the permisson
+                            p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
+                        } else { // SubCommand's @Command don't have a permission or player has the permisson
+                            Constructor<? extends SubCommand> constructor = cmd.getConstructor(String.class);
+                            constructor.setAccessible(true);
+                            SubCommand instance = constructor.newInstance(cmdA.name());
+                            instance.onPlayerUse(p,args);
+                        }
 
                     }
-            }
+                }
 
-        } else if(sender instanceof ConsoleCommandSender){// sender is not a player but the console
-            if(!isPlayerOnly()){ // command is not player only
-             //onconsoleuse
-            } else { // command is player only
-                sender.sendMessage(ChatColor.RED+"This command only can be used by a player!");
+            } else if(sender instanceof ConsoleCommandSender){// sender is not a player but the console
+                if(!isPlayerOnly()){ // command is not player only
+                    Class<? extends SubCommand> cmd = getSub(args[0]);
+                    me.efekos.simpler.annotations.Command cmdA = cmd.getAnnotation(me.efekos.simpler.annotations.Command.class);
+
+                    if(cmdA.playerOnly()){ // SubCommand's @Command is player only
+                        sender.sendMessage(ChatColor.RED+"This command only can be used by a player!");
+                    } else { // SubCommand's @Command is not playeronly
+                        Constructor<? extends SubCommand> constructor = cmd.getConstructor(String.class);
+                        constructor.setAccessible(true);
+                        SubCommand instance = constructor.newInstance(cmdA.name());
+                        instance.onConsoleUse((ConsoleCommandSender) sender,args);
+                    }
+
+                } else { // command is player only
+                    sender.sendMessage(ChatColor.RED+"This command only can be used by a player!");
+                }
             }
+        } catch (Exception e){
+            e.printStackTrace();
         }
 
         return true;
