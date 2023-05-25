@@ -36,7 +36,7 @@ public final class Simpler extends JavaPlugin {
      * @throws InvalidAnnotationException If the annotations of a class is missing or wrong.
      * @throws InvalidClassException If one of the classes annotated with @Register is wrong.
      */
-    public static void setup(JavaPlugin plugin) throws InvalidAnnotationException,InvalidClassException {
+    private static void setup(JavaPlugin plugin) throws InvalidAnnotationException,InvalidClassException {
             Class<?>[] registers = Utils.getAllClassesAnnotatedWith(Register.class);
 
             try{
