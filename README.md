@@ -9,13 +9,36 @@
 
 * Add this repository:
 ````xml
-
+<repositories>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories>
 ````
 * Add this dependecy
 ````xml
-	<dependency>
-	    <groupId>com.github.efe124</groupId>
-	    <artifactId>Simpler</artifactId>
-	    <version>1.0.4</version>
-	</dependency>
+<dependency>
+    <groupId>com.github.efe124</groupId>
+    <artifactId>Simpler</artifactId>
+    <version>1.0.4</version>
+</dependency>
+````
+
+### Gradle
+
+* Add this repository:
+````gradle
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+````
+* Add this dependecy:
+````gradle
+dependencies {
+	implementation 'com.github.efe124:Simpler:1.0.5'
+}
 ````
