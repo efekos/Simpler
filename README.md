@@ -3,4 +3,19 @@
 ![version](https://img.shields.io/badge/version-1.0.4-blue)
 # Simpler
 
-TODO: Write something here
+## Installation
+
+### Maven
+
+* Add this repository:
+````xml
+
+````
+* Add this dependecy
+````xml
+	<dependency>
+	    <groupId>com.github.efe124</groupId>
+	    <artifactId>Simpler</artifactId>
+	    <version>1.0.4</version>
+	</dependency>
+````
