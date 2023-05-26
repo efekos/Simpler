@@ -4,6 +4,8 @@ import me.efekos.simpler.annotations.Register;
 import me.efekos.simpler.commands.BaseCommand;
 import me.efekos.simpler.commands.CommandManager;
 import me.efekos.simpler.commands.CoreCommand;
+import me.efekos.simpler.events.MenuEvents;
+import me.efekos.simpler.events.PlayerEvents;
 import me.efekos.simpler.exception.InvalidAnnotationException;
 import me.efekos.simpler.items.CustomItem;
 import me.efekos.simpler.items.ItemManager;
@@ -23,6 +25,9 @@ public final class Simpler extends JavaPlugin {
     @Override
     public void onEnable() {
        plugin = this;
+
+        getServer().getPluginManager().registerEvents(new MenuEvents(),this);
+        getServer().getPluginManager().registerEvents(new PlayerEvents(),this);
     }
 
     @Override
