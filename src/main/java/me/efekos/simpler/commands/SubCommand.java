@@ -1,7 +1,12 @@
 package me.efekos.simpler.commands;
 
+import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.syntax.Argument;
+import org.bukkit.Location;
+import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 import java.util.stream.Stream;
@@ -27,13 +32,29 @@ public abstract class SubCommand extends BaseCommand{
      */
     @Override
     public @NotNull String getUsage() {
-        Stream<String> s = getSyntax().getArguments().stream().map(Argument::toString);
-        StringBuilder builder = new StringBuilder();
-        s.forEach(s1 -> {
-            builder.append(" ");
-            builder.append(s1);
-        });
+        try {
 
-        return "/"+getParent().getName()+getName()+builder;
+            Stream<String> s = getSyntax().getArguments().stream().map(Argument::toString);
+            StringBuilder builder = new StringBuilder();
+            s.forEach(s1 -> {
+                builder.append(" ");
+                builder.append(s1);
+            });
+
+            return "/"+getParent().getConstructor(String.class).newInstance(getParent().getAnnotation(Command.class).name()).getName()+" "+getName()+builder;
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @Override
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
+        return super.tabComplete(sender, alias, args);
+    }
+
+    @Override
+    public @NotNull List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
+        return super.tabComplete(sender, alias, args, location);
     }
 }

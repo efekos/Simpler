@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 public class ListArgument extends Argument {
     private String holder;
-    private ArrayList<String> values;
+    private ArrayList<String> values = new ArrayList<>();
 
     public ListArgument(String holder, String ...values) {
         this.holder = holder;
