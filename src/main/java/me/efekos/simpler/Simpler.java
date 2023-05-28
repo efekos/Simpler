@@ -16,15 +16,8 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 
 public final class Simpler extends JavaPlugin {
-    private static Simpler plugin;
-
-    public static Simpler getPlugin() {
-       return plugin;
-    }
-
     @Override
     public void onEnable() {
-       plugin = this;
     }
 
     @Override
@@ -38,6 +31,7 @@ public final class Simpler extends JavaPlugin {
      * @throws InvalidAnnotationException If the annotations of a class is missing or wrong.
      * @throws InvalidClassException If one of the classes annotated with @Register is wrong.
      */
+    @Deprecated
     private static void setup(JavaPlugin plugin) throws InvalidAnnotationException,InvalidClassException {
             Class<?>[] registers = Utils.getAllClassesAnnotatedWith(Register.class);
 

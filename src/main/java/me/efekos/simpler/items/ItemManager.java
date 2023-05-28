@@ -26,7 +26,7 @@ public class ItemManager {
 
     public static void setPlugin(JavaPlugin plugin) {
         ItemManager.plugin = plugin;
-        itemTypeKey = new NamespacedKey(Simpler.getPlugin(),"item_id");
+        itemTypeKey = new NamespacedKey(plugin,"item_id");
     }
 
     public static void registerItem(String name, Class<? extends CustomItem> itemClass){
