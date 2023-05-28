@@ -18,7 +18,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.ArrayList;
 
 public class ItemManager {
-    public static NamespacedKey itemTypeKey = new NamespacedKey(Simpler.getPlugin(),"item_id");
+    public static NamespacedKey itemTypeKey;
 
     private static JavaPlugin plugin;
     private static ArrayList<CustomItemRegister> registers = new ArrayList<>();
@@ -26,6 +26,7 @@ public class ItemManager {
 
     public static void setPlugin(JavaPlugin plugin) {
         ItemManager.plugin = plugin;
+        itemTypeKey = new NamespacedKey(Simpler.getPlugin(),"item_id");
     }
 
     public static void registerItem(String name, Class<? extends CustomItem> itemClass){
