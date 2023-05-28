@@ -129,7 +129,7 @@ public abstract class BaseCommand extends Command {
                 me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
                 Player p = (Player) sender;
 
-                if(command.permission()!=null&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
+                if(!command.permission().equals("")&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
                     p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
 

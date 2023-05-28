@@ -25,9 +25,6 @@ public final class Simpler extends JavaPlugin {
     @Override
     public void onEnable() {
        plugin = this;
-
-        getServer().getPluginManager().registerEvents(new MenuEvents(),this);
-        getServer().getPluginManager().registerEvents(new PlayerEvents(),this);
     }
 
     @Override
