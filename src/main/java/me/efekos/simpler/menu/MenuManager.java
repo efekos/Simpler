@@ -20,7 +20,13 @@ public class MenuManager {
     }
 
     public static MenuData getMenuData(Player player){
-        return menuDataStore.get(player);
+        MenuData data = menuDataStore.get(player);
+        if(data==null){
+            menuDataStore.put(player,new MenuData(player));
+            data = menuDataStore.get(player);
+        }
+
+        return data;
     }
 
     public static void updateMenuData(Player player,MenuData newMenuData){
