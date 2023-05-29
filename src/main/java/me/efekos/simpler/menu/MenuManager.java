@@ -19,6 +19,14 @@ public class MenuManager {
         MenuManager.plugin = plugin;
     }
 
+    public static MenuData getMenuData(Player player){
+        return menuDataStore.get(player);
+    }
+
+    public static void updateMenuData(Player player,MenuData newMenuData){
+        menuDataStore.put(player, newMenuData);
+    }
+
     public static void Open(Player p , Class<? extends Menu> menuClazz){
         try {
             if(plugin==null) throw new NoPluginException("Call method me.efekos.simpler.menu.MenuManager#setPlugin first.");
