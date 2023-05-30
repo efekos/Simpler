@@ -15,40 +15,25 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.UUID;
 
 public class ItemManager {
     public static NamespacedKey itemTypeKey;
+    public static NamespacedKey itemUuidKey;
 
     private static JavaPlugin plugin;
-    private static ArrayList<CustomItemRegister> registers = new ArrayList<>();
     private static boolean isSetup;
+    private static HashMap<UUID,CustomItem> items = new HashMap<>();
+
+    public static HashMap<UUID, CustomItem> getItems() {
+        return items;
+    }
 
     public static void setPlugin(JavaPlugin plugin) {
         ItemManager.plugin = plugin;
         itemTypeKey = new NamespacedKey(plugin,"item_id");
-    }
-
-    public static void registerItem(String name, Class<? extends CustomItem> itemClass){
-        try{
-            if(plugin==null) throw new NoPluginException("Call method me.efekos.simpler.items.ItemManager#setPlugin first.");
-
-            if(!isSetup){
-                plugin.getServer().getPluginManager().registerEvents(new PlayerEvents(),plugin);
-                isSetup = true;
-            }
-
-            registers.add(new CustomItemRegister()
-                    .setId(name)
-                    .setClazz(itemClass)
-            );
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-    }
-
-    public static ArrayList<CustomItemRegister> getRegisters() {
-        return registers;
+        itemUuidKey = new NamespacedKey(plugin,"item_uuid");
     }
 
     public static void giveItem(@NotNull Player player, Material type){
@@ -64,6 +49,12 @@ public class ItemManager {
         ItemMeta meta = item.getDefaultMeta();
         PersistentDataContainer container = meta.getPersistentDataContainer();
         container.set(itemTypeKey, PersistentDataType.STRING,item.getId());
+        UUID itemId = UUID.randomUUID();
+
+        container.set(itemUuidKey,PersistentDataType.STRING,itemId.toString());
+        items.put(itemId,item);
+
+
         stack.setItemMeta(meta);
         player.getInventory().addItem(stack);
     }
