@@ -138,10 +138,11 @@ public abstract class CoreCommand extends Command {
                 if(!command.permission().equals("")&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
                     p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
-
-                } else { // @Command don't have a permission or player has the permission
+                    return true;
+                }
+                // @Command don't have a permission or player has the permission
                     if(getSub(args[0])!=null){
-                        if(cmdA.permission()!=null&&!p.hasPermission(cmdA.permission())){ // SubCommand's @Command has a permisison and player don't have the permisson
+                        if(!cmdA.permission().equals("")&&!p.hasPermission(cmdA.permission())){ // SubCommand's @Command has a permisison and player don't have the permisson
                             p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
                         } else { // SubCommand's @Command don't have a permission or player has the permisson
 
@@ -168,7 +169,6 @@ public abstract class CoreCommand extends Command {
                         }
 
                     }
-                }
 
             } else if(sender instanceof ConsoleCommandSender){// sender is not a player but the console
                 if(!isPlayerOnly()){ // command is not player only
