@@ -43,10 +43,10 @@ public class PlayerEvents implements Listener {
 
             switch (e.getAction()){
                 case LEFT_CLICK_AIR:case LEFT_CLICK_BLOCK:
-                    item.onLeftClick(e.getPlayer());
+                    item.onLeftClick(e);
                     break;
                 case RIGHT_CLICK_AIR:case RIGHT_CLICK_BLOCK:
-                    item.onRightClick(e.getPlayer());
+                    item.onRightClick(e);
                     break;
                 default:
                     break;
@@ -74,7 +74,7 @@ public class PlayerEvents implements Listener {
             constructor.setAccessible(true);
             CustomItem item = constructor.newInstance();
 
-            item.onPickup((Player) e.getEntity());
+            item.onPickup(e);
         } catch (Exception ex){
             ex.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class PlayerEvents implements Listener {
             constructor.setAccessible(true);
             CustomItem item = constructor.newInstance();
 
-            item.onDrop(e.getPlayer());
+            item.onDrop(e);
         } catch (Exception ex){
             ex.printStackTrace();
         }
