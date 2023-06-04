@@ -1,6 +1,7 @@
 package me.efekos.simpler.items;
 
-import me.efekos.simpler.Simpler;
+import com.google.gson.Gson;
+import jdk.internal.access.foreign.MemorySegmentProxy;
 import me.efekos.simpler.events.PlayerEvents;
 import me.efekos.simpler.exception.NoPluginException;
 import org.bukkit.Material;
@@ -15,6 +16,11 @@ import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.*;
+import java.nio.ByteBuffer;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -26,6 +32,45 @@ public class ItemManager {
     private static boolean isSetup;
     private static HashMap<UUID,CustomItem> items = new HashMap<>();
 
+    public static void saveItemData(String path){
+        try {
+            if(!isSetup){
+                throw new NoPluginException("Call me.efekos.simpler.items.ItemManager.setPlugin(org.bukkit.plugin.java.JavaPlugin) first.");
+            }
+
+            Gson gson = new Gson();
+            File file = new File(path);
+            file.getParentFile().mkdir();
+            file.createNewFile();
+
+            Writer writer = new FileWriter(path,false);
+            gson.toJson(items,writer);
+            writer.flush();
+            writer.close();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadItemData(String path){
+        try {
+            if(!isSetup){
+                throw new NoPluginException("Call me.efekos.simpler.items.ItemManager.setPlugin(org.bukkit.plugin.java.JavaPlugin) first.");
+            }
+
+            Gson gson = new Gson();
+            File file = new File(path);
+            if(file.exists()){
+                Reader reader = new FileReader(file);
+                HashMap<UUID,CustomItem> itemMap = gson.fromJson(reader,HashMap.class);
+                items = itemMap;
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+        System.out.println(items);
+    }
+
     public static HashMap<UUID, CustomItem> getItems() {
         return items;
     }
@@ -34,6 +79,10 @@ public class ItemManager {
         ItemManager.plugin = plugin;
         itemTypeKey = new NamespacedKey(plugin,"item_id");
         itemUuidKey = new NamespacedKey(plugin,"item_uuid");
+
+        plugin.getServer().getPluginManager().registerEvents(new PlayerEvents(),plugin);
+
+        isSetup = true;
     }
 
     public static void giveItem(@NotNull Player player, Material type){
@@ -45,18 +94,27 @@ public class ItemManager {
     }
 
     public static void giveItem(@NotNull Player player, @NotNull CustomItem item){
-        ItemStack stack = new ItemStack(item.getMaterial());
-        ItemMeta meta = item.getDefaultMeta();
-        PersistentDataContainer container = meta.getPersistentDataContainer();
-        container.set(itemTypeKey, PersistentDataType.STRING,item.getId());
-        UUID itemId = UUID.randomUUID();
+        try{
+            if(!isSetup){
+                throw new NoPluginException("Call me.efekos.simpler.items.ItemManager.setPlugin(org.bukkit.plugin.java.JavaPlugin) first.");
+            } else {
+                ItemStack stack = new ItemStack(item.getMaterial());
+                ItemMeta meta = item.getDefaultMeta();
+                PersistentDataContainer container = meta.getPersistentDataContainer();
+                container.set(itemTypeKey, PersistentDataType.STRING,item.getId());
+                UUID itemId = UUID.randomUUID();
 
-        container.set(itemUuidKey,PersistentDataType.STRING,itemId.toString());
-        items.put(itemId,item);
+                container.set(itemUuidKey,PersistentDataType.STRING,itemId.toString());
+                item.setUniqueItemId(itemId);
+                items.put(itemId,item);
 
 
-        stack.setItemMeta(meta);
-        player.getInventory().addItem(stack);
+                stack.setItemMeta(meta);
+                player.getInventory().addItem(stack);
+            }
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     public static void giveSkull(@NotNull Player player, OfflinePlayer skullOwner){
