@@ -21,7 +21,7 @@
 <dependency>
     <groupId>com.github.efe124</groupId>
     <artifactId>Simpler</artifactId>
-    <version>1.2.2</version>
+    <version>1.2.3</version>
 </dependency>
 ````
 

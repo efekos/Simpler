@@ -1,7 +1,6 @@
 package me.efekos.simpler.items;
 
 import com.google.gson.Gson;
-import jdk.internal.access.foreign.MemorySegmentProxy;
 import me.efekos.simpler.events.PlayerEvents;
 import me.efekos.simpler.exception.NoPluginException;
 import org.bukkit.Material;
@@ -17,10 +16,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.*;
-import java.nio.ByteBuffer;
-import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.UUID;
 
