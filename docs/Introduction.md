@@ -1,44 +1,16 @@
 # Introduction
-Simpler is an API to help you making Minecraft plugins. It has a lot of features that will make developing a plugin much faster.
+Simpler is an API to help you making Minecraft plugins. It has a lot of features to make developing a plugin much faster.
 
-For example, here is a feed command made with Spigot API,
+## Features
 
-````java
-import org.bukkit.command.Command;
+### Commands
+Command features helps you making commands, getting rid of some `if` statements and providing advanced syntaxes for your command. You can use a [BaseCommand](Classes/BaseCommand.md), but you can also use [SubCommand](Classes/SubCommand.md) with a [CoreCommand](Classes/CoreCommand.md) for creating core commands that contains other sub commands inside of it.
 
-class feed extends Command {
-    @Override
-    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        if (sender instanceof Player p) {
-            if (p.hasPermission("myPlugin.commands.feed")) {
-                p.setFoodLevel(20);
-                p.sendMessage("Successfully feed!");
-            } else {
-                p.sendMessage("You do not have permission to do that!");
-            }
-        } else {
-            sender.sendMessage("This command only can be used by a player!");
-        }
-        return true;
-    }
-}
-````
-And this is a feed command with same functionality, but made with Simpler.
+### Items
+Item features makes creating custom items so much easier. All you have to do is create a [CustomItem](Classes/CustomItem.md) class and that's it! Now you can use this custom item through [ItemManager](Classes/ItemManager.md)[#giveItem(](Classes/ItemManager.md#give-item)) and listen for your custom events.
 
-````java
-    import me.efekos.simpler.annotations.Command;
-    import me.efekos.simpler.commands.BaseCommand;
-    
-    @Command(name = "feed", description = "Feed yourself!", playerOnly = true, permission = "myPlugin.command.feed")
-    class feed extends BaseCommand {
-        /**
-         * @param player Player that sent the command.
-         * @param args Arguments given by sender.
-         */
-        @Override
-        public void onPlayerUse(Player player, String[] args) {
-            player.setFoodLevel(20);
-            player.sendMessage("Successsfully feed!");
-        }
-    }
-````
+### Menus
+Menu features create custom menus, and let you listen for them. It's a good way to make use interfaces using GUI's.
+
+
++Starting to use Simpler in your project is really simple. All you need to do is [install](Installation.md) Simpler as a dependecy in your project.

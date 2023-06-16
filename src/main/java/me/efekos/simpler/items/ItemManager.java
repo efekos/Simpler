@@ -1,7 +1,7 @@
 package me.efekos.simpler.items;
 
 import com.google.gson.Gson;
-import me.efekos.simpler.events.PlayerEvents;
+import me.efekos.simpler.events.ItemEvents;
 import me.efekos.simpler.exception.NoPluginException;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -75,7 +75,7 @@ public class ItemManager {
         itemTypeKey = new NamespacedKey(plugin,"item_id");
         itemUuidKey = new NamespacedKey(plugin,"item_uuid");
 
-        plugin.getServer().getPluginManager().registerEvents(new PlayerEvents(),plugin);
+        plugin.getServer().getPluginManager().registerEvents(new ItemEvents(),plugin);
 
         isSetup = true;
     }

@@ -1,6 +1,6 @@
-# Command
-`public @interface`\
-For `class`
+package `me.efekos.simpler.annotations`\
+extends [java.lang.Object](https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html)
+# @Command
 
 Defines some properties about a Command. CoreCommand, SubCommand and BaseCommand requires a `@Command` to be registered.
 
@@ -11,7 +11,7 @@ Defines some properties about a Command. CoreCommand, SubCommand and BaseCommand
 | Property    | Description                                         | Type     | Default |
 |-------------|-----------------------------------------------------|----------|---------|
 | name        | Name of the command                                 | String   |         |
-| permission  | Permission a user will need to execute this command | String   |         |
+| permission  | Permission a user will need to execute this command | String   | ""      |
 | description | A description for this command                      | String   |         |
 | playerOnly  | Is this command player only?                        | Boolean  | false   |
 
@@ -24,7 +24,7 @@ The name of this command to be called. Examples:
 * a SubCommand with name "all" will be registered as `/feed all`
 
 ### description
-A short description about this command. It will be showed on a help command.
+A short description about this command. It can be used on help lists by you.
 
 ### permission
 Permission that players will need to execute this command. If you do not enter a permission, it means that this command does not require a permission.
