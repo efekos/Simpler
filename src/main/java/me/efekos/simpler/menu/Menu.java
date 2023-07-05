@@ -12,6 +12,7 @@ import org.bukkit.inventory.InventoryHolder;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Arrays;
 import java.util.stream.Collectors;
@@ -40,7 +41,7 @@ public abstract class Menu implements InventoryHolder {
      * @return The inventory.
      */
     @Override
-    public Inventory getInventory() {
+    public @NotNull Inventory getInventory() {
         return inventory;
     }
 
@@ -56,6 +57,7 @@ public abstract class Menu implements InventoryHolder {
         ItemStack item = new ItemStack(material,1);
         ItemMeta itemMeta = item.getItemMeta();
 
+        assert itemMeta != null;
         itemMeta.setDisplayName(displayName);
         itemMeta.setLore(Arrays.stream(lore).map(r-> ChatColor.translateAlternateColorCodes('&',r)).collect(Collectors.toList()));
         item.setItemMeta(itemMeta);
@@ -66,6 +68,7 @@ public abstract class Menu implements InventoryHolder {
     protected ItemStack createSkull(Player owner,String displayName,String ...lore){
         ItemStack item = createItem(Material.PLAYER_HEAD,displayName,lore);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
+        assert meta != null;
         meta.setOwningPlayer(owner);
         item.setItemMeta(meta);
         return item;

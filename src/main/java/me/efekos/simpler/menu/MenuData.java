@@ -6,9 +6,9 @@ import java.util.HashMap;
 import java.util.Stack;
 
 public class MenuData {
-    private Player owner;
-    private Stack<Menu> menuHistory = new Stack<>();
-    private HashMap<String,Object> data = new HashMap<>();
+    private final Player owner;
+    private final Stack<Menu> menuHistory = new Stack<>();
+    private final HashMap<String,Object> data = new HashMap<>();
 
     public MenuData(Player owner) {
         this.owner = owner;

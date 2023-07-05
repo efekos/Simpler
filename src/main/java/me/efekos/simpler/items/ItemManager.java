@@ -24,9 +24,8 @@ public class ItemManager {
     public static NamespacedKey itemTypeKey;
     public static NamespacedKey itemUuidKey;
 
-    private static JavaPlugin plugin;
     private static boolean isSetup;
-    private static HashMap<UUID, CustomItem> items = new HashMap<>();
+    private static HashMap<UUID,CustomItem> items = new HashMap<>();
 
     public static void saveItemData(String path) {
         try {
@@ -58,8 +57,7 @@ public class ItemManager {
             File file = new File(path);
             if (file.exists()) {
                 Reader reader = new FileReader(file);
-                HashMap<UUID, CustomItem> itemMap = gson.fromJson(reader, HashMap.class);
-                items = itemMap;
+                items = gson.fromJson(reader, HashMap.class);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,12 +65,11 @@ public class ItemManager {
         System.out.println(items);
     }
 
-    public static HashMap<UUID, CustomItem> getItems() {
+    public static HashMap<UUID,CustomItem> getItems() {
         return items;
     }
 
     public static void setPlugin(JavaPlugin plugin) {
-        ItemManager.plugin = plugin;
         itemTypeKey = new NamespacedKey(plugin, "item_id");
         itemUuidKey = new NamespacedKey(plugin, "item_uuid");
 

@@ -4,14 +4,12 @@ import me.efekos.simpler.events.MenuEvents;
 import me.efekos.simpler.exception.NoPluginException;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
-import java.util.Map;
 
 public class MenuManager {
-    private static HashMap<Player,MenuData> menuDataStore = new HashMap<>();
+    private static final HashMap<Player,MenuData> menuDataStore = new HashMap<>();
     private static boolean isSetup = false;
     private static JavaPlugin plugin;
 
