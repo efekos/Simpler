@@ -14,5 +14,5 @@ It simply tells to ItemManager that your method should be invoked on item events
  - PlayerItemMendEvent
  - PlayerItemConsumeEvent
  - PlayerItemHeldEvent
- - PlayerSwapItemsEvent
 * Return `void`
+* Have only `public`

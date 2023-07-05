@@ -221,6 +221,7 @@ public class ItemEvents implements Listener {
         int newSlot = e.getNewSlot();
         Inventory inventory = e.getPlayer().getInventory();
         ItemStack stack = inventory.getItem(newSlot);
+        if(stack==null) return;
         PersistentDataContainer container = stack.getItemMeta().getPersistentDataContainer();
 
         if(container.has(ItemManager.itemUuidKey,PersistentDataType.STRING)){
@@ -232,50 +233,6 @@ public class ItemEvents implements Listener {
 
             for (Method method : item.getClass().getMethods()) {
                 if(method.getAnnotation(Listen.class)!=null){
-                    try {
-                        method.invoke(item,e);
-                        break;
-                    } catch (Exception ignored){}
-                }
-            }
-        }
-    }
-
-    // When player swaps the item between main/off hand.
-    @EventHandler
-    public void onPlayerSwapHands(PlayerSwapHandItemsEvent e){
-        ItemStack stack = e.getMainHandItem();
-        PersistentDataContainer container = stack.getItemMeta().getPersistentDataContainer();
-
-        if(container.has(ItemManager.itemUuidKey,PersistentDataType.STRING)){
-            UUID uuid = UUID.fromString(container.get(ItemManager.itemUuidKey,PersistentDataType.STRING));
-
-            CustomItem item = ItemManager.getItems().get(uuid);
-
-            if(item==null)return;
-
-            for (Method method : item.getClass().getMethods()) {
-                if(method.getAnnotation(Listen.class)!=null && method.getAnnotation(MainHand.class)!=null){
-                    try {
-                        method.invoke(item,e);
-                        break;
-                    } catch (Exception ignored){}
-                }
-            }
-        }
-
-        stack = e.getOffHandItem();
-        container = stack.getItemMeta().getPersistentDataContainer();
-
-        if(container.has(ItemManager.itemUuidKey,PersistentDataType.STRING)){
-            UUID uuid = UUID.fromString(container.get(ItemManager.itemUuidKey,PersistentDataType.STRING));
-
-            CustomItem item = ItemManager.getItems().get(uuid);
-
-            if(item==null)return;
-
-            for (Method method : item.getClass().getMethods()) {
-                if(method.getAnnotation(Listen.class)!=null&&method.getAnnotation(OffHand.class)!=null){
                     try {
                         method.invoke(item,e);
                         break;
