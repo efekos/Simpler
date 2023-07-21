@@ -22,7 +22,7 @@ public class NumberArgument extends Argument {
 
     @Override
     public ArrayList<ArgumentResult> getList(Player player, String current) {
-        return null;
+        return new ArrayList<>();
     }
 
     @Override
