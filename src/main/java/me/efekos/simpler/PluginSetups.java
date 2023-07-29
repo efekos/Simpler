@@ -27,8 +27,4 @@ public class PluginSetups {
         });
         return has.get();
     }
-
-    public static Metrics setupMetrics(JavaPlugin plugin,int serviceId){
-        return new Metrics(plugin,serviceId);
-    }
 }
