@@ -142,6 +142,11 @@ public abstract class BaseCommand extends Command {
                             break a;
                         }
 
+                        if(args[i]==null && arg.getPriority()==ArgumentPriority.REQUIRED){
+                            sender.sendMessage(ChatColor.RED+"Invalid usage. Use" + getUsage());
+                            break a;
+                        }
+
                         if(!arg.handleCorrection(args[i])){
                             p.sendMessage(ChatColor.RED+"Invalid usage. Use " +getUsage());
                             break a;

@@ -158,6 +158,11 @@ public abstract class CoreCommand extends Command {
                                         break a;
                                     }
 
+                                    if(subArgs[i]==null && arg.getPriority()==ArgumentPriority.REQUIRED){
+                                        sender.sendMessage(ChatColor.RED+"Invalid usage. Use" + instance.getUsage());
+                                        break a;
+                                    }
+
                                     if(!arg.handleCorrection(subArgs[i])){
                                         sender.sendMessage(ChatColor.RED+"Invalid usage. Use " +instance.getUsage());
                                         break a;
