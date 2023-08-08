@@ -32,10 +32,14 @@ public class NumberArgument extends Argument {
 
     @Override
     public boolean handleCorrection(String given) {
-        if(Integer.parseInt(given)>-999999999){
-            int i = Integer.parseInt(given);
-            return i<=max && i>=min;
+        try{
+            long i = Long.parseLong(given);
+
+            if(i<= Integer.MAX_VALUE && i>= Integer.MIN_VALUE )
+            return (i <= max && i >= min);
+            else return false;
+        } catch (Exception ignored){
+            return false;
         }
-        return false;
     }
 }
