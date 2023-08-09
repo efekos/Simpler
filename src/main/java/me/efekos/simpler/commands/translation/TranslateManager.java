@@ -30,7 +30,7 @@ public class TranslateManager {
         if(material.isBlock()){
             component.setTranslate("block.minecraft."+material.getKey().getKey());
         } else if(material.isItem()){
-            component.setTranslate("block.minecraft."+material.getKey().getKey());
+            component.setTranslate("item.minecraft."+material.getKey().getKey());
         }
         return component;
     }
