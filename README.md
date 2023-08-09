@@ -1,6 +1,6 @@
 [![](https://jitpack.io/v/efe124/Simpler.svg)](https://jitpack.io/#efe124/Simpler)
 [![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/MIT)
-![version](https://img.shields.io/badge/version-1.3.5-blue)
+![version](https://img.shields.io/badge/version-1.3.6-blue)
 # Simpler
 
 ## Installation
@@ -21,7 +21,7 @@
 <dependency>
     <groupId>com.github.efe124</groupId>
     <artifactId>Simpler</artifactId>
-    <version>1.3.5</version>
+    <version>1.3.6</version>
 </dependency>
 ````
 
@@ -39,6 +39,6 @@ allprojects {
 * Add this dependecy:
 ````gradle
 dependencies {
-	implementation 'com.github.efe124:Simpler:1.3.5'
+	implementation 'com.github.efe124:Simpler:1.3.6'
 }
 ````
