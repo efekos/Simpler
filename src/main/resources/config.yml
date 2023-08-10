@@ -1,6 +1,0 @@
-# Test config
-
-test:
-
-  # Inline comment
-  yes: "no"
