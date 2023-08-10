@@ -20,13 +20,34 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.UUID;
 
+/**
+ * Static manager for {@link CustomItem}s. You can register your {@link CustomItem}s using this class.
+ */
 public class ItemManager {
+    /**
+     * Used to store a {@link CustomItem}'s type to the {@link ItemStack}.
+     */
     public static NamespacedKey itemTypeKey;
+
+    /**
+     * Used to store a {@link CustomItem}'s unique id to the {@link ItemStack}.
+     */
     public static NamespacedKey itemUuidKey;
 
+    /**
+     * Used for the checks about setup is vaild.
+     */
     private static boolean isSetup;
+
+    /**
+     * A map of the {@link CustomItem} instances. You can get any {@link CustomItem} using their unique id ({@link CustomItem#getUniqueItemId()}).
+     */
     private static HashMap<UUID,CustomItem> items = new HashMap<>();
 
+    /**
+     * Saves the item data to the path given. Uses Gson and '.json' format for saving. You can load all the item data using {@link #loadItemData(String)} later.
+     * @param path Path to the save file. Must end with '.json'.
+     */
     public static void saveItemData(String path) {
         try {
             if (!isSetup) {
@@ -47,6 +68,10 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Loads the item data from the path given.
+     * @param path Path to the save file. Must end with '.json'.
+     */
     public static void loadItemData(String path) {
         try {
             if (!isSetup) {
@@ -78,14 +103,29 @@ public class ItemManager {
         isSetup = true;
     }
 
+    /**
+     * Gives someone an {@link ItemStack} of the {@link Material} given.
+     * @param player Someone to give an item.
+     * @param type Type of the item you want to give.
+     */
     public static void giveItem(@NotNull Player player, Material type) {
         player.getInventory().addItem(new ItemStack(type, 1));
     }
 
+    /**
+     * Adds an {@link ItemStack} to someone's inventory.
+     * @param player Someone to give the stack.
+     * @param item {@link ItemStack} you want to give.
+     */
     public static void giveItem(@NotNull Player player, ItemStack item) {
         player.getInventory().addItem(item);
     }
 
+    /**
+     * Generates an {@link ItemStack} for the {@link CustomItem} given, and gives it to the {@link Player} given.
+     * @param player Someone to give the generated {@link ItemStack}
+     * @param item An instance of the {@link CustomItem} you want to give.
+     */
     public static void giveItem(@NotNull Player player, @NotNull CustomItem item) {
         try {
             if (!isSetup) {
@@ -110,6 +150,11 @@ public class ItemManager {
         }
     }
 
+    /**
+     * Generates an {@link ItemStack} for the {@link CustomItem} given.
+     * @param item An instance of the {@link CustomItem} you want to generate.
+     * @return Generated {@link ItemStack}.
+     */
     public static @Nullable ItemStack createItem(@NotNull CustomItem item) {
         try {
             if (!isSetup) {
@@ -135,6 +180,11 @@ public class ItemManager {
         return null;
     }
 
+    /**
+     * Gives someone the skull of the {@link OfflinePlayer} given.
+     * @param player {@link Player} who you want to give a skull.
+     * @param skullOwner {@link OfflinePlayer} who will be the owner of this skull.
+     */
     public static void giveSkull(@NotNull Player player, OfflinePlayer skullOwner){
         ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) stack.getItemMeta();
@@ -146,6 +196,11 @@ public class ItemManager {
         player.getInventory().addItem(stack);
     }
 
+    /**
+     * Gives someone the skull of the {@link Player} given.
+     * @param player {@link Player} who you want to give a skull.
+     * @param skullOwner {@link Player} who will be the owner of this skull.
+     */
     public static void giveSkull(@NotNull Player player, Player skullOwner){
         ItemStack stack = new ItemStack(Material.PLAYER_HEAD);
         SkullMeta meta = (SkullMeta) stack.getItemMeta();

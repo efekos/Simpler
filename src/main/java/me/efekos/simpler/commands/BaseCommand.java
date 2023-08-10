@@ -1,9 +1,7 @@
 package me.efekos.simpler.commands;
 
-import me.efekos.simpler.Utils;
 import me.efekos.simpler.commands.syntax.Argument;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
-import me.efekos.simpler.commands.syntax.ArgumentResult;
 import me.efekos.simpler.commands.syntax.Syntax;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
@@ -199,13 +197,13 @@ public abstract class BaseCommand extends Command {
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         if(sender instanceof Player){
             Player p = (Player) sender;
-            ArrayList<Argument> arguments = getSyntax().getArguments();
+            List<Argument> arguments = getSyntax().getArguments();
 
             int num = args.length-1;
 
             if(num<arguments.size()&&arguments.get(num)!=null){
                 Argument arg = arguments.get(num);
-                return Utils.fromStreamToArrayList(arg.getList(p,args[num]).stream().map(ArgumentResult::getName));
+                return arg.getList(p,args[num]);
             }
         }
         return new ArrayList<>();
@@ -228,13 +226,13 @@ public abstract class BaseCommand extends Command {
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
         if(sender instanceof Player){
             Player p = (Player) sender;
-            ArrayList<Argument> arguments = getSyntax().getArguments();
+            List<Argument> arguments = getSyntax().getArguments();
 
             int num = args.length-1;
 
             if(num<arguments.size()&&arguments.get(num)!=null){
                 Argument arg = arguments.get(num);
-                return Utils.fromStreamToArrayList(arg.getList(p,args[num]).stream().map(ArgumentResult::getName));
+                return arg.getList(p,args[num]);
             }
         }
         return new ArrayList<>();

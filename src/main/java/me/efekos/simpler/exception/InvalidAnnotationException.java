@@ -1,5 +1,8 @@
 package me.efekos.simpler.exception;
 
+/**
+ * Gets thrown when there is an annotation missing, or invalid.
+ */
 public class InvalidAnnotationException extends Exception{
     public InvalidAnnotationException() {
     }

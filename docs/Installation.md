@@ -1,3 +1,9 @@
+<!-- TOC -->
+* [Installation](#installation)
+  * [Maven](#maven)
+  * [Gradle](#gradle)
+<!-- TOC -->
+
 # Installation
 
 ## Maven
@@ -17,7 +23,7 @@ Add this dependency to your dependencies.
 <dependency>
 	    <groupId>com.github.efe124</groupId>
 	    <artifactId>Simpler</artifactId>
-	    <version>0.0.1-snapshot</version>
+	    <version>1.3.6</version>
 </dependency>
 ````
 
@@ -36,6 +42,6 @@ allprojects {
 Add this dependency
 ````gradle
 dependencies {
-	 implementation 'com.github.efe124:Simpler:0.0.1-snapshot'
+	 implementation 'com.github.efe124:Simpler:1.3.6'
 }
 ````

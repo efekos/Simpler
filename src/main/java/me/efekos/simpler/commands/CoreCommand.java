@@ -16,7 +16,6 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.stream.Stream;
 
 public abstract class CoreCommand extends Command {
     protected CoreCommand(@NotNull String name) {

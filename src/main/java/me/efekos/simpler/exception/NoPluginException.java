@@ -1,5 +1,10 @@
 package me.efekos.simpler.exception;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
+/**
+ * Gets thrown when there is no plugin given using {@link me.efekos.simpler.items.ItemManager#setPlugin(JavaPlugin)} and {@link me.efekos.simpler.menu.MenuManager#setPlugin(JavaPlugin)}.
+ */
 public class NoPluginException extends Exception{
     public NoPluginException() {
     }

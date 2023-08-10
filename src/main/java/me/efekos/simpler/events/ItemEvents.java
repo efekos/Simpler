@@ -1,6 +1,6 @@
 package me.efekos.simpler.events;
 
-import me.efekos.simpler.Utils;
+import me.efekos.simpler.Utilities;
 
 import me.efekos.simpler.annotations.*;
 import me.efekos.simpler.items.CustomItem;
@@ -20,6 +20,9 @@ import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Should be registered as one of your plugin's listeners so {@link CustomItem}s can work.
+ */
 public class ItemEvents implements Listener {
 
     // When player right/left clicks to the item.
@@ -38,7 +41,7 @@ public class ItemEvents implements Listener {
         CustomItem item = ItemManager.getItems().get(UUID.fromString(itemUuid));
         if(item==null)return;
 
-        List<Method> listenMethods = Utils.getMethodsAnnotatedWith(item.getClass(), Listen.class);
+        List<Method> listenMethods = Utilities.getMethodsAnnotatedWith(item.getClass(), Listen.class);
 
         listenMethods.forEach(method -> {
             switch (e.getAction()) {
@@ -84,7 +87,7 @@ public class ItemEvents implements Listener {
             if(item==null)return;
 
 
-            List<Method> listenMethods = Utils.getMethodsAnnotatedWith(item.getClass(), Listen.class);
+            List<Method> listenMethods = Utilities.getMethodsAnnotatedWith(item.getClass(), Listen.class);
             listenMethods.forEach(method -> {
                 try {
                     method.invoke(item,e);
@@ -108,7 +111,7 @@ public class ItemEvents implements Listener {
             CustomItem item = ItemManager.getItems().get(UUID.fromString(itemUuid));
             if(item==null)return;
 
-            List<Method> listenMethods = Utils.getMethodsAnnotatedWith(item.getClass(), Listen.class);
+            List<Method> listenMethods = Utilities.getMethodsAnnotatedWith(item.getClass(), Listen.class);
             listenMethods.forEach(method -> {
                 try {
                     method.invoke(item,e);

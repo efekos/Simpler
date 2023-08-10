@@ -16,21 +16,24 @@ import java.util.regex.Pattern;
 
 public class TranslateManager {
 
+    /**
+     * The pattern used for detecting hex colors.
+     */
     public static final Pattern hexColorsPattern = Pattern.compile("(&#[0-9a-fA-F]{6})");
 
     /**
      * Translates a material name.
      * @param material Material to get It's name translated
-     * @return A TranslatableComponent for the material. Use {@link TranslatableComponent#toLegacyText()} with {@link Player#spigot()}>{@link Spigot#sendMessage(BaseComponent...)}
+     * @return A TranslatableComponent for the material. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateMaterial(@NotNull Material material){
         TranslatableComponent component = new TranslatableComponent();
 
         if(material.isBlock()){
-            component.setTranslate("block.minecraft."+material.getKey().getKey());
+            component.setTranslate("block."+material.getKey().getNamespace()+"."+material.getKey().getKey());
         } else if(material.isItem()){
-            component.setTranslate("item.minecraft."+material.getKey().getKey());
+            component.setTranslate("item."+material.getKey().getNamespace()+"."+material.getKey().getKey());
         }
         return component;
     }
@@ -38,37 +41,37 @@ public class TranslateManager {
     /**
      * Translates an entity name.
      * @param type Type of the entity to get It's name translated
-     * @return A TranslatableComponent for the entity. Use {@link TranslatableComponent#toLegacyText()} with {@link Player#spigot()}>{@link Spigot#sendMessage(BaseComponent...)}
+     * @return A TranslatableComponent for the entity. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateEntity(@NotNull EntityType type){
-        return new TranslatableComponent("entity.minecraft."+type.getKey().getKey());
+        return new TranslatableComponent("entity."+type.getKey().getNamespace()+"."+type.getKey().getKey());
     }
 
     /**
      * Translates an enchantment's name
      * @param enchantment An enchantment to translate It's name
-     * @return A TranslatableComponent for the enchantment. Use {@link TranslatableComponent#toLegacyText()} with {@link Player#spigot()}>{@link Spigot#sendMessage(BaseComponent...)}
+     * @return A TranslatableComponent for the enchantment. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateEnchantment(@NotNull Enchantment enchantment){
-        return new TranslatableComponent("enchantment.minecraft."+enchantment.getKey().getKey());
+        return new TranslatableComponent("enchantment."+enchantment.getKey().getNamespace()+"."+enchantment.getKey().getKey());
     }
 
     /**
      * Translates a Potion effect's name.
      * @param type A PotionEffectType to translate
-     * @return A TranslatableComponent for the effect. Use {@link TranslatableComponent#toLegacyText()} with {@link Player#spigot()}>{@link Spigot#sendMessage(BaseComponent...)}
+     * @return A TranslatableComponent for the effect. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateEffect(@NotNull PotionEffectType type){
-        return new TranslatableComponent("effect.minecraft"+type.getKey().getKey());
+        return new TranslatableComponent("effect."+type.getKey().getNamespace()+"."+type.getKey().getKey());
     }
 
     /**
      * Converts key to a {@link TranslatableComponent}
      * @param key Language key.
-     * @return A TranslatableComponent for the material. Use {@link TranslatableComponent#toLegacyText()} with {@link Player#spigot()}>{@link Spigot#sendMessage(BaseComponent...)}
+     * @return A TranslatableComponent for the material. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateKey(@NotNull String key){

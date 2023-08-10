@@ -8,6 +8,9 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.bukkit.inventory.InventoryHolder;
 
+/**
+ * Should be registered as one of your plugin's listeners so {@link Menu}s will work.
+ */
 public class MenuEvents implements Listener {
     @EventHandler
     public void onMenuClick(InventoryClickEvent e){

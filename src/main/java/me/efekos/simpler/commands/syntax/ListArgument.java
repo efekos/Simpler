@@ -1,14 +1,14 @@
 package me.efekos.simpler.commands.syntax;
 
-import me.efekos.simpler.Utils;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class ListArgument extends Argument {
     private String holder;
-    private ArrayList<String> values = new ArrayList<>();
+    private List<String> values = new ArrayList<>();
 
     public ListArgument(String holder, String ...values) {
         this.holder = holder;
@@ -22,11 +22,8 @@ public class ListArgument extends Argument {
     }
 
     @Override
-    public ArrayList<ArgumentResult> getList(Player player, String current) {
-        return Utils.fromStreamToArrayList(this.values.stream()
-                .filter(s -> s.startsWith(current))
-                .map(s -> new ArgumentResult().setName(s).setValue(s))
-        );
+    public List<String> getList(Player player, String current) {
+        return values;
     }
 
     @Override

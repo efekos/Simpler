@@ -15,7 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 public class CommandManager {
 
     /**
-     * Registers multiple base commands at the same time.
+     * Registers multiple {@link BaseCommand}s at the same time.
      * @param plugin An Instance of your plugin that is using this API. If called within plugin main class, provide this keyword
      * @param commands A class reference of every base command to be registered
      * @throws NoSuchFieldException If there is no commandMap, which is not usual in a healthy server.
@@ -67,6 +67,15 @@ public class CommandManager {
         commandMap.register(plugin.getName(), newCommand);
     }
 
+    /**
+     * Registers a {@link CoreCommand}.
+     * @param plugin an instance of your {@link JavaPlugin}.
+     * @param command the {@link CoreCommand} that you want to register
+     * @throws InvalidAnnotationException if the given {@link CoreCommand} does not have a @{@link Command} annotation
+     * @throws NoSuchFieldException If there is no commandMap, which is not usual in a healthy server.
+     * @throws IllegalAccessException If we can't access commandField
+     * @throws NoSuchMethodException If there is no constructor in the {@link CoreCommand} given, or creating a new instance of command fails.
+     */
     public static void registerCoreCommand(JavaPlugin plugin,Class<? extends CoreCommand> command) throws InvalidAnnotationException,NoSuchFieldException,IllegalAccessException,NoSuchMethodException{
         if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.annotations.Command to be registered as command.");
 

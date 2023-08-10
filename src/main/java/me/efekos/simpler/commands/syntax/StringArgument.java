@@ -3,6 +3,7 @@ package me.efekos.simpler.commands.syntax;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StringArgument extends Argument{
     private String holder;
@@ -23,7 +24,7 @@ public class StringArgument extends Argument{
     }
 
     @Override
-    public ArrayList<ArgumentResult> getList(Player player, String current) {
+    public List<String> getList(Player player, String current) {
         return new ArrayList<>();
     }
 

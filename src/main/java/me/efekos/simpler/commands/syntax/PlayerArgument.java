@@ -1,12 +1,12 @@
 package me.efekos.simpler.commands.syntax;
 
-import me.efekos.simpler.Utils;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 public class PlayerArgument extends Argument {
     @Override
@@ -15,19 +15,13 @@ public class PlayerArgument extends Argument {
     }
 
     @Override
-    public ArrayList<ArgumentResult> getList(Player player, String current) {
+    public List<String> getList(Player player, String current) {
         Collection<? extends Player> players = player.getServer().getOnlinePlayers();
-        ArrayList<ArgumentResult> argumentResults = new ArrayList<>();
+        List<String> argumentResults = new ArrayList<>();
 
-        players.stream().map(Player::getName).forEach(s -> argumentResults.add(new ArgumentResult()
-                .setName(s)
-                .setValue(s)
-        ));
+        players.stream().map(Player::getName).forEach(s -> argumentResults.add(s));
 
-        return Utils.fromStreamToArrayList(
-                argumentResults.stream()
-                        .filter(argumentResult -> argumentResult.getName().startsWith(current))
-        );
+        return argumentResults;
     }
 
     @Override
