@@ -3,6 +3,14 @@
 ![version](https://img.shields.io/badge/version-1.3.6-blue)
 # Simpler
 
+<!-- TOC -->
+* [Simpler](#simpler)
+  * [Installation](#installation)
+    * [Maven](#maven)
+    * [Gradle](#gradle)
+<!-- TOC -->
+
+
 ## Installation
 
 ### Maven
