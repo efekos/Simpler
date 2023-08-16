@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2023 efekos
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package me.efekos.simpler.commands;
 
 import me.efekos.simpler.commands.syntax.Argument;
@@ -22,16 +44,28 @@ import java.util.stream.Stream;
  */
 public abstract class BaseCommand extends Command {
 
+    /**
+     * Creates an instance of this command.
+     * @param name Name of the command.
+     */
     public BaseCommand(@NotNull String name) {
         super(name);
     }
 
+    /**
+     * Creates an instance of this command.
+     * @param name Name of the command.
+     * @param description Description of the command.
+     * @param usageMessage Usage message of the command.
+     * @param aliases Aliases for the command.
+     */
     public BaseCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }
 
     /**
-     * @return Command name as string.
+     * Grabs the value of {@link me.efekos.simpler.annotations.Command#name()} and returns it.
+     * @return Command name as a {@link String}.
      */
     @Override
     @NotNull
@@ -42,6 +76,7 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
+     * Grabs the value of {@link me.efekos.simpler.annotations.Command#permission()} ()} and returns it.
      * @return Permission this command needs to be executed as String, null if this command does not need any permission.
      */
     @Override
@@ -53,6 +88,7 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
+     * Grabs the value of {@link me.efekos.simpler.annotations.Command#description()} and returns it.
      * @return A brief description of this command
      */
     @Override
@@ -90,6 +126,7 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
+     * Grabs the value of {@link me.efekos.simpler.annotations.Command#playerOnly()} and returns it.
      * @return Is this command can be used by something that is not player?
      */
     public boolean isPlayerOnly(){

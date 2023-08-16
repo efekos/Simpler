@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2023 efekos
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package me.efekos.simpler.menu;
 
 import org.bukkit.Bukkit;
@@ -35,7 +57,7 @@ public abstract class Menu implements InventoryHolder {
     protected MenuData data;
 
     /**
-     *
+     * Crates an instance of this menu.
      * @param data Data of the owner {@link Player} of this menu. Got using {@link MenuManager#getMenuData(Player)}
      */
     public Menu(MenuData data) {
@@ -44,16 +66,19 @@ public abstract class Menu implements InventoryHolder {
     }
 
     /**
+     * Returns a boolean that indicates click cancels for this menu.
      * @return Should all the clicks at this menu get cancelled?
      */
     public abstract boolean cancelAllClicks();
 
     /**
+     * Returns a row amount for this menu.
      * @return How many rows this menu will have. Your menu will have {@link #getRows()}*9 slots, since every row makes 9 slot.
      */
     public abstract int getRows();
 
     /**
+     * Returns a title for this menu.
      * @return A title for this menu.
      */
     public abstract String getTitle();
@@ -92,8 +117,11 @@ public abstract class Menu implements InventoryHolder {
         return inventory;
     }
 
+    /**
+     * Creates an inventory for this menu and shows it to the {@link #owner}.
+     */
     public void open(){
-        this.inventory = Bukkit.createInventory(this,getRows()*9,getTitle());
+        this.inventory = Bukkit.createInventory(this,getSlots(),getTitle());
         fill();
 
         data.addMenu(this);
@@ -153,7 +181,7 @@ public abstract class Menu implements InventoryHolder {
 
     /**
      * Fills all the empty slots with the {@link ItemStack} given.
-     * @param tem An {@link ItemStack} to use in every empty slot.
+     * @param tem An {@link ItemStack} to put in every empty slot.
      */
     protected void fillEmptyWith(ItemStack tem){
         for (int i = 0; i < getSlots(); i++) {
@@ -162,7 +190,8 @@ public abstract class Menu implements InventoryHolder {
     }
 
     /**
-     * @return Real slot amount of this menu.
+     * Returns the real slot amount of this menu, which is {@link #getRows()}*9.
+     * @return Slot amount of this menu.
      */
     public int getSlots(){
         return getRows()*9;

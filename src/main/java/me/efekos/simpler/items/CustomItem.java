@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2023 efekos
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package me.efekos.simpler.items;
 
 import org.bukkit.Material;
@@ -11,16 +33,18 @@ import java.util.UUID;
  */
 public abstract class CustomItem {
 
-    protected UUID _itemUuid;
+    protected final UUID _itemUuid;
 
     /**
-     * @return Type id of this item. Think it as an item id like 'diamond_sword' or 'redstone_block'. This value must be different from all the other items you are going to use.
+     * Returns a type id of this item. Think is as an item id like 'diamond_sword' or 'redstone_block'. This value must be different from all the other {@link CustomItem}s you plan to use.
+     * @return Type id of this item.
      */
     @NotNull
     public abstract String getId();
 
     /**
-     * @return A unique {@link UUID} for this item. Will be used to store {@link CustomItem}'s data later.
+     * Returns an {@link UUID} for this item. You can use this to store data about this item.
+     * @return A unique {@link UUID} for this item.
      */
     @NotNull
     public UUID getUniqueItemId(){
@@ -28,25 +52,31 @@ public abstract class CustomItem {
     }
 
     /**
-     * DO NOT USE THIS METHOD FOR ANY PURPOSE. CHANGING AN ITEM'S ID AT THE INSTANCE WILL %100 BOOST UP YOUR CHANCE AT GETTING ERRORS OUT OF NOWHERE. THIS METHOD IS ONLY MADE TO BE USED BY {@link ItemManager} CLASS.
-     * @param id new value
-     */
-    public void setUniqueItemId(UUID id){
-        this._itemUuid = id;
-    }
-
-    /**
-     * @return A default {@link ItemMeta} for this {@link CustomItem}. Every {@link org.bukkit.inventory.ItemStack} that represents an instance of this {@link CustomItem} will clone this {@link ItemMeta} to itself.
+     * Returns a default meta for this item that will be copied to every {@link org.bukkit.inventory.ItemStack} instance of this item.
+     * @return A default {@link ItemMeta} for this {@link CustomItem}.
      */
     @NotNull
     public abstract ItemMeta getDefaultMeta();
 
     /**
+     * Returns a {@link Material} to be used in {@link org.bukkit.inventory.ItemStack} instances of this {@link CustomItem}.
      * @return Default {@link Material} for {@link org.bukkit.inventory.ItemStack}s about this {@link CustomItem}. Make sure that {@link ItemMeta} made inside {@link #getDefaultMeta()} is valid for this material.
      */
     @NotNull
     public abstract Material getMaterial();
 
+    /**
+     * Creates a new {@link CustomItem} instance with a random {@link UUID} inside it.
+     */
     public CustomItem() {
+        this._itemUuid = UUID.randomUUID();
+    }
+
+    /**
+     * Creates a new {@link CustomItem} instance with the given {@link UUID} inside it.
+     * @param uuid New and final {@link UUID} of this instance.
+     */
+    public CustomItem(UUID uuid){
+        this._itemUuid = uuid;
     }
 }

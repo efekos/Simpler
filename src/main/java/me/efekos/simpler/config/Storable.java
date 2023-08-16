@@ -20,17 +20,26 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.annotations;
+package me.efekos.simpler.config;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
+import java.util.UUID;
 
 /**
- * Used to separate the {@link org.bukkit.event.player.PlayerInteractEvent}s on a {@link me.efekos.simpler.items.CustomItem}.
+ * An abstract class to make your class able to store under a {@link JSONDataManager}. It defines a random {@link UUID}
+ * for each object, and adds a method to get it.
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface LeftClick {
+public abstract class Storable {
+    /**
+     * A unique id for this instance.
+     */
+    private final UUID id = UUID.randomUUID();
+
+    /**
+     * Returns a unique id for this instance.
+     * @return {@link #id} of this.
+     */
+    public UUID getUniqueId(){
+        return id;
+    }
+
 }

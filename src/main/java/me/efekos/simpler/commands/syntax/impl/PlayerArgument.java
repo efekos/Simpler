@@ -20,28 +20,43 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.commands.syntax;
+package me.efekos.simpler.commands.syntax.impl;
 
+import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import org.bukkit.Bukkit;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 /**
- * Used for your custom arguments. Extend this class for any type of argument you want.
+ * An example extension of a custom {@link Argument}: This argument can be an online {@link Player}..
  */
-public abstract class Argument {
+public class PlayerArgument extends Argument {
+    /**
+     * Priority of this argument.
+     */
+    private final ArgumentPriority priority;
 
     /**
-     * Used for your custom arguments. Extend this class for any type of argument you want.
+     * Crates an instance of {@link PlayerArgument}.
+     * @param priority Priority of the argument.
      */
-    public Argument() {
+    public PlayerArgument(ArgumentPriority priority) {
+        this.priority = priority;
     }
 
     /**
      * Returns a short placeholder to represent this argument. However, {@link #toString()} is more recommended than {@link #getPlaceHolder()} if you want to represent this argument as a {@link String}.
      * @return The placeholder of this argument. Placeholder is usually a one-word string that represents what this argument should be. For example: {@code <player>} argument should be the name of an {@link org.bukkit.OfflinePlayer}. We are able to understand this, because that argument's placeholder is "player", meaning we should enter someone's name there.
      */
-    abstract public String getPlaceHolder();
+    @Override
+    public String getPlaceHolder() {
+        return "player";
+    }
 
     /**
      * Generates a list of suggestions about this argument.
@@ -49,37 +64,35 @@ public abstract class Argument {
      * @param current Current string player entered so far.
      * @return List of the strings player will see.
      */
-    abstract public List<String> getList(Player player, String current);
+    @Override
+    public List<String> getList(Player player, String current) {
+        Collection<? extends Player> players = player.getServer().getOnlinePlayers();
+        List<String> argumentResults = new ArrayList<>();
 
-    /**
-     * Returns a priority about this argument.
-     * @return Priority of this argument. You can make your argument an optional or required argument using this.
-     */
-    abstract public ArgumentPriority getPriority();
+        players.stream().map(Player::getName).forEach(s -> argumentResults.add(s));
+
+        return argumentResults;
+    }
 
     /**
      * Makes sure that the argument player wrote is valid.
      * @param given The string that someone wrote as a value for this argument
      * @return Is the given argument valid?
      */
-    abstract public boolean handleCorrection(String given);
+    @Override
+    public boolean handleCorrection(String given) {
+        OfflinePlayer p = Bukkit.getServer().getPlayer(given);
+        if(p == null) return false;
+
+        return p.getName().equals(given);
+    }
 
     /**
-     * Returns a string representation of this {@link Argument}.
-     * @return A string that represents this.
+     * Returns a priority about this argument.
+     * @return Priority of this argument. You can make your argument an optional or required argument using this.
      */
     @Override
-    public String toString() {
-        String res = "";
-
-        switch (getPriority()){
-            case OPTIONAL:
-                res = "["+getPlaceHolder()+"]";
-                break;
-            case REQUIRED:
-                res = "<"+getPlaceHolder()+">";
-                break;
-        }
-        return res;
+    public ArgumentPriority getPriority() {
+        return priority;
     }
 }

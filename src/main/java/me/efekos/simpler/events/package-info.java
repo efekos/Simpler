@@ -20,17 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.annotations;
-
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
-
 /**
- * Used to separate the {@link org.bukkit.event.player.PlayerInteractEvent}s on a {@link me.efekos.simpler.items.CustomItem}.
+ * Events classes that get registered automatically as you use {@link me.efekos.simpler.items.ItemManager#setPlugin(org.bukkit.plugin.java.JavaPlugin)} or {@link me.efekos.simpler.menu.MenuManager#setPlugin(org.bukkit.plugin.java.JavaPlugin)}.
  */
-@Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.METHOD)
-public @interface LeftClick {
-}
+package me.efekos.simpler.events;

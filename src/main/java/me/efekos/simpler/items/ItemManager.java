@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2023 efekos
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package me.efekos.simpler.items;
 
 import com.google.gson.Gson;
@@ -90,10 +112,18 @@ public class ItemManager {
         System.out.println(items);
     }
 
+    /**
+     * Returns all the items exists so far.
+     * @return A {@link HashMap} of the items.
+     */
     public static HashMap<UUID,CustomItem> getItems() {
         return items;
     }
 
+    /**
+     * Sets up {@link ItemManager} for your plugin.
+     * @param plugin An instance of your {@link JavaPlugin}.
+     */
     public static void setPlugin(JavaPlugin plugin) {
         itemTypeKey = new NamespacedKey(plugin, "item_id");
         itemUuidKey = new NamespacedKey(plugin, "item_uuid");
@@ -135,11 +165,9 @@ public class ItemManager {
                 ItemMeta meta = item.getDefaultMeta();
                 PersistentDataContainer container = meta.getPersistentDataContainer();
                 container.set(itemTypeKey, PersistentDataType.STRING, item.getId());
-                UUID itemId = UUID.randomUUID();
 
-                container.set(itemUuidKey, PersistentDataType.STRING, itemId.toString());
-                item.setUniqueItemId(itemId);
-                items.put(itemId, item);
+                container.set(itemUuidKey, PersistentDataType.STRING, item.getUniqueItemId().toString());
+                items.put(item.getUniqueItemId(), item);
 
 
                 stack.setItemMeta(meta);
@@ -164,11 +192,9 @@ public class ItemManager {
                 ItemMeta meta = item.getDefaultMeta();
                 PersistentDataContainer container = meta.getPersistentDataContainer();
                 container.set(itemTypeKey, PersistentDataType.STRING, item.getId());
-                UUID itemId = UUID.randomUUID();
 
-                container.set(itemUuidKey, PersistentDataType.STRING, itemId.toString());
-                item.setUniqueItemId(itemId);
-                items.put(itemId, item);
+                container.set(itemUuidKey, PersistentDataType.STRING, item.getUniqueItemId().toString());
+                items.put(item.getUniqueItemId(), item);
 
 
                 stack.setItemMeta(meta);

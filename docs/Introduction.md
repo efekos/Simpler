@@ -1,3 +1,5 @@
+> This documentation is cancelled and only will be for tutorials, due to there will be a JavaDoc for Simpler soon.
+
 <!-- TOC -->
 * [Introduction](#introduction)
   * [Features](#features)

@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2023 efekos
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package me.efekos.simpler.commands;
 
 import me.efekos.simpler.commands.syntax.Argument;
@@ -17,6 +39,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * Used for core commands like /friends invite,/friends list,/friends remove etc. {@link #getSubs()} will return a list of the {@link SubCommand}s that belong to this command. Must be annotated with {@link me.efekos.simpler.annotations.Command} to be registered properly.
+ */
 public abstract class CoreCommand extends Command {
     protected CoreCommand(@NotNull String name) {
         super(name);
@@ -70,14 +95,22 @@ public abstract class CoreCommand extends Command {
         return "/"+getName()+" <sub> <args>";
     }
 
+    /**
+     * Returns a list of the {@link SubCommand}s that belong to this {@link CoreCommand}.
+     * @return List of the subs.
+     */
     @NotNull
-    public abstract ArrayList<Class<? extends SubCommand>> getSubs();
+    public abstract List<Class<? extends SubCommand>> getSubs();
 
+    /**
+     * Finds a {@link SubCommand} by its name using {@link SubCommand#getName()}.
+     * @param name Name of the {@link SubCommand} you want to get.
+     * @return {@link SubCommand} if found, null otherwise.
+     */
     @Nullable
     public Class<? extends SubCommand> getSub(String name){
         for (Class<? extends SubCommand> sub:getSubs()){
-            me.efekos.simpler.annotations.Command annotation = sub.getAnnotation(me.efekos.simpler.annotations.Command.class);
-            if(annotation.name().equals(name)){
+            if(sub.getName().equals(name)){
                 return sub;
             }
         }
@@ -85,6 +118,7 @@ public abstract class CoreCommand extends Command {
     }
 
     /**
+     * Grabs the value of {@link me.efekos.simpler.annotations.Command#playerOnly()} and returns it.
      * @return Is this command or subs of this command can be used by something that is not player?
      */
     public boolean isPlayerOnly(){
@@ -93,7 +127,12 @@ public abstract class CoreCommand extends Command {
         else return false;
     }
 
-    public abstract void renderHelpList(CommandSender sender,ArrayList<SubCommand> subInstances);
+    /**
+     * Provides a text that will help the {@link CommandSender} trying to execute one of the {@link SubCommand}s at this command.
+     * @param sender The sender who is struggling with using any sub of this command.
+     * @param subInstances Instances of all the {@link SubCommand}s under this {@link CoreCommand}.
+     */
+    public abstract void renderHelpList(CommandSender sender,List<SubCommand> subInstances);
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {

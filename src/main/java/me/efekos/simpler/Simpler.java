@@ -2,14 +2,7 @@ package me.efekos.simpler;
 
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class Simpler extends JavaPlugin {
-
-    @Override
-    public void onEnable() {
-    }
-
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-    }
-}
+/**
+ * Main class of Simpler. does not have a use right now.
+ */
+public final class Simpler extends JavaPlugin { }

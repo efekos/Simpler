@@ -1,6 +1,6 @@
 name: Simpler
 version: '${project.version}'
 main: me.efekos.simpler.Simpler
-api-version: 1.19
+api-version: 1.20
 authors: [ efekos ]
 description: Spigot Development API

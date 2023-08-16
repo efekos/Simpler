@@ -1,3 +1,25 @@
+/*
+ * Copyright (c) 2023 efekos
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
 package me.efekos.simpler.events;
 
 import me.efekos.simpler.Utilities;
@@ -15,17 +37,20 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.persistence.PersistentDataContainer;
 import org.bukkit.persistence.PersistentDataType;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.lang.reflect.Method;
 import java.util.List;
 import java.util.UUID;
 
 /**
- * Should be registered as one of your plugin's listeners so {@link CustomItem}s can work.
+ * Should be registered as one of your plugin's listeners so {@link CustomItem}s can work. You don't have to register them yourself. Setting up the ItemManager by {@link ItemManager#setPlugin(JavaPlugin)} also registers this listener to your plugin.
  */
 public class ItemEvents implements Listener {
 
-    // When player right/left clicks to the item.
+    /**
+     * Handles right/left clicks to an item.
+     */
     @EventHandler
     public void onPlayerInteract(PlayerInteractEvent e){
         if(!e.hasItem()) return;
@@ -71,7 +96,9 @@ public class ItemEvents implements Listener {
         });
     }
 
-    // When player picks up the item.
+    /**
+     * Handles item pickups.
+     */
     @EventHandler
     public void onPlayerPickup(EntityPickupItemEvent e){
         if(e.getEntity().getType()!= EntityType.PLAYER)return;
@@ -98,7 +125,9 @@ public class ItemEvents implements Listener {
         }
     }
 
-    // When player drops the item
+    /**
+     * Handles item drops.
+     */
     @EventHandler
     public void onPlayerDrop(PlayerDropItemEvent e){
         try {
@@ -122,7 +151,9 @@ public class ItemEvents implements Listener {
         }
     }
 
-    // When player breaks the item (like breaking a pickaxe due to it has no more durability).
+    /**
+     * Handles item breaks (Tools break when they run out of durability)
+     */
     @EventHandler
     public void onPlayerBreakItem(PlayerItemBreakEvent e){
         ItemStack stack = e.getBrokenItem();
@@ -146,7 +177,9 @@ public class ItemEvents implements Listener {
         }
     }
 
-    // When player damages the item (breaking a block with custom pickaxe, damaging with custom armor etc.)
+    /**
+     * Handles item damages (Tools get damage when someone uses them)
+     */
     @EventHandler
     public void onPlayerDamageItem(PlayerItemDamageEvent e){
         ItemStack stack = e.getItem();
@@ -170,7 +203,9 @@ public class ItemEvents implements Listener {
         }
     }
 
-    // When player drinks/eats the item.
+    /**
+     * Handles item consuming (Drinking a potion, eating a steak etc.)
+     */
     @EventHandler
     public void onPlayerConsumeItem(PlayerItemConsumeEvent e){
         ItemStack stack = e.getItem();
@@ -194,7 +229,9 @@ public class ItemEvents implements Listener {
         }
     }
 
-    // When an item gets repaired through mending.
+    /**
+     * Handles item repairing (Tools get repaired when they have Mending enchantment)
+     */
     @EventHandler
     public void onPlayerMendItem(PlayerItemMendEvent e){
         ItemStack stack = e.getItem();
@@ -218,7 +255,9 @@ public class ItemEvents implements Listener {
         }
     }
 
-    // When player starts to hold the item.
+    /**
+     * Handles item holds
+     */
     @EventHandler
     public void onPlayerHeldItem(PlayerItemHeldEvent e){
         int newSlot = e.getNewSlot();

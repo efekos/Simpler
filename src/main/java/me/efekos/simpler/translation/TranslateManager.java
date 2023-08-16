@@ -1,4 +1,26 @@
-package me.efekos.simpler.commands.translation;
+/*
+ * Copyright (c) 2023 efekos
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
+
+package me.efekos.simpler.translation;
 
 import net.md_5.bungee.api.ChatColor;
 import net.md_5.bungee.api.chat.BaseComponent;
@@ -6,7 +28,6 @@ import net.md_5.bungee.api.chat.TranslatableComponent;
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
-import org.bukkit.entity.Player;
 import org.bukkit.entity.Player.Spigot;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.NotNull;
@@ -14,6 +35,9 @@ import org.jetbrains.annotations.NotNull;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Static manager to translate colors and generate translation keys.
+ */
 public class TranslateManager {
 
     /**
@@ -22,9 +46,9 @@ public class TranslateManager {
     public static final Pattern hexColorsPattern = Pattern.compile("(&#[0-9a-fA-F]{6})");
 
     /**
-     * Translates a material name.
-     * @param material Material to get It's name translated
-     * @return A TranslatableComponent for the material. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
+     * Generates a translation key for the {@link Material} given.
+     * @param material A material that {@link Material#isBlock()} or {@link Material#isItem()}.
+     * @return A {@link TranslatableComponent} that will show name of the material. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateMaterial(@NotNull Material material){
@@ -39,9 +63,9 @@ public class TranslateManager {
     }
 
     /**
-     * Translates an entity name.
-     * @param type Type of the entity to get It's name translated
-     * @return A TranslatableComponent for the entity. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
+     * Generates a translation key for the {@link EntityType} given.
+     * @param type Any entity type.
+     * @return A {@link TranslatableComponent} that will show name of the entity. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateEntity(@NotNull EntityType type){
@@ -49,9 +73,9 @@ public class TranslateManager {
     }
 
     /**
-     * Translates an enchantment's name
-     * @param enchantment An enchantment to translate It's name
-     * @return A TranslatableComponent for the enchantment. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
+     * Generates a translation key for the {@link Enchantment} given.
+     * @param enchantment Any enchantment.
+     * @return A {@link TranslatableComponent} that will show name of the enchantment. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateEnchantment(@NotNull Enchantment enchantment){
@@ -59,9 +83,9 @@ public class TranslateManager {
     }
 
     /**
-     * Translates a Potion effect's name.
-     * @param type A PotionEffectType to translate
-     * @return A TranslatableComponent for the effect. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
+     * Generates a translation key for the {@link PotionEffectType} given.
+     * @param type One of the {@link PotionEffectType}s in game.
+     * @return A {@link TranslatableComponent} that will show name of the potion effect. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
     public static TranslatableComponent translateEffect(@NotNull PotionEffectType type){
@@ -69,47 +93,7 @@ public class TranslateManager {
     }
 
     /**
-     * Converts key to a {@link TranslatableComponent}
-     * @param key Language key.
-     * @return A TranslatableComponent for the material. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
-     */
-    @NotNull
-    public static TranslatableComponent translateKey(@NotNull String key){
-        return new TranslatableComponent(key);
-    }
-
-    /**
-     * Alias for {@link TranslateManager#translateMaterial(Material)}
-     */
-    @NotNull
-    public static TranslatableComponent translate(@NotNull Material material){return translateMaterial(material);}
-
-    /**
-     * Alias for {@link TranslateManager#translateEntity(EntityType)}
-     */
-    @NotNull
-    public static TranslatableComponent translate(@NotNull EntityType type){return translateEntity(type);}
-
-    /**
-     * Alias for {@link TranslateManager#translateEnchantment(Enchantment)}
-     */
-    @NotNull
-    public static TranslatableComponent translate(@NotNull Enchantment enchantment){return translateEnchantment(enchantment);}
-
-    /**
-     * Alias for {@link TranslateManager#translateEffect(PotionEffectType)}
-     */
-    @NotNull
-    public static TranslatableComponent translate(@NotNull PotionEffectType effectType){return translateEffect(effectType);}
-
-    /**
-     * Alias for {@link TranslateManager#translateKey(String)}
-     */
-    @NotNull
-    public static TranslatableComponent translate(@NotNull String key){return translateKey(key);}
-
-    /**
-     * Translates the colors in the text given. Supports default minecraft color codes and hex colors.
+     * Translates the colors in the text given. Supports default minecraft color codes that uses the character {@code &} and hex colors.
      * @param message Message to translate colors.
      * @return Translated message.
      */
