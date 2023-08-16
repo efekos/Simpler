@@ -23,3 +23,6 @@
 * **Moved** `me.efekos.simpler.commands.syntax.NumberArgument` to `me.efekos.simpler.commands.syntax.impl.NumberArgument`
 * **Moved** `me.efekos.simpler.commands.syntax.PlayerArgument` to `me.efekos.simpler.commands.syntax.impl.PlayerArgument`
 * **Moved** `me.efekos.simpler.commands.translation.TranslateManager` to `me.efekos.simpler.translation.TranslateManager`
+
+## 1.5.1
+* **Fixed** `CoreCommand#getSub` not working.
