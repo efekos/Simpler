@@ -110,7 +110,8 @@ public abstract class CoreCommand extends Command {
     @Nullable
     public Class<? extends SubCommand> getSub(String name){
         for (Class<? extends SubCommand> sub:getSubs()){
-            if(sub.getName().equals(name)){
+            me.efekos.simpler.annotations.Command command = sub.getAnnotation(me.efekos.simpler.annotations.Command.class);
+            if(command.name().equals(name)){
                 return sub;
             }
         }
@@ -143,7 +144,7 @@ public abstract class CoreCommand extends Command {
         }
         Class<? extends SubCommand> cmd = getSub(args[0]);
         if(cmd ==null){
-            ArrayList<SubCommand> subCommands = new ArrayList<>();
+            List<SubCommand> subCommands = new ArrayList<>();
             for(Class<? extends SubCommand> sub:getSubs()){
                 try {
                     Constructor<? extends SubCommand> constructor = sub.getConstructor(String.class);
