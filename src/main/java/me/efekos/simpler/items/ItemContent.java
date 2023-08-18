@@ -22,7 +22,7 @@
 // I'm specially sensitive with this file. If you copy this class to somewhere else, please credit to me and Simpler, PLEASE. I spent almost
 // a week on finishing this class. I could just use nms, or steal someone's code about nms and paste it to here. But I made this class. I
 // could sleep, I could read a book, I could study for high school exams, but I made this class, just for your use. Please, whatever you do,
-// please do not claim this file as your own. Please, really please. All I expect from you is some respect about how long this class took to make.
+// please do not claim this file as your own. Please, really please. All I want is some respect about how long this class took to make.
 
 package me.efekos.simpler.items;
 
