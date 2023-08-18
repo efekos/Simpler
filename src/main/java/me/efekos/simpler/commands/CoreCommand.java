@@ -38,6 +38,7 @@ import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Used for core commands like /friends invite,/friends list,/friends remove etc. {@link #getSubs()} will return a list of the {@link SubCommand}s that belong to this command. Must be annotated with {@link me.efekos.simpler.annotations.Command} to be registered properly.
@@ -143,7 +144,7 @@ public abstract class CoreCommand extends Command {
             return true;
         }
         Class<? extends SubCommand> cmd = getSub(args[0]);
-        if(cmd ==null){
+        if(cmd ==null || args[0].equals("help")){
             List<SubCommand> subCommands = new ArrayList<>();
             for(Class<? extends SubCommand> sub:getSubs()){
                 try {
@@ -261,16 +262,21 @@ public abstract class CoreCommand extends Command {
         if(sender instanceof Player){
             Player p = (Player) sender;
 
+            if(!p.hasPermission(getPermission()))return new ArrayList<>();
+
             if(args.length==1){
                 ArrayList<String> cmdNames = new ArrayList<>();
                 getSubs().forEach(sub->{
                     try {
-                        cmdNames.add(sub.getConstructor(String.class).newInstance(args[0]).getName());
+                        SubCommand cmd = sub.getConstructor(String.class).newInstance(args[0]);
+                        if(p.hasPermission(cmd.getPermission())) cmdNames.add(cmd.getName());
                     } catch (Exception e){
                         e.printStackTrace();
                     }
                 });
-                return cmdNames;
+                cmdNames.add("help");
+                cmdNames.sort(String::compareTo);
+                return cmdNames.stream().filter(s -> s.startsWith(args[0])).collect(Collectors.toList());
 
             } else if (args.length>1){
                 Class<? extends SubCommand> sub = getSub(args[0]);
@@ -289,15 +295,18 @@ public abstract class CoreCommand extends Command {
 
     @NotNull
     @Override
-    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @org.jetbrains.annotations.Nullable Location location) throws IllegalArgumentException {
+    public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
         if(sender instanceof Player){
             Player p = (Player) sender;
+
+            if(!p.hasPermission(getPermission()))return new ArrayList<>();
 
             if(args.length==1){
                 ArrayList<String> cmdNames = new ArrayList<>();
                 getSubs().forEach(sub->{
                     try {
-                        cmdNames.add(sub.getConstructor(String.class).newInstance(args[0]).getName());
+                        SubCommand cmd = sub.getConstructor(String.class).newInstance(args[0]);
+                        if (p.hasPermission(cmd.getPermission())) cmdNames.add(cmd.getName());
                     } catch (Exception e){
                         e.printStackTrace();
                     }

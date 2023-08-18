@@ -236,6 +236,8 @@ public abstract class BaseCommand extends Command {
             Player p = (Player) sender;
             List<Argument> arguments = getSyntax().getArguments();
 
+            if(!p.hasPermission(getPermission()))return new ArrayList<>();
+
             int num = args.length-1;
 
             if(num<arguments.size()&&arguments.get(num)!=null){
@@ -264,6 +266,8 @@ public abstract class BaseCommand extends Command {
         if(sender instanceof Player){
             Player p = (Player) sender;
             List<Argument> arguments = getSyntax().getArguments();
+
+            if(!p.hasPermission(getPermission()))return new ArrayList<>();
 
             int num = args.length-1;
 
