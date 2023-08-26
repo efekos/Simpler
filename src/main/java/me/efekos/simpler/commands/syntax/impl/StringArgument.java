@@ -22,8 +22,11 @@
 
 package me.efekos.simpler.commands.syntax.impl;
 
+import me.efekos.simpler.Simpler;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import me.efekos.simpler.config.MessageConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -99,7 +102,11 @@ public class StringArgument extends Argument {
      * @return Is the given argument valid?
      */
     @Override
-    public boolean handleCorrection(String given) {
-        return given.length()>minLength&&given.length()<maxLength;
+    public ArgumentHandleResult handleCorrection(String given) {
+        int length = given.length();
+        MessageConfiguration configuration = Simpler.getConfiguration();
+        if(length < minLength) return ArgumentHandleResult.fail(configuration.STR_ARG_SHT.replace("%given%",given).replace("%min%",minLength+""));
+        if(length > maxLength) return ArgumentHandleResult.fail(configuration.STR_ARG_LNG.replace("%given%",given).replace("%max%",maxLength+""));
+        return ArgumentHandleResult.success();
     }
 }
