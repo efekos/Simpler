@@ -22,8 +22,11 @@
 
 package me.efekos.simpler.commands.syntax.impl;
 
+import me.efekos.simpler.Simpler;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import me.efekos.simpler.config.MessageConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -107,19 +110,27 @@ public class NumberArgument extends Argument {
 
     /**
      * Makes sure that the argument player wrote is valid.
+     *
      * @param given The string that someone wrote as a value for this argument
      * @return Is the given argument valid?
      */
     @Override
-    public boolean handleCorrection(String given) {
-        try{
-            long i = Long.parseLong(given);
+    public ArgumentHandleResult handleCorrection(String given) {
+        MessageConfiguration configuration = Simpler.getConfiguration();
 
-            if(i<= Integer.MAX_VALUE && i>= Integer.MIN_VALUE )
-            return (i <= max && i >= min);
-            else return false;
-        } catch (Exception ignored){
-            return false;
+        try {
+            long i = Long.parseLong(given);
+            if (i < Integer.MIN_VALUE)
+                return ArgumentHandleResult.fail(configuration.NUM_ARG_IMIN.replace("%given%", given));
+            if (i > Integer.MAX_VALUE)
+                return ArgumentHandleResult.fail(configuration.NUM_ARG_IMAX.replace("%given%", given));
+            if (i < min)
+                return ArgumentHandleResult.fail(configuration.NUM_ARG_MIN.replace("%given%", given).replace("%minValue%", min + ""));
+            if (i > max)
+                return ArgumentHandleResult.fail(configuration.NUM_ARG_MAX.replace("%given%", given).replace("%maxValue%", max + ""));
+        } catch (Exception ignored) {
+            return ArgumentHandleResult.fail(configuration.NUM_ARG_NAN.replace("%given%",given));
         }
+        return ArgumentHandleResult.success();
     }
 }

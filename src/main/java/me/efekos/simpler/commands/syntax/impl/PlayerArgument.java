@@ -22,11 +22,14 @@
 
 package me.efekos.simpler.commands.syntax.impl;
 
+import me.efekos.simpler.Simpler;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
+import org.yaml.snakeyaml.scanner.ScannerImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -80,11 +83,11 @@ public class PlayerArgument extends Argument {
      * @return Is the given argument valid?
      */
     @Override
-    public boolean handleCorrection(String given) {
+    public ArgumentHandleResult handleCorrection(String given) {
         OfflinePlayer p = Bukkit.getServer().getPlayer(given);
-        if(p == null) return false;
+        if(p == null) return ArgumentHandleResult.fail(Simpler.getConfiguration().PLR_ARG_NAP.replace("%given%",given));
 
-        return p.getName().equals(given);
+        return ArgumentHandleResult.success();
     }
 
     /**

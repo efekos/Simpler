@@ -22,8 +22,11 @@
 
 package me.efekos.simpler.commands.syntax.impl;
 
+import me.efekos.simpler.Simpler;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import me.efekos.simpler.config.MessageConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
@@ -85,8 +88,10 @@ public class ListArgument extends Argument {
      * @return Is the given argument valid?
      */
     @Override
-    public boolean handleCorrection(String given) {
-        return values.contains(given);
+    public ArgumentHandleResult handleCorrection(String given) {
+        MessageConfiguration configuration = Simpler.getConfiguration();
+        if(values.contains(given)) return ArgumentHandleResult.success();
+        else return ArgumentHandleResult.fail(configuration.LIST_ARG_NIL.replace("%given%",given));
     }
 
     /**
