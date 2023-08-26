@@ -29,7 +29,6 @@ import me.efekos.simpler.commands.syntax.ArgumentPriority;
 import me.efekos.simpler.commands.syntax.Syntax;
 import me.efekos.simpler.config.MessageConfiguration;
 import me.efekos.simpler.translation.TranslateManager;
-import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
@@ -163,7 +162,7 @@ public abstract class BaseCommand extends Command {
      */
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args){
-        MessageConfiguration configuration = Simpler.getConfiguration();
+        MessageConfiguration configuration = Simpler.getMessageConfiguration();
         a:{
             if(sender instanceof Player){ //sender is a player
                 me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);

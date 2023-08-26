@@ -89,7 +89,7 @@ public class ListArgument extends Argument {
      */
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
-        MessageConfiguration configuration = Simpler.getConfiguration();
+        MessageConfiguration configuration = Simpler.getMessageConfiguration();
         if(values.contains(given)) return ArgumentHandleResult.success();
         else return ArgumentHandleResult.fail(configuration.LIST_ARG_NIL.replace("%given%",given));
     }

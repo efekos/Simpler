@@ -9,11 +9,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public final class Simpler extends JavaPlugin {
     private static MessageConfiguration configuration;
 
-    public static MessageConfiguration getConfiguration() {
+    public static MessageConfiguration getMessageConfiguration() {
         return configuration;
     }
 
-    public static void setConfiguration(MessageConfiguration configuration) {
+    public static void changeMessageConfiguration(MessageConfiguration configuration) {
         Simpler.configuration = configuration;
     }
 

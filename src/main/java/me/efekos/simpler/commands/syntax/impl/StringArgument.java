@@ -104,7 +104,7 @@ public class StringArgument extends Argument {
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
         int length = given.length();
-        MessageConfiguration configuration = Simpler.getConfiguration();
+        MessageConfiguration configuration = Simpler.getMessageConfiguration();
         if(length < minLength) return ArgumentHandleResult.fail(configuration.STR_ARG_SHT.replace("%given%",given).replace("%min%",minLength+""));
         if(length > maxLength) return ArgumentHandleResult.fail(configuration.STR_ARG_LNG.replace("%given%",given).replace("%max%",maxLength+""));
         return ArgumentHandleResult.success();

@@ -29,7 +29,6 @@ import me.efekos.simpler.commands.syntax.ArgumentPriority;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
-import org.yaml.snakeyaml.scanner.ScannerImpl;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -85,7 +84,7 @@ public class PlayerArgument extends Argument {
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
         OfflinePlayer p = Bukkit.getServer().getPlayer(given);
-        if(p == null) return ArgumentHandleResult.fail(Simpler.getConfiguration().PLR_ARG_NAP.replace("%given%",given));
+        if(p == null) return ArgumentHandleResult.fail(Simpler.getMessageConfiguration().PLR_ARG_NAP.replace("%given%",given));
 
         return ArgumentHandleResult.success();
     }

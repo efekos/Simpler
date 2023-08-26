@@ -116,7 +116,7 @@ public class NumberArgument extends Argument {
      */
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
-        MessageConfiguration configuration = Simpler.getConfiguration();
+        MessageConfiguration configuration = Simpler.getMessageConfiguration();
 
         try {
             long i = Long.parseLong(given);

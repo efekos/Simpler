@@ -142,7 +142,7 @@ public abstract class CoreCommand extends Command {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
-        MessageConfiguration configuration = Simpler.getConfiguration();
+        MessageConfiguration configuration = Simpler.getMessageConfiguration();
 
         if(args.length==0){
             sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
