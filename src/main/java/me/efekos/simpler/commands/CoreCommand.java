@@ -22,9 +22,13 @@
 
 package me.efekos.simpler.commands;
 
+import me.efekos.simpler.Simpler;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
+import me.efekos.simpler.config.MessageConfiguration;
 import me.efekos.simpler.exception.InvalidAnnotationException;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -138,9 +142,10 @@ public abstract class CoreCommand extends Command {
 
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
+        MessageConfiguration configuration = Simpler.getConfiguration();
 
         if(args.length==0){
-            sender.sendMessage(ChatColor.RED+"Invalid Usage. Use "+getUsage());
+            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
             return true;
         }
         Class<? extends SubCommand> cmd = getSub(args[0]);
@@ -177,13 +182,13 @@ public abstract class CoreCommand extends Command {
 
                 if(!command.permission().equals("")&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
-                    p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
+                    p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
                     return true;
                 }
                 // @Command don't have a permission or player has the permission
                     if(getSub(args[0])!=null){
                         if(!cmdA.permission().equals("")&&!p.hasPermission(cmdA.permission())){ // SubCommand's @Command has a permisison and player don't have the permisson
-                            p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
+                            p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
                         } else { // SubCommand's @Command don't have a permission or player has the permisson
 
                             a:{
@@ -194,17 +199,18 @@ public abstract class CoreCommand extends Command {
                                 for (int i = 0; i < instance.getSyntax().getArguments().size(); i++) {
                                     Argument arg = instance.getSyntax().getArguments().get(i);
                                     if((subArgs.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                                        sender.sendMessage(ChatColor.RED+"Invalid usage. Use " +instance.getUsage());
+                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
                                         break a;
                                     }
 
                                     if(subArgs[i]==null && arg.getPriority()==ArgumentPriority.REQUIRED){
-                                        sender.sendMessage(ChatColor.RED+"Invalid usage. Use" + instance.getUsage());
+                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
                                         break a;
                                     }
 
-                                    if(!arg.handleCorrection(subArgs[i])){
-                                        sender.sendMessage(ChatColor.RED+"Invalid usage. Use " +instance.getUsage());
+                                    ArgumentHandleResult result = arg.handleCorrection(subArgs[i]);
+                                    if(!result.isPassed()){
+                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",result.getReason())));
                                         break a;
                                     }
                                 }
@@ -229,12 +235,13 @@ public abstract class CoreCommand extends Command {
                             for (int i = 0; i < instance.getSyntax().getArguments().size(); i++) {
                                 Argument arg = instance.getSyntax().getArguments().get(i);
                                 if((subArgs.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                                    sender.sendMessage(ChatColor.RED+"Invalid usage. Use " +instance.getUsage());
+                                    sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",TranslateManager.translateColors(configuration.USAGE_REASON_REQUIRED))));
                                     break a;
                                 }
 
-                                if(!arg.handleCorrection(subArgs[i])){
-                                    sender.sendMessage(ChatColor.RED+"Invalid usage. Use " +instance.getUsage());
+                                ArgumentHandleResult handleResult = arg.handleCorrection(subArgs[i]);
+                                if(!handleResult.isPassed()){
+                                    sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
                                     break a;
                                 }
                             }
@@ -245,7 +252,7 @@ public abstract class CoreCommand extends Command {
 
                 } else { // command is player only
 
-                    sender.sendMessage(ChatColor.RED+"This command only can be used by a player!");
+                    sender.sendMessage(TranslateManager.translateColors(configuration.ONLY_PLAYER));
 
                 }
             }

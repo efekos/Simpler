@@ -22,9 +22,13 @@
 
 package me.efekos.simpler.commands;
 
+import me.efekos.simpler.Simpler;
 import me.efekos.simpler.commands.syntax.Argument;
+import me.efekos.simpler.commands.syntax.ArgumentHandleResult;
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
 import me.efekos.simpler.commands.syntax.Syntax;
+import me.efekos.simpler.config.MessageConfiguration;
+import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
@@ -76,7 +80,7 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
-     * Grabs the value of {@link me.efekos.simpler.annotations.Command#permission()} ()} and returns it.
+     * Grabs the value of {@link me.efekos.simpler.annotations.Command#permission()} and returns it.
      * @return Permission this command needs to be executed as String, null if this command does not need any permission.
      */
     @Override
@@ -132,7 +136,7 @@ public abstract class BaseCommand extends Command {
     public boolean isPlayerOnly(){
         me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
         if(command!=null)return command.playerOnly();
-        else return false;
+        return false;
     }
 
     /**
@@ -159,31 +163,28 @@ public abstract class BaseCommand extends Command {
      */
     @Override
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args){
+        MessageConfiguration configuration = Simpler.getConfiguration();
         a:{
             if(sender instanceof Player){ //sender is a player
                 me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
                 Player p = (Player) sender;
 
-                if(!command.permission().equals("")&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
+                if(!command.permission().isEmpty() &&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
-                    p.sendMessage(ChatColor.RED+"You do not have permission to do that!");
+                    p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
 
                 } else { // @Command don't have a permission or player has the permission
 
                     for (int i = 0; i < getSyntax().getArguments().size(); i++) {
                         Argument arg = getSyntax().getArguments().get(i);
                         if((args.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                            p.sendMessage(ChatColor.RED+"Invalid usage. Use " +getUsage());
+                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",TranslateManager.translateColors(configuration.USAGE_REASON_REQUIRED))));
                             break a;
                         }
 
-                        if(args[i]==null && arg.getPriority()==ArgumentPriority.REQUIRED){
-                            sender.sendMessage(ChatColor.RED+"Invalid usage. Use" + getUsage());
-                            break a;
-                        }
-
-                        if(!arg.handleCorrection(args[i])){
-                            p.sendMessage(ChatColor.RED+"Invalid usage. Use " +getUsage());
+                        ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
+                        if(!handleResult.isPassed()){
+                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
                             break a;
                         }
                     }
@@ -194,23 +195,23 @@ public abstract class BaseCommand extends Command {
             } else if(sender instanceof ConsoleCommandSender){// sender is not a player but the console
                 if(!isPlayerOnly()){ // command is not player only
 
-
                     for (int i = 0; i < getSyntax().getArguments().size(); i++) {
                         Argument arg = getSyntax().getArguments().get(i);
                         if((args.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                            sender.sendMessage(ChatColor.RED+"Invalid usage. Use " +getUsage());
+                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",arg+" is required.")));
                             break a;
                         }
 
-                        if(!arg.handleCorrection(args[i])){
-                            sender.sendMessage(ChatColor.RED+"Invalid usage. Use " +getUsage());
+                        ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
+                        if(!handleResult.isPassed()){
+                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
                             break a;
                         }
                     }
 
                     onConsoleUse((ConsoleCommandSender) sender,args);
                 } else { // command is player only
-                    sender.sendMessage(ChatColor.RED+"This command only can be used by a player!");
+                    sender.sendMessage(TranslateManager.translateColors(configuration.ONLY_PLAYER));
                 }
             }
         }
