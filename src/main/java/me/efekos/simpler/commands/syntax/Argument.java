@@ -62,7 +62,7 @@ public abstract class Argument {
      * @param given The string that someone wrote as a value for this argument
      * @return Is the given argument valid?
      */
-    abstract public boolean handleCorrection(String given);
+    abstract public ArgumentHandleResult handleCorrection(String given);
 
     /**
      * Returns a string representation of this {@link Argument}.
