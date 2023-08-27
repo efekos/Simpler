@@ -29,7 +29,7 @@
 
 ## 1.5.2
 * **Added** Permission checks to tab completion, you will no longer see tab completion for commands that you don't have permission for.
-* **Added** [JavaDoc](https://efekos.github.io/simpler) for Simpler
+* **Added** [JavaDoc](https://efekos.github.io/Simpler) for Simpler
 * **Added** `MessageConfiguration`: Change the base messages of Simpler.
 * **Added** `Simpler#changeMessageConfiguration(MessageConfiguration configuration)`.
 * **Added** `ArgumentHandleResult`: Now you can give reasons to players, so they won't mess up arguments again.
