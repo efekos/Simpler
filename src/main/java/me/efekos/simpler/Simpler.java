@@ -20,5 +20,6 @@ public final class Simpler extends JavaPlugin {
     @Override
     public void onEnable() {
         configuration = new MessageConfiguration.Builder().build();
+        Metrics metrics = new Metrics(this,19686);
     }
 }
