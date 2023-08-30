@@ -22,27 +22,61 @@
 
 package me.efekos.simpler.commands.syntax;
 
+import javax.annotation.Nullable;
+
+/**
+ * Represents a result you will probably get from {@link Argument#handleCorrection(String)}. Results have a basic value describing their succession and a reason for their failure. Well, if they had any.
+ */
 public class ArgumentHandleResult {
+    /**
+     * Becomes true if the result is success, leading the executor to next argument/command execution
+     */
     private final boolean pass;
+    /**
+     * If {@link #pass} is false, this is guaranteed to be not null. A reason for a failure of the result.
+     */
+    @Nullable
     private final String reason;
 
+    /**
+     * Returns {@code true} if the command executor passes (gave a correct argument for) whatever you get this result from.
+     * @return {@code true} if this result is passed. {@code false} otherwise
+     */
     public boolean isPassed() {
         return pass;
     }
 
+    /**
+     * Returns the reason of why this result does not pass, if it doesn't.
+     * @return A reason if this result didn't passed.
+     */
     public String getReason() {
         return reason;
     }
 
+    /**
+     * Private constructor.
+     * @param pass Is this result passed?
+     * @param reason Reason of the failure on this result.
+     */
     private ArgumentHandleResult(boolean pass, String reason) {
         this.pass = pass;
         this.reason = reason;
     }
 
+    /**
+     * Constructs a new {@link ArgumentHandleResult}, leading to success.
+     * @return An instance of a {@link ArgumentHandleResult} with {@link #isPassed()} being {@code true}.
+     */
     public static ArgumentHandleResult success(){
-        return new ArgumentHandleResult(true,"");
+        return new ArgumentHandleResult(true,null);
     }
 
+    /**
+     * Constructs a new {@link ArgumentHandleResult}, leading to failure with the reason given.
+     * @param reason A reason on the failure that this result will cause.
+     * @return An instance of a {@link ArgumentHandleResult} with a reason and {@link #isPassed()} being {@code false}
+     */
     public static ArgumentHandleResult fail(String reason){
         return new ArgumentHandleResult(false,reason);
     }
