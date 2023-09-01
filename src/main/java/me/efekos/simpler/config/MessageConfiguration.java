@@ -196,51 +196,101 @@ public class MessageConfiguration {
             return this;
         }
 
+        /**
+         * Changes the required message, which is a message that appears when the player didn't provide a {@link me.efekos.simpler.commands.syntax.ArgumentPriority#REQUIRED} argument.
+         * @param required new required message.
+         * @return Itself after changing the required message.
+         */
         public Builder required(String required){
             this.usageRequiredReason = required;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.ListArgument} got an invalid value.
+         * @param listArgumentNotValid New message.
+         * @return itself for continuing to build.
+         */
         public Builder listArgumentNotValid(String listArgumentNotValid) {
             this.listArgumentNotValid = listArgumentNotValid;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.NumberArgument} got a value smaller than {@link Integer#MIN_VALUE}.
+         * @param numberArgumentIntMin New message
+         * @return itself for continuing to build.
+         */
         public Builder numberArgumentIntMin(String numberArgumentIntMin) {
             this.numberArgumentIntMin = numberArgumentIntMin;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.NumberArgument} got a value bigger than {@link Integer#MAX_VALUE}.
+         * @param numberArgumentIntMax New message.
+         * @return itself for continuing to build.
+         */
         public Builder numberArgumentIntMax(String numberArgumentIntMax) {
             this.numberArgumentIntMax = numberArgumentIntMax;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.NumberArgument} got a value smaller than its min.
+         * @param numberArgumentMin New message.
+         * @return itself for continuing to build.
+         */
         public Builder numberArgumentMin(String numberArgumentMin) {
             this.numberArgumentMin = numberArgumentMin;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.NumberArgument} got a value bigger than its max.
+         * @param numberArgumentMax New message.
+         * @return itself for continuing to build.
+         */
         public Builder numberArgumentMax(String numberArgumentMax) {
             this.numberArgumentMax = numberArgumentMax;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.NumberArgument} got a value that isn't an {@link Integer}.
+         * @param numberArgumentNaN New message.
+         * @return itself for continuing to build.
+         */
         public Builder numberArgumentNaN(String numberArgumentNaN) {
             this.numberArgumentNaN = numberArgumentNaN;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.PlayerArgument} got an invalid player name.
+         * @param playerArgumentNotPlayer New message.
+         * @return itself for continuing to build.
+         */
         public Builder playerArgumentNotPlayer(String playerArgumentNotPlayer) {
             this.playerArgumentNotPlayer = playerArgumentNotPlayer;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.StringArgument} got a value shorter than it's min length.
+         * @param stringArgumentShort New message.
+         * @return itself for continuing to build.
+         */
         public Builder stringArgumentShort(String stringArgumentShort) {
             this.stringArgumentShort = stringArgumentShort;
             return this;
         }
 
+        /**
+         * Appears when a {@link me.efekos.simpler.commands.syntax.impl.StringArgument} got a value longer than it's max length.
+         * @param stringArgumentLong New message.
+         * @return itself for continuing to build.
+         */
         public Builder stringArgumentLong(String stringArgumentLong) {
             this.stringArgumentLong = stringArgumentLong;
             return this;
