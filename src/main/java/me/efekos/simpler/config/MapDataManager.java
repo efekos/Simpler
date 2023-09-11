@@ -50,7 +50,7 @@ import java.util.*;
  *           <li>Any class that does not contain any type other than the ones above.</li>
  *           </ul>
  */
-public class MapDataManager<K, V extends Storable> {
+public class MapDataManager<K, V> {
 
     /**
      * Main map of all the data stored inside this database.
@@ -79,7 +79,7 @@ public class MapDataManager<K, V extends Storable> {
     }
 
     /**
-     * Grabs a data from the list using its {@link UUID}.
+     * Grabs a data from the map using its {@link UUID}.
      * @param id ID of the data you want to get.
      * @return Data if found, {@code null} otherwise.
      */
@@ -106,25 +106,13 @@ public class MapDataManager<K, V extends Storable> {
     }
 
     /**
-     * Finds a data with the given id, and replaces it with the new one.
-     * @param id ID of the data you want to update. You can just do {@link V#getUniqueId()} for this.
-     * @param newData New data to replace with the old one
-     * @return New data.
-     */
-    public V update(K id, V newData){
-        delete(id);
-        set(id,newData);
-        return newData;
-    }
-
-    /**
      * Saves all the data to the plugins data folder using the given path. It will save the data as a '.json' file, to
      * {@link MapDataManager#path} under plugins data folder.
      */
     public void save(){
         Gson gson = new Gson();
 
-        String absPath = plugin.getDataFolder().getAbsolutePath()+path;
+        String absPath = plugin.getDataFolder().getAbsolutePath()+"\\"+path;
 
         File file = new File(absPath);
         file.getParentFile().mkdir();
@@ -146,7 +134,7 @@ public class MapDataManager<K, V extends Storable> {
      */
     public void load(Class<Map<K,V>> clazz){
         Gson gson = new Gson();
-        String absPath = plugin.getDataFolder().getAbsolutePath()+path;
+        String absPath = plugin.getDataFolder().getAbsolutePath()+"\\"+path;
         File file = new File(absPath);
 
         if(file.exists()){
@@ -163,8 +151,8 @@ public class MapDataManager<K, V extends Storable> {
     }
 
     /**
-     * Grabs the entire list and returns it.
-     * @return All the list of datas.
+     * Grabs the entire map and returns it.
+     * @return All the map of data.
      */
     public Map<K,V> getAll(){
         return data;
