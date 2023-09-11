@@ -25,21 +25,13 @@ package me.efekos.simpler.config;
 import java.util.UUID;
 
 /**
- * An abstract class to make your class able to store under a {@link JSONDataManager}. It defines a random {@link UUID}
- * for each object, and adds a method to get it.
+ * An interface that makes your class able to store under a {@link ListDataManager} or a {@link MapDataManager}
  */
-public abstract class Storable {
-    /**
-     * A unique id for this instance.
-     */
-    private final UUID id = UUID.randomUUID();
+public interface Storable {
 
     /**
      * Returns a unique id for this instance.
-     * @return {@link #id} of this.
+     * @return id of this instance.
      */
-    public UUID getUniqueId(){
-        return id;
-    }
-
+    UUID getUniqueId();
 }
