@@ -5,7 +5,7 @@
 * **Added** copyright to every class.
 * **Added** proper built-in documentation (JavaDoc Coming Soon).
 * **Added** `me.efekos.simpler.items.ItemContent`: Serialize an ItemStack to show it in chat **WITHOUT NMS**.
-* **Added** `me.efekos.simpler.config.JSONDataManager<T>`: Store a list of the datas in '.json' format.
+* **Added** `me.efekos.simpler.config.ListDataManager<T>`: Store a list of the datas in '.json' format.
 * **Added** `LICENSE.md`
 * **Added** `package-info.java` files.
 * **Added** `me.efekos.simpler.config.Storable`: Makes your class compatible for `JSONDataManager<T>`.
@@ -33,3 +33,6 @@
 * **Added** `MessageConfiguration`: Change the base messages of Simpler.
 * **Added** `Simpler#changeMessageConfiguration(MessageConfiguration configuration)`.
 * **Added** `ArgumentHandleResult`: Now you can give reasons to players, so they won't mess up arguments again.
+
+## 1.5.3
+* **Fixed** a small issue I forgot about in the time I'm writing this.
