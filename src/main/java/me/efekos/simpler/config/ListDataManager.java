@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * A basic database class made using {@link Gson}. You can store a list of the objects in this data. Use {@link #save()}
+ * A basic database class made using {@link Gson}. You can store a {@link List<T>} in this data. Use {@link #save()}
  * and {@link #load(Class)} to load your data.
  * @param <T>
  *           Type of the data you want to store as a list. Be aware that using incompatible types
@@ -52,7 +52,7 @@ import java.util.UUID;
  *           <li>Any class that does not contain any type other than the ones above.</li>
  *           </ul>
  */
-public class JSONDataManager<T extends Storable> {
+public class ListDataManager<T extends Storable> {
 
     /**
      * Main list of all the data stored inside this database.
@@ -74,7 +74,7 @@ public class JSONDataManager<T extends Storable> {
      * @param plugin Instance of the plugin that will use this database. Recommended to be {@code this}, assuming that
      *               you are constructing a database inside your {@link JavaPlugin#onEnable()} method.
      */
-    public JSONDataManager(String path, JavaPlugin plugin) {
+    public ListDataManager(String path, JavaPlugin plugin) {
         if(!path.endsWith(".json")) throw new InvalidParameterException("path must end with .json");
         this.path = path;
         this.plugin = plugin;
@@ -129,7 +129,7 @@ public class JSONDataManager<T extends Storable> {
 
     /**
      * Saves all the data to the plugins data folder using the given path. It will save the data as a '.json' file, to
-     * {@link JSONDataManager#path} under plugins data folder.
+     * {@link ListDataManager#path} under plugins data folder.
      */
     public void save(){
         Gson gson = new Gson();
