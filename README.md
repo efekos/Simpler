@@ -1,6 +1,6 @@
 [![](https://jitpack.io/v/efe124/Simpler.svg)](https://jitpack.io/#efe124/Simpler)
-[![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/MIT)
-![version](https://img.shields.io/badge/version-1.5.2-blue)
+[![License: ISC](https://img.shields.io/badge/License-ISC-yellow.svg)](https://opensource.org/licenses/ISC)
+![version](https://img.shields.io/badge/version-1.5.4-blue)
 # Simpler
 
 <!-- TOC -->
@@ -29,7 +29,7 @@
 <dependency>
     <groupId>com.github.efe124</groupId>
     <artifactId>Simpler</artifactId>
-    <version>1.5.2</version>
+    <version>1.5.4</version>
 </dependency>
 ````
 
@@ -47,6 +47,6 @@ allprojects {
 * Add this dependency:
 ````gradle
 dependencies {
-	implementation 'com.github.efe124:Simpler:1.5.2'
+	implementation 'com.github.efe124:Simpler:1.5.4'
 }
 ````

@@ -23,4 +23,4 @@ Item features makes creating custom items so much easier. All you have to do is 
 Menu features create custom menus, and let you listen for them. It's a good way to make use interfaces using GUI's.
 
 
-Starting to use Simpler in your project is really simple. All you need to do is [install](Installation.md) Simpler as a dependecy in your project.
+Starting to use Simpler in your project is really simple. All you need to do is [install](Installation.md) Simpler as a dependency in your project.
