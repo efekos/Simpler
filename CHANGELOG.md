@@ -36,3 +36,9 @@
 
 ## 1.5.3
 * **Fixed** a small issue I forgot about in the time I'm writing this.
+
+## 1.5.4
+* **Added** `MapDataManager`: Store JSON data in Map format.
+* **Changed** `Storable` to be an interface.
+* **Deprecated** `JSONDataManager`: Use `ListDataManager` (removal in 1.6)
+* **Renamed** `JSONDataManager` to `ListDataManager`
