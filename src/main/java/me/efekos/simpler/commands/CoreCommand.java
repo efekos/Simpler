@@ -203,14 +203,16 @@ public abstract class CoreCommand extends Command {
 
                                 for (int i = 0; i < instance.getSyntax().getArguments().size(); i++) {
                                     Argument arg = instance.getSyntax().getArguments().get(i);
-                                    if((subArgs.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
-                                        break a;
-                                    }
+                                    if(arg.getPriority()==ArgumentPriority.REQUIRED){
+                                        if((subArgs.length-1)<i){
+                                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
+                                            break a;
+                                        }
 
-                                    if(subArgs[i]==null && arg.getPriority()==ArgumentPriority.REQUIRED){
-                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
-                                        break a;
+                                        if((subArgs[i]==null)){
+                                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
+                                            break a;
+                                        }
                                     }
 
                                     ArgumentHandleResult result = arg.handleCorrection(subArgs[i]);
@@ -245,9 +247,16 @@ public abstract class CoreCommand extends Command {
 
                             for (int i = 0; i < instance.getSyntax().getArguments().size(); i++) {
                                 Argument arg = instance.getSyntax().getArguments().get(i);
-                                if((subArgs.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                                    sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",TranslateManager.translateColors(configuration.USAGE_REASON_REQUIRED))));
-                                    break a;
+                                if(arg.getPriority()==ArgumentPriority.REQUIRED){
+                                    if((subArgs.length-1)<i){
+                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
+                                        break a;
+                                    }
+
+                                    if((subArgs[i]==null)){
+                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
+                                        break a;
+                                    }
                                 }
 
                                 ArgumentHandleResult handleResult = arg.handleCorrection(subArgs[i]);
