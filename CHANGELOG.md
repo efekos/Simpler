@@ -45,3 +45,6 @@
 
 ## 1.5.5
 * **Fixed** An issue causing due to optional parameters in `CoreCommand`
+
+## 1.5.6
+* **Fixed** The same issue, I hope.

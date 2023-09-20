@@ -14,7 +14,7 @@ Simpler is an API to help you to make Minecraft plugins. It has a lot of feature
 ## Features
 
 ### Commands
-Command features helps you to make commands, getting rid of some `if` statements and providing advanced syntaxes for your command. You can use a `BaseCommand`, but you can also use `CoreCommand` with a `SubCommand` for creating core commands that contains other sub commands inside of it.
+Command features helps you to make commands, getting rid of some `if` statements and providing advanced syntax's for your command. You can use a `BaseCommand`, but you can also use `CoreCommand` with a `SubCommand` for creating core commands that contains other sub commands inside of it.
 
 ### Items
 Item features makes creating custom items so much easier. All you have to do is create a `CustomItem` class and that's it! Now you can use this custom item through `ItemManager#giveItem(Player,CustomItem)` and listen for your custom events.
