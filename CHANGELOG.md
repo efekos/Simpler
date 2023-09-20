@@ -44,4 +44,4 @@
 * **Renamed** `JSONDataManager` to `ListDataManager`
 
 ## 1.5.5
-* **Fixed** An issue causing due to `subArgs` being null in `CoreCommand#execute`
+* **Fixed** An issue causing due to optional parameters in `CoreCommand`
