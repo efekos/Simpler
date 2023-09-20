@@ -214,11 +214,12 @@ public abstract class CoreCommand extends Command {
                                             break a;
                                         }
                                     }
-
-                                    ArgumentHandleResult result = arg.handleCorrection(subArgs[i]);
-                                    if(!result.isPassed()){
-                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",result.getReason())));
-                                        break a;
+                                    if(subArgs.length-1<i&&subArgs[i]!=null){
+                                        ArgumentHandleResult result = arg.handleCorrection(subArgs[i]);
+                                        if(!result.isPassed()){
+                                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",result.getReason())));
+                                            break a;
+                                        }
                                     }
                                 }
 
@@ -258,11 +259,12 @@ public abstract class CoreCommand extends Command {
                                         break a;
                                     }
                                 }
-
-                                ArgumentHandleResult handleResult = arg.handleCorrection(subArgs[i]);
-                                if(!handleResult.isPassed()){
-                                    sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
-                                    break a;
+                                if(subArgs.length-1<i&&subArgs[i]!=null){
+                                    ArgumentHandleResult result = arg.handleCorrection(subArgs[i]);
+                                    if(!result.isPassed()){
+                                        sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",result.getReason())));
+                                        break a;
+                                    }
                                 }
                             }
 
