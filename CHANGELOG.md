@@ -42,3 +42,6 @@
 * **Changed** `Storable` to be an interface.
 * **Deprecated** `JSONDataManager`: Use `ListDataManager` (removal in 1.6)
 * **Renamed** `JSONDataManager` to `ListDataManager`
+
+## 1.5.5
+* **Fixed** An issue causing due to `subArgs` being null in `CoreCommand#execute`
