@@ -38,7 +38,7 @@ public class Config {
     /**
      * Name of the resource that will be cloned from plugin resources. This makes it really easy to make custom configs. All you have to do it change the resource name.
      */
-    private String resourceName;
+    private final String resourceName;
 
     /**
      * A file that will be used to load configuration from.
@@ -53,7 +53,7 @@ public class Config {
     /**
      * The plugin that uses this config.
      */
-    private JavaPlugin plugin;
+    private final JavaPlugin plugin;
 
     /**
      * Can be used as a YamlConfiguration. Adds some extra features to default configuration.
@@ -64,7 +64,7 @@ public class Config {
         this.resourceName = resourceName;
         this.plugin = plugin;
     }
-
+    
     /**
      * Loads the default configuration file to your plugin's data folder. Recommended to use inside {@link JavaPlugin#onEnable()}.
      */
@@ -78,6 +78,7 @@ public class Config {
                 e.printStackTrace();
             }
         }
+
         fileConfiguration = YamlConfiguration.loadConfiguration(file);
     }
 

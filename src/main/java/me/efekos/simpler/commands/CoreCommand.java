@@ -180,14 +180,14 @@ public abstract class CoreCommand extends Command {
                 me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
                 Player p = (Player) sender;
 
-                if(!command.permission().equals("")&&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
+                if(!command.permission().isEmpty() &&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
                     p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
                     return true;
                 }
                 // @Command don't have a permission or player has the permission
                     if(getSub(args[0])!=null){
-                        if(!cmdA.permission().equals("")&&!p.hasPermission(cmdA.permission())){ // SubCommand's @Command has a permisison and player don't have the permisson
+                        if(!cmdA.permission().isEmpty() &&!p.hasPermission(cmdA.permission())){ // SubCommand's @Command has a permisison and player don't have the permisson
                             p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
                         } else { // SubCommand's @Command don't have a permission or player has the permisson
 
@@ -195,6 +195,11 @@ public abstract class CoreCommand extends Command {
                                 Constructor<? extends SubCommand> constructor = cmd.getConstructor(String.class);
                                 constructor.setAccessible(true);
                                 SubCommand instance = constructor.newInstance(cmdA.name());
+
+                                if(subArgs.length==0&&instance.getSyntax().getArguments().stream().anyMatch(argument -> argument.getPriority()==ArgumentPriority.REQUIRED)){
+                                    sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
+                                    break a;
+                                }
 
                                 for (int i = 0; i < instance.getSyntax().getArguments().size(); i++) {
                                     Argument arg = instance.getSyntax().getArguments().get(i);
@@ -228,9 +233,15 @@ public abstract class CoreCommand extends Command {
                         if(cmdA.playerOnly()){ // SubCommand's @Command is player only
                             sender.sendMessage(ChatColor.RED+"This command only can be used by a player!");
                         } else { // SubCommand's @Command is not playeronly
+
                             Constructor<? extends SubCommand> constructor = cmd.getConstructor(String.class);
                             constructor.setAccessible(true);
                             SubCommand instance = constructor.newInstance(cmdA.name());
+
+                            if(subArgs.length==0&&instance.getSyntax().getArguments().stream().anyMatch(argument -> argument.getPriority()==ArgumentPriority.REQUIRED)){
+                                sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage())));
+                                break a;
+                            }
 
                             for (int i = 0; i < instance.getSyntax().getArguments().size(); i++) {
                                 Argument arg = instance.getSyntax().getArguments().get(i);
