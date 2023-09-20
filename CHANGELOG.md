@@ -48,3 +48,6 @@
 
 ## 1.5.6
 * **Fixed** The same issue, I hope.
+
+## 1.5.7
+* **Fixed** The same issue. I won't go further today if it isn't fixed.
