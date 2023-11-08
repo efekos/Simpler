@@ -36,7 +36,7 @@ public abstract class CustomItem {
     protected final UUID _itemUuid;
 
     /**
-     * Returns a type id of this item. Think is as an item id like 'diamond_sword' or 'redstone_block'. This value must be different from all the other {@link CustomItem}s you plan to use.
+     * Returns a type id of this item. Think it as an item id like 'diamond_sword' or 'redstone_block'. This value must be different from all the other {@link CustomItem}s you plan to use.
      * @return Type id of this item.
      */
     @NotNull
