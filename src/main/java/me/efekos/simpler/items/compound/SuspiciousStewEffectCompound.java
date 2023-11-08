@@ -26,19 +26,19 @@ package me.efekos.simpler.items.compound;
  * Represents an effect of the "Suspicious Stew" item.
  */
 public class SuspiciousStewEffectCompound {
-    private final Integer EffectId;
-    private final Integer EffectDuration;
+    private final Integer effect_id;
+    private final Integer effect_duration;
 
     public SuspiciousStewEffectCompound(Integer effectId, Integer effectDuration) {
-        EffectId = effectId;
-        EffectDuration = effectDuration;
+        effect_id = effectId;
+        effect_duration = effectDuration;
     }
 
     public Integer getEffectId() {
-        return EffectId;
+        return effect_id;
     }
 
     public Integer getEffectDuration() {
-        return EffectDuration;
+        return effect_duration;
     }
 }

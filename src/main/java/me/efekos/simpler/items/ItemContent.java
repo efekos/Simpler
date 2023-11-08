@@ -59,6 +59,7 @@ import java.util.stream.Collectors;
  * {@link ItemStack} to itself exactly, however some display names might be lost at the items inside a shulker
  * box, even with the fact that their names get saved too. Some extreme items (like a ban shulker or a cursed
  * bundle) have a small chance to make some lag in the server, maybe, just maybe, even crash it.
+ * <b>IMPORTANT</b>: Be aware that this class is intended to be used in 1.20.2 servers.
  */
 public class ItemContent extends Content {
     @Override

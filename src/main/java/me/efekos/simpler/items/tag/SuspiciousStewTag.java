@@ -25,14 +25,14 @@ package me.efekos.simpler.items.tag;
 import me.efekos.simpler.items.compound.SuspiciousStewEffectCompound;
 
 public class SuspiciousStewTag extends ItemTag{
-    private final SuspiciousStewEffectCompound[] Effects;
+    private final SuspiciousStewEffectCompound[] effects;
 
     public SuspiciousStewTag(ItemTag oldItemTag, SuspiciousStewEffectCompound[] potionEffects){
         super(oldItemTag.Damage, oldItemTag.getHideFlags(), oldItemTag.display, oldItemTag.isUnbreakable(), oldItemTag.getCustomModelData(), oldItemTag.getEnchantments(), oldItemTag.RepairCost);
-        this.Effects = potionEffects;
+        this.effects = potionEffects;
     }
 
     public SuspiciousStewEffectCompound[] getEffects() {
-        return Effects;
+        return effects;
     }
 }

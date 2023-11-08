@@ -27,43 +27,43 @@ package me.efekos.simpler.items.compound;
  * Represents a custom potion effect inside a potion.
  */
 public class PotionEffectCompound {
-    private final Integer Id;
-    private final Integer Duration;
-    private final Integer Amplifier;
-    private final boolean ShowParticles;
-    private final boolean Ambient;
-    private final boolean ShowIcon;
+    private final Integer id;
+    private final Integer duration;
+    private final Integer amplifier;
+    private final boolean show_particles;
+    private final boolean ambient;
+    private final boolean show_icon;
 
     public PotionEffectCompound(Integer id, Integer duration, Integer amplifier, boolean showParticles, boolean ambient, boolean showIcon) {
-        Id = id;
-        Duration = duration;
-        Amplifier = amplifier;
-        ShowParticles = showParticles;
-        Ambient = ambient;
-        ShowIcon = showIcon;
+        this.id = id;
+        this.duration = duration;
+        this.amplifier = amplifier;
+        show_particles = showParticles;
+        this.ambient = ambient;
+        show_icon = showIcon;
     }
 
     public Integer getId() {
-        return Id;
+        return id;
     }
 
     public Integer getDuration() {
-        return Duration;
+        return duration;
     }
 
     public Integer getAmplifier() {
-        return Amplifier;
+        return amplifier;
     }
 
-    public boolean isShowParticles() {
-        return ShowParticles;
+    public boolean doesShowParticles() {
+        return show_particles;
     }
 
     public boolean isAmbient() {
-        return Ambient;
+        return ambient;
     }
 
-    public boolean isShowIcon() {
-        return ShowIcon;
+    public boolean doesShowIcon() {
+        return show_icon;
     }
 }
