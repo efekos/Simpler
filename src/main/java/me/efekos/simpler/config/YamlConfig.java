@@ -33,7 +33,7 @@ import java.util.List;
 /**
  * Can be used as a YamlConfiguration. Adds some extra features to default configuration.
  */
-public class Config {
+public class YamlConfig {
 
     /**
      * Name of the resource that will be cloned from plugin resources. This makes it really easy to make custom configs. All you have to do it change the resource name.
@@ -60,7 +60,7 @@ public class Config {
      * @param resourceName Name of the resource you want to use as this config. Make sure that your resource name ends with `.yml` and you have a resource with the exact same name on your 'resources' folder.
      * @param plugin An instance of your plugin.
      */
-    public Config(String resourceName, JavaPlugin plugin) {
+    public YamlConfig(String resourceName, JavaPlugin plugin) {
         this.resourceName = resourceName.endsWith(".yml")?resourceName:resourceName+".yml";
         this.plugin = plugin;
     }
