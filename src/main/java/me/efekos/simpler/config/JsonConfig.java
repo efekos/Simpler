@@ -26,6 +26,8 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -64,7 +66,7 @@ public class JsonConfig {
     /**
      * A map of the keys that has an array value. Type of the array is unknown.
      */
-    private final Map<String,List<?>> arrayValues = new HashMap<>();
+    private final Map<String,List<Object>> arrayValues = new HashMap<>();
     /**
      * List of the keys that has the value {@code null}.
      */
@@ -169,6 +171,9 @@ public class JsonConfig {
                     if(jsonElement.isJsonObject()) {
                         listToSave.add(jsonElement.getAsJsonObject());
                     }
+                    if(jsonElement.isJsonArray()){
+                        listToSave.add(jsonElement.getAsJsonArray());
+                    }
                 }
 
                 arrayValues.put(preKey+key,listToSave);
@@ -189,5 +194,91 @@ public class JsonConfig {
     private void readString(String preKey,String key,JsonPrimitive primitive){
         stringValues.put(preKey+key,primitive.getAsString());
         if(primitive.getAsString().length()==1) characterValues.put(preKey+key,primitive.getAsString().charAt(0));
+    }
+
+    /**
+     * Finds a {@link String} from the configuration
+     * @param path Path to the {@link String} you want.
+     * @param def Default {@link String} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @return Whatever found.
+     */
+    public String getString(String path, String def){
+        return stringValues.getOrDefault(path,def);
+    }
+
+    /**
+     * Finds a {@link Boolean} from the configuration
+     * @param path Path to the {@link Boolean} you want.
+     * @param def Default {@link Boolean} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @return Whatever found.
+     */
+    public Boolean getBoolean(String path,boolean def){
+        return booleanValues.getOrDefault(path,def);
+    }
+
+    /**
+     * Finds a {@link Character} from the configuration
+     * @param path Path to the {@link Character} you want.
+     * @param def Default {@link Character} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @return Whatever found.
+     */
+    public Character getCharacter(String path,char def){
+        return characterValues.getOrDefault(path,def);
+    }
+
+    /**
+     * Finds an {@link Integer} from the configuration
+     * @param path Path to the {@link Integer} you want.
+     * @param def Default {@link Integer} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @return Whatever found.
+     */
+    public Integer getInteger(String path,int def){
+        return numberValues.getOrDefault(path,def);
+    }
+
+    /**
+     * Finds a {@link Double} from the configuration
+     * @param path Path to the {@link Double} you want.
+     * @param def Default {@link Double} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @return Whatever found.
+     */
+    public Double getDouble(String path,double def){
+        return doubleValues.getOrDefault(path,def);
+    }
+
+    /**
+     * Finds a list from config. Please note that:
+     * <ul>
+     *     <li>Every boolean inside an array was saved as {@link Boolean}</li>
+     *     <li>Every string inside an array was saved as {@link String}</li>
+     *     <li>Every number inside an array was saved as {@link Number}</li>
+     *     <li>Every object inside an array was saved as {@link JsonObject}</li>
+     *     <li>Every array inside an array was saved as {@link JsonArray}</li>
+     * </ul>
+     * @param path Key of the value that you want.
+     * @return A list if found, {@code null} otherwise.
+     */
+    public List<Object> getList(String path){
+        if(nullValues.contains(path))return null;
+        return arrayValues.get(path);
+    }
+
+    /**
+     * Reloads the config by reading the file again.
+     */
+    public void reload(){
+        arrayValues.clear();
+        nullValues.clear();
+        booleanValues.clear();
+        doubleValues.clear();
+        numberValues.clear();
+        stringValues.clear();
+        characterValues.clear();
+
+        try {
+            setup();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
     }
 }
