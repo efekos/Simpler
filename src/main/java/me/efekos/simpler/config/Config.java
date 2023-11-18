@@ -61,7 +61,7 @@ public class Config {
      * @param plugin An instance of your plugin.
      */
     public Config(String resourceName, JavaPlugin plugin) {
-        this.resourceName = resourceName;
+        this.resourceName = resourceName.endsWith(".yml")?resourceName:resourceName+".yml";
         this.plugin = plugin;
     }
     
