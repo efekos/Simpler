@@ -1,6 +1,6 @@
-[![](https://jitpack.io/v/efe124/Simpler.svg)](https://jitpack.io/#efe124/Simpler)
+[![](https://jitpack.io/v/efekos/Simpler.svg)](https://jitpack.io/#efekos/Simpler)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![version](https://img.shields.io/badge/version-1.5.7-blue)
+![version](https://img.shields.io/badge/version-1.5.8-blue)
 # Simpler
 
 <!-- TOC -->
@@ -27,9 +27,9 @@
 * Add this dependency
 ````xml
 <dependency>
-    <groupId>com.github.efe124</groupId>
+    <groupId>com.github.efekos</groupId>
     <artifactId>Simpler</artifactId>
-    <version>1.5.7</version>
+    <version>1.5.8</version>
 </dependency>
 ````
 
@@ -47,6 +47,6 @@ allprojects {
 * Add this dependency:
 ````gradle
 dependencies {
-	implementation 'com.github.efe124:Simpler:1.5.7'
+	implementation 'com.github.efekos:Simpler:1.5.8'
 }
 ````
