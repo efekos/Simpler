@@ -1,9 +1,6 @@
 package me.efekos.simpler;
 
-import me.clip.placeholderapi.PlaceholderAPI;
-import me.clip.placeholderapi.PlaceholderAPIPlugin;
 import me.efekos.simpler.config.MessageConfiguration;
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -29,18 +26,6 @@ public final class Simpler extends JavaPlugin {
      */
     public static void changeMessageConfiguration(MessageConfiguration configuration) {
         Simpler.configuration = configuration;
-    }
-
-    /**
-     * Checks for PlaceholderAPI existence in server.
-     * @return whether the server has PlaceholderAPI
-     */
-    public static boolean hasPlaceholderApi(){
-        try {
-            return Bukkit.getServer().getPluginManager().isPluginEnabled(PlaceholderAPIPlugin.getInstance());
-        } catch (Exception e){
-            return Bukkit.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI");
-        }
     }
 
     @Override
