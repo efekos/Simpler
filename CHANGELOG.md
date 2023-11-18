@@ -51,3 +51,8 @@
 
 ## 1.5.7
 * **Fixed** The same issue. I won't go further today if it isn't fixed.
+
+## 1.5.8
+* **Added** `JsonConfig`: Configuration with JSON files! If you see any bug while using this, please open an issue about it.
+* **Changed** `ItemContent`: Now it works for only 1.20.2. Also made every subclass of `ItemContent` different classes. See `@.items.compound` and `@.items.tag` package for more information.
+* **Renamed** `Config` to `YamlConfig`
