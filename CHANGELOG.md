@@ -56,3 +56,19 @@
 * **Added** `JsonConfig`: Configuration with JSON files! If you see any bug while using this, please open an issue about it.
 * **Changed** `ItemContent`: Now it works for only 1.20.2. Also made every subclass of `ItemContent` different classes. See `@.items.compound` and `@.items.tag` package for more information.
 * **Renamed** `Config` to `YamlConfig`
+
+# 1.6
+
+* **Added** `CommandTree`: Make commands that can go infinite subs.
+* **Added** `CommandNode`: Main command node that `CommandTree`s use.
+* **Added** `ArgumentNode`: Main node for arguments.
+* **Added** `LabelNode`: Just one label, like a sub command.
+* **Added** `IntegerArgumentNode`: Number argument for `CommandTree`s that only accepts Integer.
+* **Added** `PlayerArgumentNode`: Player argument for `CommandTree`s.
+* **Added** `StringArgumentNode`: String argument for `CommandTree`s.
+* **Added** `ListArgumentNode`: List argument for `CommandTree`s.
+* **Added** `CommandExecutive`: Main interface for classes that contains an executing code for `CommandTree`s.
+* **Added** `CommandExecuteContext`: Main context class used by `CommandExecutive`.
+* **Added** `CommandManager#registerCommandTree`: Register a command tree you created.
+* **Added** `TreeCommand`: Actual command that handles a `CommandTree`.
+* **Renamed** `NumberArgument` to `IntegerArgument`.
