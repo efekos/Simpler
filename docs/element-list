@@ -1,6 +1,8 @@
 me.efekos.simpler
 me.efekos.simpler.annotations
 me.efekos.simpler.commands
+me.efekos.simpler.commands.node
+me.efekos.simpler.commands.node.impl
 me.efekos.simpler.commands.syntax
 me.efekos.simpler.commands.syntax.impl
 me.efekos.simpler.config
