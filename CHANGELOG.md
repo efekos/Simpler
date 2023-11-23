@@ -73,4 +73,5 @@
 * **Added** `TreeCommand`: Actual command that handles a `CommandTree`.
 * **Added** `PaginatedMenu`: A menu that shows any amount of `ItemStack`s using page system.
 * **Renamed** `NumberArgument` to `IntegerArgument`.
-* **Removed** `JSONDataManager`: Please use `ListDataManager`.
+* **Removed** `JSONDataManager`: Please use `ListDataManager`.,
+* **Changed** Java version to 16.
