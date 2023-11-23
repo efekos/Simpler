@@ -71,5 +71,6 @@
 * **Added** `CommandExecuteContext`: Main context class used by `CommandExecutive`.
 * **Added** `CommandManager#registerCommandTree`: Register a command tree you created.
 * **Added** `TreeCommand`: Actual command that handles a `CommandTree`.
+* **Added** `PaginatedMenu`: A menu that shows any amount of `ItemStack`s using page system.
 * **Renamed** `NumberArgument` to `IntegerArgument`.
-* **Removed** `JSONDataManager`: Please use `ListDataManager`
+* **Removed** `JSONDataManager`: Please use `ListDataManager`.
