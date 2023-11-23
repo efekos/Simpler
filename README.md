@@ -1,6 +1,8 @@
 [![](https://jitpack.io/v/efekos/Simpler.svg)](https://jitpack.io/#efekos/Simpler)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-![version](https://img.shields.io/badge/version-1.5.8-blue)
+[![License: MIT](https://flat.badgen.net/badge/Lisence/MIT)](https://opensource.org/licenses/MIT)
+![version](https://flat.badgen.net/github/release/efekos/Simpler)
+![](https://flat.badgen.net/github/stars/efekos/Simpler)
+[![](https://flat.badgen.net/badge/JavaDoc/available)](https://efekos.github.io/Simpler)
 # Simpler
 
 <!-- TOC -->
@@ -10,6 +12,13 @@
     * [Gradle](#gradle)
 <!-- TOC -->
 
+Simpler is an API that helps you make spigot plugins with a lot of different ways. With Simpler, you can make
+
+* Custom commands
+* Custom items
+* Custom menus
+* Custom config files (Even .JSON ones!)
+* Custom data using .JSON files (meaning no database needed!)
 
 ## Installation
 
@@ -29,7 +38,7 @@
 <dependency>
     <groupId>com.github.efekos</groupId>
     <artifactId>Simpler</artifactId>
-    <version>1.5.8</version>
+    <version>1.6.0</version>
 </dependency>
 ````
 
@@ -47,6 +56,6 @@ allprojects {
 * Add this dependency:
 ````gradle
 dependencies {
-	implementation 'com.github.efekos:Simpler:1.5.8'
+	implementation 'com.github.efekos:Simpler:1.6.0'
 }
 ````
