@@ -224,16 +224,32 @@ public class MessageConfiguration {
             return this;
         }
 
+        /**
+         * Changes the 'Next' shown at the buttons of {@link me.efekos.simpler.menu.PaginatedMenu}s.
+         * @param paginatedMenuNext Your paginated menu's 'Next' button message to replace with the default one.
+         * @return Itself after changing the paginated menu text.
+         */
         public Builder paginatedMenuNext(String paginatedMenuNext) {
             this.paginatedMenuNext = paginatedMenuNext;
             return this;
         }
 
+        /**
+         * Changes the 'Prev' shown at the buttons of {@link me.efekos.simpler.menu.PaginatedMenu}s.
+         * @param paginatedMenuPrev Your paginated menu's 'Prev' button message to replace with the default one.
+         * @return Itself after changing the paginated menu text.
+         */
         public Builder paginatedMenuPrev(String paginatedMenuPrev) {
             this.paginatedMenuPrev = paginatedMenuPrev;
             return this;
         }
 
+        /**
+         * Changes the 'Page 1/?' shown at the buttons of {@link me.efekos.simpler.menu.PaginatedMenu}s.
+         * @param paginatedMenuPage Your paginated menu's page message to replace with the default one. %page% is the
+         *                          current page, %max% is the amount of pages.
+         * @return Itself after changing the paginated menu text.
+         */
         public Builder paginatedMenuPage(String paginatedMenuPage) {
             this.paginatedMenuPage = paginatedMenuPage;
             return this;
