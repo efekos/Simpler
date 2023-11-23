@@ -2,7 +2,8 @@
 [![License: MIT](https://flat.badgen.net/badge/Lisence/MIT)](https://opensource.org/licenses/MIT)
 ![version](https://flat.badgen.net/github/release/efekos/Simpler)
 ![](https://flat.badgen.net/github/stars/efekos/Simpler)
-[![](https://flat.badgen.net/badge/JavaDoc/available)](https://efekos.github.io/Simpler)
+[![](https://flat.badgen.net/badge/JavaDoc/available/green)](https://efekos.github.io/Simpler)
+![](https://flat.badgen.net/badge/Tutorials/unavaliable/red)
 # Simpler
 
 <!-- TOC -->
