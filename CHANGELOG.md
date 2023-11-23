@@ -75,3 +75,7 @@
 * **Renamed** `NumberArgument` to `IntegerArgument`.
 * **Removed** `JSONDataManager`: Please use `ListDataManager`.,
 * **Changed** Java version to 16.
+
+## 1.6.1
+
+**Changed** Java version to 17.
