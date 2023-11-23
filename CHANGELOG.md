@@ -72,3 +72,4 @@
 * **Added** `CommandManager#registerCommandTree`: Register a command tree you created.
 * **Added** `TreeCommand`: Actual command that handles a `CommandTree`.
 * **Renamed** `NumberArgument` to `IntegerArgument`.
+* **Removed** `JSONDataManager`: Please use `ListDataManager`
