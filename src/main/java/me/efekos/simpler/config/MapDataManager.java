@@ -34,10 +34,11 @@ import java.util.*;
 /**
  * A basic database class made using {@link Gson}. You can store a {@link java.util.Map<K,V>} in this data. Use {@link #save()}
  * and {@link #load(Class)} to load your data.
+ * @param <K> Type of the keys you will use. Probably {@link String} but you can change it to something else if you want.
  * @param <V>
  *           Type of the data you want to store as a list. Be aware that using incompatible types
  *           in this type might cause errors. Just to let you know, there is a list of the classes
- *           compatible to be used inside T of database.
+ *           compatible to be used inside V.
  *           <ul>
  *           <li>{@link String}.</li>
  *           <li>{@link Boolean}.</li>
@@ -98,8 +99,9 @@ public class MapDataManager<K, V> {
     }
 
     /**
-     * Adds the given data to list.
-     * @param data Data you want to add to the list.
+     * Puts the given data to map.
+     * @param key Key of the data in map.
+     * @param data Data you want to put to the map.
      */
     public void set(K key,V data){
         this.data.put(key,data);

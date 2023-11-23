@@ -31,5 +31,19 @@ public final class Simpler extends JavaPlugin {
     @Override
     public void onEnable() {
 
+        //this thing simply makes a /home set <pos> command with nms. I'll use it later 👀👀
+        //CommandDispatcher<CommandListenerWrapper> dispatcher = MinecraftServer.getServer().vanillaCommandDispatcher.a();
+
+        //
+        //dispatcher.register(net.minecraft.commands.CommandDispatcher.a("home")
+        //        .then(net.minecraft.commands.CommandDispatcher.a("set")
+        //                .then(net.minecraft.commands.CommandDispatcher.a("pos", ArgumentPosition.a())
+        //                        .executes(commandContext -> {
+        //                            commandContext.getSource().a(IChatBaseComponent.a("sdf"));
+        //                            return 1;
+        //                        })
+        //                )
+        //        )
+        //);
     }
 }

@@ -35,7 +35,7 @@ import java.util.List;
 /**
  * An example extension of custom {@link Argument}s: This argument can be any integer, or an integer in a range.
  */
-public class NumberArgument extends Argument {
+public class IntegerArgument extends Argument {
     /**
      * Placeholder of this argument.
      */
@@ -54,13 +54,13 @@ public class NumberArgument extends Argument {
     private final int max;
 
     /**
-     * Crates an instance of {@link NumberArgument}.
+     * Crates an instance of {@link IntegerArgument}.
      * @param holder Placeholder of the argument.
      * @param priority Priority of the argument.
      * @param min Minimum value.
      * @param max Maximum value.
      */
-    public NumberArgument(String holder, ArgumentPriority priority,int min, int max) {
+    public IntegerArgument(String holder, ArgumentPriority priority, int min, int max) {
         this.holder = holder;
         this.min = min;
         this.max = max;
@@ -68,11 +68,11 @@ public class NumberArgument extends Argument {
     }
 
     /**
-     * Crates an instance of {@link NumberArgument}.
+     * Crates an instance of {@link IntegerArgument}.
      * @param holder Placeholder of the argument.
      * @param priority Priority of the argument.
      */
-    public NumberArgument(String holder, ArgumentPriority priority) {
+    public IntegerArgument(String holder, ArgumentPriority priority) {
         this.holder = holder;
         this.min = Integer.MIN_VALUE;
         this.max = Integer.MAX_VALUE;

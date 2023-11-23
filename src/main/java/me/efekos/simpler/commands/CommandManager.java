@@ -113,4 +113,21 @@ public class CommandManager {
             map.register(plugin.getName(),newCommand);
         } catch (Exception e){e.printStackTrace();}
     }
+
+    /**
+     * Creates a command out of the tree and executes it.
+     * @param plugin an instance of your {@link JavaPlugin}.
+     * @param tree Any {@link CommandTree}.
+     * @throws NoSuchFieldException If there is no commandMap, which is not usual in a healthy server.
+     * @throws IllegalAccessException If we can't access commandField
+     */
+    public static void registerCommandTree(JavaPlugin plugin,CommandTree tree) throws NoSuchFieldException, IllegalAccessException {
+        TreeCommand treeCommand = new TreeCommand(tree);
+
+        Field commandField = plugin.getServer().getClass().getDeclaredField("commandMap");
+        commandField.setAccessible(true);
+        CommandMap map = (CommandMap) commandField.get(plugin.getServer());
+
+        map.register(plugin.getName(),treeCommand);
+    }
 }
