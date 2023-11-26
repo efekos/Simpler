@@ -113,7 +113,6 @@ class TreeCommand extends Command {
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
         if(!sender.hasPermission(base.getBasePermission())){
-            sender.sendMessage("u don't have perm btw");
             return Collections.emptyList();
         }
 
