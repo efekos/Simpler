@@ -79,3 +79,7 @@
 ## 1.6.1
 
 **Changed** Java version to 17.
+
+## 1.6.2
+
+**Removed** a line of code that shouldn't exist in the final build.
