@@ -73,7 +73,7 @@
 * **Added** `TreeCommand`: Actual command that handles a `CommandTree`.
 * **Added** `PaginatedMenu`: A menu that shows any amount of `ItemStack`s using page system.
 * **Renamed** `NumberArgument` to `IntegerArgument`.
-* **Removed** `JSONDataManager`: Please use `ListDataManager`.,
+* **Removed** `JSONDataManager`: Please use `ListDataManager`.
 * **Changed** Java version to 16.
 
 ## 1.6.1
@@ -83,3 +83,11 @@
 ## 1.6.2
 
 **Removed** a line of code that shouldn't exist in the final build.
+
+## 1.6.3
+
+**Added** `CommandExecuteContext#getSenderAsPlayer`
+**Added** `CommandExecuteContext#getSenderAsConsole`
+**Changed** `CommandExecuteContext` to be a class.
+**Changed** `CommandExecuteContext#args` to `CommandExecuteContext#getArgs`
+**Changed** `CommandExecuteContext#sender` to `CommandExecuteContext#getSender`
