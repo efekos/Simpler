@@ -87,7 +87,7 @@ class TreeCommand extends Command {
                     children = node.getChildren();
                 } else {
                     if(commandSender.hasPermission(node.getPermission())) finalExecutiveFound = node.getExecutive();
-                    else finalExecutiveFound = (context -> context.sender().sendMessage(TranslateManager.translateColors(Simpler.getMessageConfiguration().NO_PERMISSION)));
+                    else finalExecutiveFound = (context -> context.getSender().sendMessage(TranslateManager.translateColors(Simpler.getMessageConfiguration().NO_PERMISSION)));
                 }
             } else finalExecutiveFound = null;
             argList.remove(0);
