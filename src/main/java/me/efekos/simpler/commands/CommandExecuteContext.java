@@ -28,13 +28,21 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-/**
- * Creates a new context to use for running {@link me.efekos.simpler.commands.node.CommandExecutive}s of
- * {@link me.efekos.simpler.commands.node.CommandNode}s.
- * @param sender Sender that ran this command.
- * @param args List of the arguments sender gave.
- */
-public record CommandExecuteContext(CommandSender sender, List<String> args) {
+public class CommandExecuteContext {
+    private final CommandSender sender;
+    private final List<String> args;
+
+
+    /**
+     * Creates a new context to use for running {@link me.efekos.simpler.commands.node.CommandExecutive}s of
+     * {@link me.efekos.simpler.commands.node.CommandNode}s.
+     * @param sender Sender that ran this command.
+     * @param args List of the arguments sender gave.
+     */
+    public CommandExecuteContext(CommandSender sender, List<String> args) {
+        this.sender = sender;
+        this.args = args;
+    }
 
     /**
      * Checks what sender is, and returns whether the sender is a player or not.
@@ -53,13 +61,39 @@ public record CommandExecuteContext(CommandSender sender, List<String> args) {
         return sender instanceof ConsoleCommandSender;
     }
 
-    @Override
-    public CommandSender sender() {
+    /**
+     * Returns the sender that ran this command.
+     * @return Sender of this context.
+     */
+    public CommandSender getSender() {
         return sender;
     }
 
-    @Override
-    public List<String> args() {
+    /**
+     * Casts the sender to a {@link Player}, then returns it. Make sure to use this only when {@link #isSenderPlayer()}
+     * is {@code true}.
+     * @return Sender of this context as {@link Player}.
+     */
+    public Player getSenderAsPlayer(){
+        return ((Player) sender);
+    }
+
+
+    /**
+     * Casts the sender to a {@link ConsoleCommandSender}, then returns it. Make sure to use this only when
+     * {@link #isSenderConsole()} is {@code true}.
+     * @return Sender of this context as {@link ConsoleCommandSender}.
+     */
+    public ConsoleCommandSender getSenderAsConsole(){
+        return ((ConsoleCommandSender) sender);
+    }
+
+    /**
+     * Returns a list of the arguments that sender gave. Keep in mind that {@link me.efekos.simpler.commands.node.impl.LabelNode}s
+     * are filtered out from this list. You'll only get the arguments.
+     * @return Argument list of this context.
+     */
+    public List<String> getArgs() {
         return args;
     }
 }
