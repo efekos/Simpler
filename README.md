@@ -39,7 +39,7 @@ Simpler is an API that helps you make spigot plugins with a lot of different way
 <dependency>
     <groupId>com.github.efekos</groupId>
     <artifactId>Simpler</artifactId>
-    <version>1.6.0</version>
+    <version>1.6.2</version>
 </dependency>
 ````
 
@@ -57,6 +57,6 @@ allprojects {
 * Add this dependency:
 ````gradle
 dependencies {
-	implementation 'com.github.efekos:Simpler:1.6.0'
+	implementation 'com.github.efekos:Simpler:1.6.2'
 }
 ````
