@@ -67,6 +67,7 @@ class TreeCommand extends Command {
         }
 
         List<@NotNull String> argList = Arrays.stream(args).collect(Collectors.toList());
+        List<String> argumentList = new ArrayList<>();
 
         List<CommandNode> children = base.getChildren();
         CommandExecutive finalExecutiveFound = null;
@@ -80,6 +81,8 @@ class TreeCommand extends Command {
             if (first.isPresent()) {
                 CommandNode node = first.get();
 
+                if(node instanceof ArgumentNode) argumentList.add(arg);
+
                 if(argList.size()!=1) {
                     children = node.getChildren();
                 } else {
@@ -91,7 +94,7 @@ class TreeCommand extends Command {
         }
 
 
-        if(Objects.nonNull(finalExecutiveFound)) finalExecutiveFound.onExecute(new CommandExecuteContext(commandSender,Arrays.asList(args)));
+        if(Objects.nonNull(finalExecutiveFound)) finalExecutiveFound.onExecute(new CommandExecuteContext(commandSender,argumentList));
 
         return true;
     }
