@@ -37,10 +37,17 @@ public abstract class CommandNode {
      * List of the child nodes that this node contain. Used for command executing and tab completion.
      */
     private final List<CommandNode> children = new ArrayList<>();
+
     /**
      * Executive that this node will run when someone runs this command.
      */
     private CommandExecutive executive;
+
+    /**
+     * Executive that this node will run when the console runs this command.
+     */
+    private CommandExecutive consoleExecutive;
+
     /**
      * Permission required to execute {@link CommandNode#executive}.
      */
@@ -60,6 +67,24 @@ public abstract class CommandNode {
      */
     public CommandExecutive getExecutive() {
         return executive;
+    }
+
+    /**
+     * Returns a {@link CommandExecutive} to run when the console executes this node.
+     * @return Console-special executive of this node.
+     */
+    public CommandExecutive getConsoleExecutive() {
+        return consoleExecutive;
+    }
+
+    /**
+     * Changes the console-special executive of this node.
+     * @param consoleExecutive New executive to use
+     * @return CommandNode itself.
+     */
+    public CommandNode setConsoleExecutive(CommandExecutive consoleExecutive) {
+        this.consoleExecutive = consoleExecutive;
+        return this;
     }
 
     /**
