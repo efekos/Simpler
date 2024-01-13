@@ -30,6 +30,7 @@ import me.efekos.simpler.translation.TranslateManager;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -86,7 +87,7 @@ class TreeCommand extends Command {
                 if(argList.size()!=1) {
                     children = node.getChildren();
                 } else {
-                    if(commandSender.hasPermission(node.getPermission())) finalExecutiveFound = node.getExecutive();
+                    if(commandSender.hasPermission(node.getPermission())) finalExecutiveFound = commandSender instanceof ConsoleCommandSender ? node.getConsoleExecutive() : node.getExecutive();
                     else finalExecutiveFound = (context -> context.getSender().sendMessage(TranslateManager.translateColors(Simpler.getMessageConfiguration().NO_PERMISSION)));
                 }
             } else finalExecutiveFound = null;
