@@ -91,3 +91,8 @@
 **Changed** `CommandExecuteContext` to be a class.
 **Changed** `CommandExecuteContext#args` to `CommandExecuteContext#getArgs`
 **Changed** `CommandExecuteContext#sender` to `CommandExecuteContext#getSender`
+
+## 1.6.4
+
+**Added** `CommandExecutive.consoleExecutive`: Executive that only runs when the sender is console. Old executive will
+keep running if the sender is a player.
