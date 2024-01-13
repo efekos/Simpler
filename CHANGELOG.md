@@ -78,21 +78,21 @@
 
 ## 1.6.1
 
-**Changed** Java version to 17.
+* **Changed** Java version to 17.
 
 ## 1.6.2
 
-**Removed** a line of code that shouldn't exist in the final build.
+* **Removed** a line of code that shouldn't exist in the final build.
 
 ## 1.6.3
 
-**Added** `CommandExecuteContext#getSenderAsPlayer`
-**Added** `CommandExecuteContext#getSenderAsConsole`
-**Changed** `CommandExecuteContext` to be a class.
-**Changed** `CommandExecuteContext#args` to `CommandExecuteContext#getArgs`
-**Changed** `CommandExecuteContext#sender` to `CommandExecuteContext#getSender`
+* **Added** `CommandExecuteContext#getSenderAsPlayer`
+* **Added** `CommandExecuteContext#getSenderAsConsole`
+* **Changed** `CommandExecuteContext` to be a class.
+* **Changed** `CommandExecuteContext#args` to `CommandExecuteContext#getArgs`
+* **Changed** `CommandExecuteContext#sender` to `CommandExecuteContext#getSender`
 
 ## 1.6.4
 
-**Added** `CommandExecutive.consoleExecutive`: Executive that only runs when the sender is console. Old executive will
+* **Added** `CommandExecutive.consoleExecutive`: Executive that only runs when the sender is console. Old executive will
 keep running if the sender is a player.
