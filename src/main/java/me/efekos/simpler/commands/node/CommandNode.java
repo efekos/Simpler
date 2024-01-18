@@ -49,6 +49,30 @@ public abstract class CommandNode {
     private CommandExecutive consoleExecutive;
 
     /**
+     * Description of this node
+     */
+    private String description;
+
+    /**
+     * Returns the description of this node
+     * @return Description of this node
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Changes the description of this node. You don't really have to set a description if this node won't have a
+     * {@link CommandExecutive}.
+     * @param description Description of this node.
+     * @return Itself.
+     */
+    public CommandNode setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
+    /**
      * Permission required to execute {@link CommandNode#executive}.
      */
     private String permission = "";
