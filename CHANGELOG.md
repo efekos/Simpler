@@ -99,4 +99,6 @@ keep running if the sender is a player.
 
 ## 1.6.5
 
+* **Added** `CommandNode.description` - Going to be used for auto-generated help menus.
+* **Added** `CommandNode.parent` - Going to be used for auto-generated help menus.
 * **Deprecated** `ItemContent`, and it's needed classes. Everything here will be moved into [another repository](https://github.com/efekos/ItemContent).
