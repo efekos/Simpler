@@ -26,6 +26,8 @@ import me.efekos.simpler.items.ItemContent;
 
 import java.util.List;
 
+
+@Deprecated
 public class BundleTag extends ItemTag{
     private final List<ItemContent> Items;
 

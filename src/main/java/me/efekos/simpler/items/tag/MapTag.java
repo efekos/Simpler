@@ -22,6 +22,7 @@
 
 package me.efekos.simpler.items.tag;
 
+@Deprecated
 public class MapTag extends ItemTag{
     private final Integer map;
 

@@ -26,7 +26,10 @@ import org.bukkit.enchantments.Enchantment;
 
 /**
  * Represents an enchantment with its string id and level.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class EnchantmentCompound {
     private final String id;
     private final Integer lvl;

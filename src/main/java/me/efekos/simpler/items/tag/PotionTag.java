@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.PotionEffectCompound;
 
+@Deprecated
 public class PotionTag extends ItemTag{
     private final PotionEffectCompound[] custom_potion_effects;
     private final String Potion;

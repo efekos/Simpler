@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.BannerCompound;
 
+@Deprecated
 public class BannerTag extends ItemTag{
     private final BannerCompound BlockEntityTag;
 

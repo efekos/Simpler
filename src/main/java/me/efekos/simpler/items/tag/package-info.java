@@ -23,4 +23,5 @@
 /**
  * Classes for different kinds of tags used in {@link me.efekos.simpler.items.ItemContent}
  */
+@Deprecated
 package me.efekos.simpler.items.tag;

@@ -22,11 +22,12 @@
 
 package me.efekos.simpler.items.compound;
 
-import me.efekos.simpler.items.ItemContent;
-
 /**
  * Represents the data inside "Fireworks" tag of a firework.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class FireworkCompound {
     private final Integer Flight;
 

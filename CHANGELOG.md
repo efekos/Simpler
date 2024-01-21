@@ -96,3 +96,7 @@
 
 * **Added** `CommandExecutive.consoleExecutive`: Executive that only runs when the sender is console. Old executive will
 keep running if the sender is a player.
+
+## 1.6.5
+
+* **Deprecated** `ItemContent`, and it's needed classes. Everything here will be moved into [another repository](https://github.com/efekos/ItemContent).

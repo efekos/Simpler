@@ -28,7 +28,10 @@ import java.util.List;
 
 /**
  * Represents a JSON text you might be familiar from /tellraw command. Used to store custom names and lores.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ *  be removed from here soon.
  */
+@Deprecated
 public class TextCompound {
     private final List<TextCompound> extra;
     private final boolean italic;

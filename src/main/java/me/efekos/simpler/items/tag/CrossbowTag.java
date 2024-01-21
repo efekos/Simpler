@@ -26,6 +26,7 @@ import me.efekos.simpler.items.ItemContent;
 
 import java.util.List;
 
+@Deprecated
 public class CrossbowTag extends ItemTag{
     private final List<ItemContent> ChargedProjectiles;
     private final boolean Charged;

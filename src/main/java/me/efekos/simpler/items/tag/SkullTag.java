@@ -22,6 +22,7 @@
 
 package me.efekos.simpler.items.tag;
 
+@Deprecated
 public class SkullTag extends ItemTag{
     private final String SkullOwner;
 

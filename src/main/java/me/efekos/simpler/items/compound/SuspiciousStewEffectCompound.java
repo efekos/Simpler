@@ -24,7 +24,10 @@ package me.efekos.simpler.items.compound;
 
 /**
  * Represents an effect of the "Suspicious Stew" item.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class SuspiciousStewEffectCompound {
     private final Integer effect_id;
     private final Integer effect_duration;

@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.CompassPositionCompound;
 
+@Deprecated
 public class CompassTag extends ItemTag{
     private final CompassPositionCompound LodestonePos;
     private final String LodestoneDimension;
