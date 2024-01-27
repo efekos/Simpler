@@ -102,4 +102,6 @@ keep running if the sender is a player.
 * **Added** `CommandNode.description` - Going to be used for auto-generated help menus.
 * **Added** `CommandNode.parent` - Going to be used for auto-generated help menus.
 * **Changed** License year to 2024.
+* **Changed** `Simpler` class to be a class that doesn't extend `JavaPlugin`, because it isn't necessary.
+* **Removed** `plugin.yml` from resources.
 * **Deprecated** `ItemContent`, and it's needed classes. Everything here will be moved into [another repository](https://github.com/efekos/ItemContent).
