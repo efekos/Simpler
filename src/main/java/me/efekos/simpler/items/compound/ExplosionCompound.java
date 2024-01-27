@@ -26,7 +26,10 @@ import java.util.List;
 
 /**
  * Represents an explosion effect of a firework.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class ExplosionCompound {
     private final boolean Flicker;
     private final boolean Trail;

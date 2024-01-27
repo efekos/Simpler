@@ -22,6 +22,7 @@
 
 package me.efekos.simpler.items.tag;
 
+@Deprecated
 public class AxolotlBucketTag extends ItemTag{
     private final Integer Variant;
 

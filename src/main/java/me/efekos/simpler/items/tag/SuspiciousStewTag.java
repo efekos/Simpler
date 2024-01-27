@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.SuspiciousStewEffectCompound;
 
+@Deprecated
 public class SuspiciousStewTag extends ItemTag{
     private final SuspiciousStewEffectCompound[] effects;
 

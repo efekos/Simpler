@@ -24,7 +24,10 @@ package me.efekos.simpler.items.compound;
 
 /**
  * Represents a pattern inside a banner.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class BannerPatternCompound {
     private final String Pattern;
     private final Integer Color;

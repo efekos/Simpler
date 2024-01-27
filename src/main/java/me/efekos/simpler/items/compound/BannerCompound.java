@@ -22,11 +22,12 @@
 
 package me.efekos.simpler.items.compound;
 
-import me.efekos.simpler.items.ItemContent;
-
 /**
  * Represents a banner item.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class BannerCompound {
     private final Integer Base;
     private final BannerPatternCompound[] Patterns;

@@ -26,6 +26,11 @@ import com.google.gson.Gson;
 
 import java.util.Arrays;
 
+/**
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
+ */
+@Deprecated
 public class Display {
     private final String Name;
     private final String[] Lore;

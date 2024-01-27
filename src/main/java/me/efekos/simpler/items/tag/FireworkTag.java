@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.FireworkCompound;
 
+@Deprecated
 public class FireworkTag extends ItemTag{
     private final FireworkCompound Fireworks;
     public FireworkTag(ItemTag oldItemTag, FireworkCompound compound){

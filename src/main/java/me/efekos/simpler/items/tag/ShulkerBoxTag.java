@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.ShulkerBoxCompound;
 
+@Deprecated
 public class ShulkerBoxTag extends ItemTag{
     private final ShulkerBoxCompound BlockEntityTag;
 

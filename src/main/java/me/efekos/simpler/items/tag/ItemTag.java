@@ -22,13 +22,16 @@
 
 package me.efekos.simpler.items.tag;
 
-import me.efekos.simpler.items.ItemContent;
-import me.efekos.simpler.items.compound.*;
+import me.efekos.simpler.items.compound.Display;
+import me.efekos.simpler.items.compound.EnchantmentCompound;
 
 /**
  * Main class for the "tag" value inside an item NBT. Most of the items has their own NBT data to store data
  * inside it. <a href="https://minecraft.wiki/Player.dat_format#Item_structure">See more about item NBT data</a>.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class ItemTag {
     /**
      * A value probably used to define how many levels you will need to repair an item. Goes up by 1 every time you repair the item using an anvil.

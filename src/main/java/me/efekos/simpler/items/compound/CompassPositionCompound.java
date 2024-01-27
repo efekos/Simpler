@@ -24,7 +24,10 @@ package me.efekos.simpler.items.compound;
 
 /**
  * Represents a position inside a lodestone compass.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class CompassPositionCompound {
         private final Integer X;
         private final Integer Y;

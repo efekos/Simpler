@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,7 +26,6 @@ import me.efekos.simpler.commands.node.impl.LabelNode;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -37,10 +36,46 @@ public abstract class CommandNode {
      * List of the child nodes that this node contain. Used for command executing and tab completion.
      */
     private final List<CommandNode> children = new ArrayList<>();
+
+    /**
+     * Parent of this node.
+     */
+    private CommandNode parent;
+
     /**
      * Executive that this node will run when someone runs this command.
      */
     private CommandExecutive executive;
+
+    /**
+     * Executive that this node will run when the console runs this command.
+     */
+    private CommandExecutive consoleExecutive;
+
+    /**
+     * Description of this node
+     */
+    private String description;
+
+    /**
+     * Returns the description of this node
+     * @return Description of this node
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
+     * Changes the description of this node. You don't really have to set a description if this node won't have a
+     * {@link CommandExecutive}.
+     * @param description Description of this node.
+     * @return Itself.
+     */
+    public CommandNode setDescription(String description) {
+        this.description = description;
+        return this;
+    }
+
     /**
      * Permission required to execute {@link CommandNode#executive}.
      */
@@ -63,6 +98,24 @@ public abstract class CommandNode {
     }
 
     /**
+     * Returns a {@link CommandExecutive} to run when the console executes this node.
+     * @return Console-special executive of this node.
+     */
+    public CommandExecutive getConsoleExecutive() {
+        return consoleExecutive;
+    }
+
+    /**
+     * Changes the console-special executive of this node.
+     * @param consoleExecutive New executive to use
+     * @return CommandNode itself.
+     */
+    public CommandNode setConsoleExecutive(CommandExecutive consoleExecutive) {
+        this.consoleExecutive = consoleExecutive;
+        return this;
+    }
+
+    /**
      * Changes the executive of this node.
      * @param executive New executive to use.
      * @return CommandNode itself.
@@ -78,7 +131,29 @@ public abstract class CommandNode {
      *                 {@link CommandNode#addChild(CommandNode)} later.
      */
     public CommandNode(CommandNode... children) {
-        this.children.addAll(Arrays.asList(children));
+        for (CommandNode child : children) {
+            child.setParent(this);
+            this.children.add(child);
+        }
+    }
+
+    /**
+     * Returns the parent of this node.
+     * @return Parent of this node.
+     */
+    public CommandNode getParent() {
+        return parent;
+    }
+
+    /**
+     * Changes the parent of this node. Please note that parents are only used for display purposes, and does not affect
+     * the command tree in any way. It is not recommended to change the parent of any node.
+     * @param parent New parent of this node.
+     * @return {@link CommandNode} itself.
+     */
+    public CommandNode setParent(CommandNode parent) {
+        this.parent = parent;
+        return this;
     }
 
     /**
@@ -87,6 +162,7 @@ public abstract class CommandNode {
      * @return {@link CommandNode} itself.
      */
     public CommandNode addChild(CommandNode node){
+        node.setParent(this);
         children.add(node);
         return this;
     }
@@ -97,7 +173,7 @@ public abstract class CommandNode {
      * @return {@link CommandNode} itself.
      */
     public CommandNode addChild(String label){
-        return addChild(new LabelNode(label));
+        return addChild(new LabelNode(label).setParent(this));
     }
 
     /**

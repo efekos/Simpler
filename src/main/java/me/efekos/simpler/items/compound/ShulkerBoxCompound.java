@@ -28,7 +28,10 @@ import java.util.List;
 
 /**
  * Represents the items inside a shulker box.
+ *@deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class ShulkerBoxCompound {
     private final List<ItemContent> Items;
 

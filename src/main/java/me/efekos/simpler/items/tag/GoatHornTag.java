@@ -22,6 +22,7 @@
 
 package me.efekos.simpler.items.tag;
 
+@Deprecated
 public class GoatHornTag extends ItemTag{
     private final String instrument;
 

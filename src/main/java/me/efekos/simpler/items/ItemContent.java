@@ -60,7 +60,10 @@ import java.util.stream.Collectors;
  * box, even with the fact that their names get saved too. Some extreme items (like a ban shulker or a cursed
  * bundle) have a small chance to make some lag in the server, maybe, just maybe, even crash it.
  * <b>IMPORTANT</b>: Be aware that this class is intended to be used in 1.20.2 servers.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class ItemContent extends Content {
     @Override
     public HoverEvent.Action requiredAction() {

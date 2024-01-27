@@ -22,5 +22,8 @@
 
 /**
  * Classes about the compounds used in {@link me.efekos.simpler.items.tag.ItemTag}s.
+ * @deprecated This package is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 package me.efekos.simpler.items.compound;

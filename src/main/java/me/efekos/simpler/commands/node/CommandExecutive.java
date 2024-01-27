@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -31,7 +31,7 @@ import org.bukkit.command.CommandSender;
 public interface CommandExecutive {
 
     /**
-     * Runs when a {@link CommandNode} that has this argument gets executed.
+     * Runs when a {@link CommandNode} that has this executive gets executed.
      * @param context Context of the command run event. All the information is from {@link org.bukkit.command.Command#execute(CommandSender, String, String[])}.
      */
     void onExecute(CommandExecuteContext context);

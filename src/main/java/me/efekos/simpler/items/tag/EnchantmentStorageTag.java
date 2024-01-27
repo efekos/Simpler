@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.EnchantmentCompound;
 
+@Deprecated
 public class EnchantmentStorageTag extends ItemTag {
     public EnchantmentStorageTag(ItemTag oldItemTag, EnchantmentCompound[] storedEnchantments) {
         super(oldItemTag.Damage, oldItemTag.getHideFlags(), oldItemTag.display, oldItemTag.isUnbreakable(), oldItemTag.getCustomModelData(), oldItemTag.getEnchantments(), oldItemTag.RepairCost);

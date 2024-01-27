@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -26,8 +26,6 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;

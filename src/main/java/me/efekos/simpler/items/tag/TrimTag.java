@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import me.efekos.simpler.items.compound.TrimCompound;
 
+@Deprecated
 public class TrimTag extends ItemTag{
     private final TrimCompound Trim;
 

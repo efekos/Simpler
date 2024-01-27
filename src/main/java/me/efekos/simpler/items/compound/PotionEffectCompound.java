@@ -25,7 +25,10 @@ package me.efekos.simpler.items.compound;
 
 /**
  * Represents a custom potion effect inside a potion.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+  * be removed from here soon.
  */
+@Deprecated
 public class PotionEffectCompound {
     private final Integer id;
     private final Integer duration;

@@ -24,6 +24,7 @@ package me.efekos.simpler.items.tag;
 
 import java.util.List;
 
+@Deprecated
 public class KnowledgeBookTag extends ItemTag{
     private final List<String> Recipes;
 

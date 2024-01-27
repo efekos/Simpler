@@ -27,7 +27,10 @@ import org.bukkit.inventory.meta.trim.TrimPattern;
 
 /**
  * Represents an armor trim inside an armor data.
+ * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
+ * be removed from here soon.
  */
+@Deprecated
 public class TrimCompound {
     private final String pattern;
     private final String material;
