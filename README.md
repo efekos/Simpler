@@ -19,7 +19,7 @@ Simpler is an API that helps you make spigot plugins with a lot of different way
 * Custom items
 * Custom menus
 * Custom config files (Even .JSON ones!)
-* Custom data using .JSON files (meaning no database needed!)
+* Custom data using .JSON files
 
 ## Installation
 
