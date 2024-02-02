@@ -111,3 +111,5 @@ keep running if the sender is a player.
 * **Added** `BaseCommand#hasPermission`
 * **Added** `CoreCommand#hasPermission`
 * **Added** `ArgumentHandleResult#hasReason`
+* **Added** `DoubleArgument`
+* **Added** `DoubleArgumentNode`
