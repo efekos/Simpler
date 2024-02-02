@@ -49,16 +49,6 @@ class TreeCommand extends Command {
         this.base = base;
     }
 
-    TreeCommand(@NotNull String name, CommandTree base) {
-        super(name);
-        this.base = base;
-    }
-
-    TreeCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases, CommandTree base) {
-        super(name, description, usageMessage, aliases);
-        this.base = base;
-    }
-
     @Override
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
 

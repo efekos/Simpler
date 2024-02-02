@@ -38,7 +38,7 @@ public abstract class Argument {
     }
 
     /**
-     * Returns a short placeholder to represent this argument. However, {@link #toString()} is more recommended than {@link #getPlaceHolder()} if you want to represent this argument as a {@link String}.
+     * Returns a short placeholder to represent this argument. However, {@link #toString()} is more recommended than this method if you want to represent this argument as a {@link String}.
      * @return The placeholder of this argument. Placeholder is usually a one-word string that represents what this argument should be. For example: {@code <player>} argument should be the name of an {@link org.bukkit.OfflinePlayer}. We are able to understand this, because that argument's placeholder is "player", meaning we should enter someone's name there.
      */
     abstract public String getPlaceHolder();
@@ -70,16 +70,9 @@ public abstract class Argument {
      */
     @Override
     public String toString() {
-        String res = "";
-
-        switch (getPriority()){
-            case OPTIONAL:
-                res = "["+getPlaceHolder()+"]";
-                break;
-            case REQUIRED:
-                res = "<"+getPlaceHolder()+">";
-                break;
-        }
-        return res;
+        return switch (getPriority()) {
+            case OPTIONAL -> "[" + getPlaceHolder() + "]";
+            case REQUIRED -> "<" + getPlaceHolder() + ">";
+        };
     }
 }

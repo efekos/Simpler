@@ -109,3 +109,5 @@ keep running if the sender is a player.
 ## 1.6.6
 
 * **Added** `BaseCommand#hasPermission`
+* **Added** `CoreCommand#hasPermission`
+* **Added** `ArgumentHandleResult#hasReason`

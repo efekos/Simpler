@@ -32,7 +32,7 @@ public class Syntax {
     /**
      * A list of the arguments list syntax will have.
      */
-    private List<Argument> arguments;
+    private final List<Argument> arguments;
 
     /**
      * Represents a syntax for a command. Every {@link Argument} gets used at tab completion and handling argument validness. A {@link Syntax} can be used to generate usage for the command. Required for {@link me.efekos.simpler.commands.BaseCommand} and {@link me.efekos.simpler.commands.SubCommand}s.

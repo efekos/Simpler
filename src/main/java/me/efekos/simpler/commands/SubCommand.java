@@ -75,8 +75,7 @@ public abstract class SubCommand extends BaseCommand{
 
             return "/"+getParent().getAnnotation(Command.class).name()+" "+getName()+builder;
         } catch (Exception e){
-            e.printStackTrace();
+           return "";
         }
-        return "";
     }
 }

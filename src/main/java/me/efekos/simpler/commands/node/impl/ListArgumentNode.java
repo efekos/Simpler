@@ -37,14 +37,14 @@ public class ListArgumentNode extends ArgumentNode {
     /**
      * Main list this node uses.
      */
-    private List<String> list;
+    private final List<String> list;
 
     /**
      * Creates a new node.
      * @param list Values that this argument can have.
      */
     public ListArgumentNode(String... list) {
-        super(new CommandNode[]{});
+        super();
         this.list = Arrays.asList(list);
     }
 

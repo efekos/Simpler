@@ -39,6 +39,7 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
@@ -192,7 +193,7 @@ public abstract class BaseCommand extends Command {
 
                         ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
                         if(!handleResult.isPassed()){
-                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
+                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.hasReason()? Objects.requireNonNull(handleResult.getReason()) :"")));
                             break a;
                         }
                     }
@@ -212,7 +213,7 @@ public abstract class BaseCommand extends Command {
 
                         ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
                         if(!handleResult.isPassed()){
-                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
+                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.hasReason()? Objects.requireNonNull(handleResult.getReason()) :"")));
                             break a;
                         }
                     }
@@ -244,7 +245,7 @@ public abstract class BaseCommand extends Command {
         if(sender instanceof Player p){
             List<Argument> arguments = getSyntax().getArguments();
 
-            if(!p.hasPermission(getPermission()))return new ArrayList<>();
+            if(hasPermission()&&!p.hasPermission(Objects.requireNonNull(getPermission())))return new ArrayList<>();
 
             int num = args.length-1;
 
@@ -271,6 +272,6 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
-       tabComplete(sender, alias, args);
+       return tabComplete(sender, alias, args);
     }
 }
