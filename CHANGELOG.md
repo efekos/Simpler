@@ -105,3 +105,7 @@ keep running if the sender is a player.
 * **Changed** `Simpler` class to be a class that doesn't extend `JavaPlugin`, because it isn't necessary.
 * **Removed** `plugin.yml` from resources.
 * **Deprecated** `ItemContent`, and it's needed classes. Everything here will be moved into [another repository](https://github.com/efekos/ItemContent).
+
+## 1.6.6
+
+* **Added** `BaseCommand#hasPermission`

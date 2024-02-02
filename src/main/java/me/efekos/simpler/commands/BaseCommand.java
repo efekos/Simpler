@@ -91,6 +91,16 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
+     * Returns whether this command has a permission.
+     * @return Whether this command has a permission.
+     */
+    public boolean hasPermission(){
+        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        if(command!=null)return command.permission()!=null;
+        else return false;
+    }
+
+    /**
      * Grabs the value of {@link me.efekos.simpler.annotations.Command#description()} and returns it.
      * @return A brief description of this command
      */
@@ -164,9 +174,8 @@ public abstract class BaseCommand extends Command {
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args){
         MessageConfiguration configuration = Simpler.getMessageConfiguration();
         a:{
-            if(sender instanceof Player){ //sender is a player
+            if(sender instanceof Player p){ //sender is a player
                 me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
-                Player p = (Player) sender;
 
                 if(!command.permission().isEmpty() &&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
@@ -232,8 +241,7 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
-        if(sender instanceof Player){
-            Player p = (Player) sender;
+        if(sender instanceof Player p){
             List<Argument> arguments = getSyntax().getArguments();
 
             if(!p.hasPermission(getPermission()))return new ArrayList<>();
@@ -263,19 +271,6 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
-        if(sender instanceof Player){
-            Player p = (Player) sender;
-            List<Argument> arguments = getSyntax().getArguments();
-
-            if(!p.hasPermission(getPermission()))return new ArrayList<>();
-
-            int num = args.length-1;
-
-            if(num<arguments.size()&&arguments.get(num)!=null){
-                Argument arg = arguments.get(num);
-                return arg.getList(p,args[num]);
-            }
-        }
-        return new ArrayList<>();
+       tabComplete(sender, alias, args);
     }
 }
