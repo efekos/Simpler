@@ -132,7 +132,7 @@ public class MapDataManager<K, V> {
     /**
      * Loads all the data from the save before. You don't have to check if file exists, because method does it.
      * @param clazz Accessing a class object of a type parameter is impossible, so you need to give it. Just do
-     * {@code <T>[].class} here, replacing {@code <T>} with name of your type. That type must be same with {@link V}.
+     * {@code Map<K,V>[].class} here, replacing {@code <K>} and {@code <V>} with the name of your type. That type must be same with {@link K} and {@link V}.
      */
     public void load(Class<Map<K,V>> clazz){
         Gson gson = new Gson();
