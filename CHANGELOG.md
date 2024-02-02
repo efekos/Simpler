@@ -113,3 +113,4 @@ keep running if the sender is a player.
 * **Added** `ArgumentHandleResult#hasReason`
 * **Added** `DoubleArgument`
 * **Added** `DoubleArgumentNode`
+* **Added** `EnumArgument`: List arguments but for enums.
