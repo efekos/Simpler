@@ -26,4 +26,8 @@ public final class Simpler {
     public static void changeMessageConfiguration(MessageConfiguration configuration) {
         Simpler.configuration = configuration;
     }
+
+    //TODO: NMS commands
+    //TODO: rework custom items
+    //TODO: finish guides
 }
