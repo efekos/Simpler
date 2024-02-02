@@ -80,7 +80,7 @@ public class DoubleArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String getPlaceHolder() {
@@ -88,7 +88,7 @@ public class DoubleArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> getList(Player player, String current) {
@@ -96,7 +96,7 @@ public class DoubleArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public ArgumentPriority getPriority() {
@@ -104,7 +104,7 @@ public class DoubleArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public ArgumentHandleResult handleCorrection(String given) {

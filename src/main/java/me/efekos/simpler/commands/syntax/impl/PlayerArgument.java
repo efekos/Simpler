@@ -52,7 +52,7 @@ public class PlayerArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public String getPlaceHolder() {
@@ -60,7 +60,7 @@ public class PlayerArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public List<String> getList(Player player, String current) {
@@ -73,7 +73,7 @@ public class PlayerArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
@@ -84,7 +84,7 @@ public class PlayerArgument extends Argument {
     }
 
     /**
-     * @inheritDoc
+     * {@inheritDoc}
      */
     @Override
     public ArgumentPriority getPriority() {

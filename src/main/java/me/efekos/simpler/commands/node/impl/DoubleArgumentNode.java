@@ -66,7 +66,7 @@ public class DoubleArgumentNode extends ArgumentNode {
     }
 
     /**
-     {@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public boolean isCorrect(String given) {
