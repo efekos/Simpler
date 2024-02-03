@@ -181,19 +181,19 @@ public abstract class CoreCommand extends Command {
         String[] subArgs = Arrays.copyOfRange(args, 1, args.length);
 
         try {
-            if (sender instanceof Player p) { //sender is a player
+            if (sender instanceof Player) { //sender is a player
                 me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
 
-                if (hasPermission() && !p.hasPermission(command.permission())) { // @Command has a permission and player don't have the permission
-                    p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
+                if (hasPermission() && !sender.hasPermission(command.permission())) { // @Command has a permission and player don't have the permission
+                    sender.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
                     return true;
                 }
 
                 // @Command don't have a permission or player has the permission
                 if (getSub(args[0]) == null) return true;
 
-                if (!cmdA.permission().isEmpty() && !p.hasPermission(cmdA.permission())) { // SubCommand's @Command has a permission and player don't have the permission
-                    p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
+                if (!cmdA.permission().isEmpty() && !sender.hasPermission(cmdA.permission())) { // SubCommand's @Command has a permission and player don't have the permission
+                    sender.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
                     return true;
                 }
 
@@ -217,7 +217,8 @@ public abstract class CoreCommand extends Command {
 
     private void doExecution(@NotNull CommandSender sender, me.efekos.simpler.annotations.Command cmdA, Class<? extends SubCommand> cmd, String[] subArgs, MessageConfiguration configuration) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         a:{
-            if (cmdA.playerOnly()) { // SubCommand's @Command is player only
+
+            if (cmdA.playerOnly()&&!(sender instanceof Player)) { // SubCommand's @Command is player only
                 sender.sendMessage(TranslateManager.translateColors(configuration.ONLY_PLAYER));
                 return;
             }
@@ -255,7 +256,8 @@ public abstract class CoreCommand extends Command {
                 }
             }
 
-            instance.onConsoleUse((ConsoleCommandSender) sender, subArgs);
+            if(sender instanceof Player) instance.onPlayerUse((Player) sender, subArgs);
+            else instance.onConsoleUse((ConsoleCommandSender) sender,subArgs);
 
         }
     }
