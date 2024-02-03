@@ -115,3 +115,7 @@ keep running if the sender is a player.
 * **Added** `DoubleArgumentNode`
 * **Added** `EnumArgument`: List argument but for enums.
 * **Added** `EnumArgumentNode`: List argument but for enums.
+
+## 1.6.7
+
+* **Fixed** A bug that prevents players from executing any `SubCommand` or `CoreCommand`
