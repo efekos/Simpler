@@ -30,4 +30,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface HandleEvent {
+    HandleType value() default HandleType.RIGHT_CLICK;
 }
