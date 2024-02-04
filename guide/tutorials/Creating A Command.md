@@ -54,12 +54,11 @@ public class Feed extends BaseCommand {
 Then, the most important part. We need to annotate our command with @`Command` annotation. Add an annotation like the one
 below to your class.
 
-
 ````java
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.BaseCommand;
 
-@Command(name = "feed",description = "Fulls your hunger and health!",permission = "examples.base.feed",playerOnly = true)
+@Command(name = "feed", description = "Fulls your hunger and health!", permission = "examples.base.feed", playerOnly = true)
 public class Feed extends BaseCommand {
 
 }
@@ -185,7 +184,7 @@ this, we might need a `CoreCommand` to be in action.
 First, we need a class extends `CoreCommand` like this:
 
 ```java
-import me.efekos.simpler.annotations.Command;
+import me.efekos.simpler.commands.Command;
 import me.efekos.simpler.commands.CoreCommand;
 import me.efekos.simpler.commands.SubCommand;
 import org.bukkit.command.CommandSender;

@@ -123,3 +123,5 @@ keep running if the sender is a player.
 # 1.6
 
 * **Added** `HandleEvent`: Annotation to put to your custom item event listeners.
+* **Added** `HandleType`: Determines the type of the handler.
+* **Moved** `@.annotations.Command` to `@.commands.Command`
