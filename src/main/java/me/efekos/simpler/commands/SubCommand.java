@@ -22,7 +22,6 @@
 
 package me.efekos.simpler.commands;
 
-import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.syntax.Argument;
 import org.jetbrains.annotations.NotNull;
 

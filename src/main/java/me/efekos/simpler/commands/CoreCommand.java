@@ -46,7 +46,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Used for core commands like /friends invite,/friends list,/friends remove etc. {@link #getSubs()} will return a list of the {@link SubCommand}s that belong to this command. Must be annotated with {@link me.efekos.simpler.annotations.Command} to be registered properly.
+ * Used for core commands like /friends invite,/friends list,/friends remove etc. {@link #getSubs()} will return a list of the {@link SubCommand}s that belong to this command. Must be annotated with {@link me.efekos.simpler.commands.Command} to be registered properly.
  */
 public abstract class CoreCommand extends Command {
     protected CoreCommand(@NotNull String name) {
@@ -63,7 +63,7 @@ public abstract class CoreCommand extends Command {
     @Override
     @NotNull
     public String getName() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if (command != null) return command.name();
         return super.getName();
     }
@@ -74,7 +74,7 @@ public abstract class CoreCommand extends Command {
     @Override
     @Nullable
     public String getPermission() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if (command != null) return command.permission();
         return super.getPermission();
     }
@@ -85,7 +85,7 @@ public abstract class CoreCommand extends Command {
     @Override
     @NotNull
     public String getDescription() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if (command != null) return command.description();
         return super.getDescription();
     }
@@ -118,7 +118,7 @@ public abstract class CoreCommand extends Command {
     @Nullable
     public Class<? extends SubCommand> getSub(String name) {
         for (Class<? extends SubCommand> sub : getSubs()) {
-            me.efekos.simpler.annotations.Command command = sub.getAnnotation(me.efekos.simpler.annotations.Command.class);
+            me.efekos.simpler.commands.Command command = sub.getAnnotation(me.efekos.simpler.commands.Command.class);
             if (command.name().equals(name)) {
                 return sub;
             }
@@ -127,12 +127,12 @@ public abstract class CoreCommand extends Command {
     }
 
     /**
-     * Grabs the value of {@link me.efekos.simpler.annotations.Command#playerOnly()} and returns it.
+     * Grabs the value of {@link me.efekos.simpler.commands.Command#playerOnly()} and returns it.
      *
      * @return Is this command or subs of this command can be used by something that is not player?
      */
     public boolean isPlayerOnly() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if (command != null) return command.playerOnly();
         else return false;
     }
@@ -160,7 +160,7 @@ public abstract class CoreCommand extends Command {
             for (Class<? extends SubCommand> sub : getSubs()) {
                 try {
                     Constructor<? extends SubCommand> constructor = sub.getConstructor(String.class);
-                    me.efekos.simpler.annotations.Command commandA = sub.getAnnotation(me.efekos.simpler.annotations.Command.class);
+                    me.efekos.simpler.commands.Command commandA = sub.getAnnotation(me.efekos.simpler.commands.Command.class);
                     SubCommand command = constructor.newInstance(commandA.name());
                     subCommands.add(command);
                 } catch (Exception ignored) {}
@@ -170,7 +170,7 @@ public abstract class CoreCommand extends Command {
             return true;
         }
 
-        me.efekos.simpler.annotations.Command cmdA = cmd.getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command cmdA = cmd.getAnnotation(me.efekos.simpler.commands.Command.class);
         if (cmdA == null) {
             try {
                 throw new InvalidAnnotationException(cmd.getName() + " Must have a @Command annotation.");
@@ -182,7 +182,7 @@ public abstract class CoreCommand extends Command {
 
         try {
             if (sender instanceof Player) { //sender is a player
-                me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+                me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
 
                 if (hasPermission() && !sender.hasPermission(command.permission())) { // @Command has a permission and player don't have the permission
                     sender.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
@@ -215,7 +215,7 @@ public abstract class CoreCommand extends Command {
         return true;
     }
 
-    private void doExecution(@NotNull CommandSender sender, me.efekos.simpler.annotations.Command cmdA, Class<? extends SubCommand> cmd, String[] subArgs, MessageConfiguration configuration) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
+    private void doExecution(@NotNull CommandSender sender, me.efekos.simpler.commands.Command cmdA, Class<? extends SubCommand> cmd, String[] subArgs, MessageConfiguration configuration) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
         a:{
 
             if (cmdA.playerOnly()&&!(sender instanceof Player)) { // SubCommand's @Command is player only
@@ -268,7 +268,7 @@ public abstract class CoreCommand extends Command {
      * @return Whether this command has a permission.
      */
     public boolean hasPermission() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if (command != null) return command.permission() != null;
         else return false;
     }
