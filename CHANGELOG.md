@@ -127,3 +127,6 @@ keep running if the sender is a player.
 * **Added** `SaveField`: Lets you save the value of that field.
 * **Moved** `@.annotations.Command` to `@.commands.Command`
 * **Removed** `Storable`: Changed to `JsonSerializable`
+* **Removed** `@.items.compound`: Moved into [another repository](https://github.com/efekos/ItemContent).
+* **Removed** `@.items.tag`: Moved into [another repository](https://github.com/efekos/ItemContent).
+* **Removed** `@.items.ItemContent`: [another repository](https://github.com/efekos/ItemContent).
