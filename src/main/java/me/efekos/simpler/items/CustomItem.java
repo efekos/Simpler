@@ -22,61 +22,85 @@
 
 package me.efekos.simpler.items;
 
-import org.bukkit.Material;
-import org.bukkit.inventory.meta.ItemMeta;
-import org.jetbrains.annotations.NotNull;
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import me.efekos.simpler.exception.InvalidAnnotationException;
+import org.bukkit.NamespacedKey;
+import org.bukkit.event.Event;
+import org.bukkit.inventory.ItemStack;
 
-import java.util.UUID;
+import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Modifier;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 
-/**
- * Template class for your custom items. Make classes that extends {@link CustomItem} to make your own custom items.
- */
-public abstract class CustomItem {
+public class CustomItem {
+    private final NamespacedKey key;
+    private final Consumer<ItemStack> appearance;
+    private final List<Method> methods = new ArrayList<>();
 
-    protected final UUID _itemUuid;
-
-    /**
-     * Returns a type id of this item. Think it as an item id like 'diamond_sword' or 'redstone_block'. This value must be different from all the other {@link CustomItem}s you plan to use.
-     * @return Type id of this item.
-     */
-    @NotNull
-    public abstract String getId();
-
-    /**
-     * Returns an {@link UUID} for this item. You can use this to store data about this item.
-     * @return A unique {@link UUID} for this item.
-     */
-    @NotNull
-    public UUID getUniqueItemId(){
-        return _itemUuid;
+    public CustomItem(NamespacedKey key, Consumer<ItemStack> appearance) {
+        this.key = key;
+        this.appearance = appearance;
+        findMethods();
     }
 
-    /**
-     * Returns a default meta for this item that will be copied to every {@link org.bukkit.inventory.ItemStack} instance of this item.
-     * @return A default {@link ItemMeta} for this {@link CustomItem}.
-     */
-    @NotNull
-    public abstract ItemMeta getDefaultMeta();
+    private void findMethods() {
+        Method[] allMethods = this.getClass().getMethods();
 
-    /**
-     * Returns a {@link Material} to be used in {@link org.bukkit.inventory.ItemStack} instances of this {@link CustomItem}.
-     * @return Default {@link Material} for {@link org.bukkit.inventory.ItemStack}s about this {@link CustomItem}. Make sure that {@link ItemMeta} made inside {@link #getDefaultMeta()} is valid for this material.
-     */
-    @NotNull
-    public abstract Material getMaterial();
+        for (Method method : allMethods) {
+            if (method.getAnnotation(HandleEvent.class) != null) {
 
-    /**
-     * Creates a new {@link CustomItem} instance with a random {@link UUID} inside it.
-     */
-    public CustomItem() {
-        this._itemUuid = UUID.randomUUID();
+                if (!Modifier.isPublic(method.getModifiers()))
+                    throw new RuntimeException(new InvalidAnnotationException("me.efekos.simpler.items.HandleEvent must be applied to a public method, " + method.getName() + " is not."));
+
+                methods.add(method);
+            }
+        }
     }
 
-    /**
-     * Creates a new {@link CustomItem} instance with the given {@link UUID} inside it.
-     * @param uuid New and final {@link UUID} of this instance.
-     */
-    public CustomItem(UUID uuid){
-        this._itemUuid = uuid;
+    public NamespacedKey getKey() {
+        return key;
+    }
+
+    public ItemStack makeAppearance(ItemStack stack) {
+        ItemStack clonedStack = stack.clone();
+
+        appearance.accept(clonedStack);
+
+        return clonedStack;
+    }
+
+    public void runMethods(Event event) {
+        for (Method method : methods) {
+            try {
+                method.invoke(this, event);
+            } catch (InvocationTargetException ignored) {
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    public void putSaveFields(JsonObject object){
+        Field[] fields = this.getClass().getFields();
+
+        for (Field field : fields) {
+            SaveField annotation = field.getAnnotation(SaveField.class);
+            if(annotation==null)continue;
+            String s = annotation.value();
+
+            try {
+                Object o = field.get(this);
+
+                object.add(s, JsonParser.parseString(new Gson().toJson(o)));
+            } catch (Exception e){
+                e.printStackTrace();
+            }
+        }
     }
 }
