@@ -119,3 +119,7 @@ keep running if the sender is a player.
 ## 1.6.7
 
 * **Fixed** A bug that prevents players from executing any `SubCommand` or `CoreCommand`
+
+# 1.6
+
+* **Added** `HandleEvent`: Annotation to put to your custom item event listeners.
