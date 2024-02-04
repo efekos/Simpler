@@ -126,3 +126,4 @@ keep running if the sender is a player.
 * **Added** `HandleType`: Determines the type of the handler.
 * **Added** `SaveField`: Lets you save the value of that field.
 * **Moved** `@.annotations.Command` to `@.commands.Command`
+* **Removed** `Storable`: Changed to `JsonSerializable`

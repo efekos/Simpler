@@ -22,16 +22,22 @@
 
 package me.efekos.simpler.config;
 
+import com.google.gson.JsonElement;
+
 import java.util.UUID;
 
 /**
  * An interface that makes your class able to store under a {@link ListDataManager} or a {@link MapDataManager}
  */
-public interface Storable {
+public interface JsonSerializable {
 
     /**
      * Returns a unique id for this instance.
      * @return id of this instance.
      */
     UUID getUniqueId();
+
+    JsonElement serialize();
+
+    void deserialize(JsonElement element);
 }

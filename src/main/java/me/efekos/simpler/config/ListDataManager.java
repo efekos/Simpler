@@ -52,7 +52,7 @@ import java.util.UUID;
  *           <li>Any class that does not contain any type other than the ones above.</li>
  *           </ul>
  */
-public class ListDataManager<T extends Storable> {
+public class ListDataManager<T extends JsonSerializable> {
 
     /**
      * Main list of all the data stored inside this database.
