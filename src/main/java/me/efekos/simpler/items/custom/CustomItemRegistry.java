@@ -100,6 +100,7 @@ public class CustomItemRegistry{
             HashMap<UUID, CustomItem> map = new HashMap<>();
 
             Path jsonFilePath = getItemsJsonPath(simplerDataPath);
+            if(!Files.exists(jsonFilePath)) return new HashMap<>();
 
             String s = Files.readString(jsonFilePath);
             JsonElement e = JsonParser.parseString(s);
