@@ -146,6 +146,8 @@ public class MapDataManager<K, V extends Storable> {
                 Map<K,V> n = gson.fromJson(reader,clazz);
 
                 data = n;
+
+                reader.close();
             } catch (Exception e){
                 e.printStackTrace();
             }
