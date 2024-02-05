@@ -27,6 +27,7 @@ public enum FieldType {
     INTEGER,
     DOUBLE,
     LONG,
-    OBJECT,
-    ARRAY
+    FLOAT,
+    BOOLEAN,
+    BYTE
 }
