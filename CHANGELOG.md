@@ -125,6 +125,7 @@ keep running if the sender is a player.
 * **Added** `HandleEvent`: Annotation to put to your custom item event listeners.
 * **Added** `HandleType`: Determines the type of the handler.
 * **Added** `SaveField`: Lets you save the value of that field.
+* **Added** `FieldType`: Type of the field you want to save.
 * **Moved** `@.annotations.Command` to `@.commands.Command`
 * **Removed** `Storable`: Changed to `JsonSerializable`
 * **Removed** `@.items.compound`: Moved into [another repository](https://github.com/efekos/ItemContent).
