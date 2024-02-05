@@ -5,6 +5,10 @@ import me.efekos.simpler.commands.CommandTree;
 import me.efekos.simpler.commands.node.impl.LabelNode;
 import me.efekos.simpler.commands.node.impl.StringArgumentNode;
 import me.efekos.simpler.config.MessageConfiguration;
+import me.efekos.simpler.items.ItemManager;
+import me.efekos.simpler.items.TestItem;
+import org.bukkit.NamespacedKey;
+import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 /**
@@ -32,15 +36,29 @@ public final class Simpler extends JavaPlugin {
         Simpler.configuration = configuration;
     }
 
+    public static NamespacedKey TEST_ITEM_KEY;
+
     @Override
     public void onEnable() {
 
         try {
             CommandManager.registerCommandTree(this,new CommandTree("test","test command","test.test")
                     .addChild(new LabelNode("hello")
-                            .addChild(new StringArgumentNode().setExecutive(context -> context.getSender().sendMessage(context.getArgs().toString())))
+                            .addChild(new StringArgumentNode().setExecutive(context -> {
+                                Player player = context.getSenderAsPlayer();
+
+                                ItemManager.giveItem(player,new TestItem(8,"cool_item"));
+                            })
                     )
-            );
+            ));
+
+            TEST_ITEM_KEY = new NamespacedKey(this,"test_item");
+
+            ItemManager.setPlugin(this);
+            ItemManager.registerItem(TEST_ITEM_KEY, TestItem.class);
+
+            ItemManager.loadCustomItems();
+
         } catch (Exception e){
             e.printStackTrace();
         }
@@ -59,5 +77,11 @@ public final class Simpler extends JavaPlugin {
         //                )
         //        )
         //);
+    }
+
+    @Override
+    public void onDisable() {
+        super.onDisable();
+        ItemManager.saveCustomItems();
     }
 }

@@ -43,14 +43,14 @@ abstract class AbstractCustomItem {
     private final List<Method> methods = new ArrayList<>();
     private final Map<SaveField,Field> saveFieldsMap = new HashMap<>();
 
-    public AbstractCustomItem(Consumer<ItemStack> appearance) {
+    AbstractCustomItem(Consumer<ItemStack> appearance) {
         this.appearance = appearance;
         findMethods();
         findSaveFields();
     }
 
     private void findSaveFields() {
-        for (Field field : getClass().getFields()) {
+        for (Field field : getClass().getDeclaredFields()) {
             SaveField annotation = field.getAnnotation(SaveField.class);
             if(annotation==null)continue;
             saveFieldsMap.put(annotation,field);
@@ -65,7 +65,7 @@ abstract class AbstractCustomItem {
         return clonedStack;
     }
 
-    public void runMethods(Event event) {
+    void runMethods(Event event) {
         for (Method method : methods) {
             try {
                 method.invoke(this, event);
@@ -76,13 +76,14 @@ abstract class AbstractCustomItem {
         }
     }
 
-    public void putSaveFields(JsonObject object){
-        Field[] fields = this.getClass().getFields();
-
+    void putSaveFields(JsonObject object){
+        if(saveFieldsMap.isEmpty()) findSaveFields();
         saveFieldsMap.forEach((annotation, field) -> {
             String s = annotation.value();
 
             try {
+                boolean b = Modifier.isPrivate(field.getModifiers());
+                if(b) field.setAccessible(true);
                 Object o = field.get(this);
 
                 switch (annotation.fieldType()){
@@ -94,7 +95,7 @@ abstract class AbstractCustomItem {
                     case BYTE -> object.addProperty(s,o instanceof Byte?(Byte)o:(byte)o);
                     case BOOLEAN -> object.addProperty(s,o instanceof Boolean?(Boolean) o:(boolean)o);
                 }
-
+                if(b) field.setAccessible(false);
             } catch (Exception e){
                 e.printStackTrace();
             }
@@ -102,10 +103,14 @@ abstract class AbstractCustomItem {
 
     }
 
-    public void loadSaveFields(JsonObject object){
+    void loadSaveFields(JsonObject object){
+        if(saveFieldsMap.isEmpty()) findSaveFields();
+
         saveFieldsMap.forEach((key, field) -> {
             JsonElement jsonElement = object.get(key.value());
 
+            boolean b = Modifier.isPrivate(field.getModifiers());
+            if(b) field.setAccessible(true);
             try {
                 switch (key.fieldType()){
                     case STRING -> field.set(this,jsonElement.getAsString());
@@ -118,12 +123,14 @@ abstract class AbstractCustomItem {
                 }
             } catch (Exception e){
                 e.printStackTrace();
+            } finally {
+                if(b) field.setAccessible(false);
             }
 
         });
     }
 
-    public void findMethods() {
+    void findMethods() {
         Method[] allMethods = this.getClass().getMethods();
 
         for (Method method : allMethods) {
