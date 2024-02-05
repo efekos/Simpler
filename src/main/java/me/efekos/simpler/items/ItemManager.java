@@ -23,6 +23,7 @@
 package me.efekos.simpler.items;
 
 import me.efekos.simpler.events.ItemEvents;
+import me.efekos.simpler.items.custom.CustomItem;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;

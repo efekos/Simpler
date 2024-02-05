@@ -26,7 +26,7 @@ import me.efekos.simpler.Utilities;
 import me.efekos.simpler.annotations.LeftClick;
 import me.efekos.simpler.annotations.Listen;
 import me.efekos.simpler.annotations.RightClick;
-import me.efekos.simpler.items.CustomItem;
+import me.efekos.simpler.items.custom.CustomItem;
 import me.efekos.simpler.items.ItemManager;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;

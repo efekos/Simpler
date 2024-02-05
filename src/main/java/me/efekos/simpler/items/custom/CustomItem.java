@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items;
+package me.efekos.simpler.items.custom;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -56,7 +56,7 @@ public class CustomItem {
             if (method.getAnnotation(HandleEvent.class) != null) {
 
                 if (!Modifier.isPublic(method.getModifiers()))
-                    throw new RuntimeException(new InvalidAnnotationException("me.efekos.simpler.items.HandleEvent must be applied to a public method, " + method.getName() + " is not."));
+                    throw new RuntimeException(new InvalidAnnotationException("me.efekos.simpler.items.custom.HandleEvent must be applied to a public method, " + method.getName() + " is not."));
 
                 methods.add(method);
             }

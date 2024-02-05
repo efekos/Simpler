@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items;
+package me.efekos.simpler.items.custom;
 
 public enum HandleType {
     /**
