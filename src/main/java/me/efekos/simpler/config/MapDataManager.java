@@ -51,7 +51,7 @@ import java.util.*;
  *           <li>Any class that does not contain any type other than the ones above.</li>
  *           </ul>
  */
-public class MapDataManager<K, V extends JsonSerializable> {
+public class MapDataManager<K, V extends Storable> {
 
     /**
      * Main map of all the data stored inside this database.

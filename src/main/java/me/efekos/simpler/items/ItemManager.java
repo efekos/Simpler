@@ -35,7 +35,7 @@ import org.jetbrains.annotations.NotNull;
  * Static manager for {@link CustomItem}s. You can register your {@link CustomItem}s using this class.
  */
 public class ItemManager {
-    
+
     /**
      * Sets up {@link ItemManager} for your plugin.
      * @param plugin An instance of your {@link JavaPlugin}.
