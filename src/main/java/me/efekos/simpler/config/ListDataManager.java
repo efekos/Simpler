@@ -22,13 +22,12 @@
 
 package me.efekos.simpler.config;
 
-import com.google.gson.*;
+import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.io.*;
-import java.nio.file.Files;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +35,22 @@ import java.util.UUID;
 
 /**
  * A basic database class made using {@link Gson}. You can store a {@link List<T>} in this data. Use {@link #save()}
- * and {@link #load()} to load your data.
- * @param <T> Type of the data you want to store as a list.
+ * and {@link #load(Class)} to load your data.
+ * @param <T>
+ *           Type of the data you want to store as a list. Be aware that using incompatible types
+ *           in this type might cause errors. Just to let you know, there is a list of the classes
+ *           compatible to be used inside T of database.
+ *           <ul>
+ *           <li>{@link String}.</li>
+ *           <li>{@link Boolean}.</li>
+ *           <li>{@link Integer}.</li>
+ *           <li>{@link Double}.</li>
+ *           <li>{@link Long}.</li>
+ *           <li>{@link List<Object>}.</li>
+ *           <li>{@code null}.</li>
+ *           <li>{@code enum} classes.</li>
+ *           <li>Any class that does not contain any type other than the ones above.</li>
+ *           </ul>
  */
 public class ListDataManager<T extends Storable> {
 
@@ -128,11 +141,7 @@ public class ListDataManager<T extends Storable> {
         try {
             file.createNewFile();
             Writer writer = new FileWriter(file,false);
-
-            JsonArray array = new JsonArray(Integer.MAX_VALUE);
-            datas.stream().map(Storable::serialize).forEach(array::add);
-
-            gson.toJson(array,writer);
+            gson.toJson(datas,writer);
             writer.flush();
             writer.close();
         } catch (Exception e){
@@ -142,28 +151,26 @@ public class ListDataManager<T extends Storable> {
 
     /**
      * Loads all the data from the save before. You don't have to check if file exists, because method does it.
+     * @param clazz Accessing a class object of a type parameter is impossible, so you need to give it. Just do
+     * {@code <T>[].class} here, replacing {@code <T>} with name of your type. That type must be same with {@link T}.
      */
-    public void load(){
+    public void load(Class<T[]> clazz){
         Gson gson = new Gson();
         String absPath = plugin.getDataFolder().getAbsolutePath()+path;
         File file = new File(absPath);
 
         if(file.exists()){
-
             try {
-                String jsonString = String.join("", Files.readAllLines(file.toPath()));
+                Reader reader = new FileReader(file);
 
-                JsonElement array = JsonParser.parseString(jsonString);
-                if(!array.isJsonArray()) throw new JsonParseException("Data is not list.");
-                array.getAsJsonArray().forEach(element -> {
-                    new T().deserialize(element);
-                    gson.tojson
-                });
+                T[] n = gson.fromJson(reader,clazz);
 
+                for (T t : n) {
+                    datas.add(t);
+                }
             } catch (Exception e){
                 e.printStackTrace();
             }
-
         }
     }
 
