@@ -22,28 +22,18 @@
 
 package me.efekos.simpler.items;
 
-import me.efekos.simpler.events.ItemEvents;
 import me.efekos.simpler.items.custom.CustomItem;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 /**
  * Static manager for {@link CustomItem}s. You can register your {@link CustomItem}s using this class.
  */
 public class ItemManager {
-
-    /**
-     * Sets up {@link ItemManager} for your plugin.
-     * @param plugin An instance of your {@link JavaPlugin}.
-     */
-    public static void setPlugin(JavaPlugin plugin) {
-        plugin.getServer().getPluginManager().registerEvents(new ItemEvents(), plugin);
-    }
 
     /**
      * Gives someone an {@link ItemStack} of the {@link Material} given.
