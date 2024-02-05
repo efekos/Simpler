@@ -29,7 +29,9 @@ import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.persistence.PersistentDataType;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
@@ -62,6 +64,28 @@ public class ItemManager {
     public static void registerItem(NamespacedKey key, Class<? extends CustomItem> item) {
         registry.registerItem(key, item);
     }
+
+    public static ItemStack createStack(CustomItem item){
+        UUID id = UUID.randomUUID();
+
+        itemMap.put(id,item);
+
+        ItemStack stack = item.makeAppearance(new ItemStack(Material.STONE,1));
+
+        ItemMeta meta = stack.getItemMeta();
+
+        meta.getPersistentDataContainer().set(ITEM_UUID_KEY, PersistentDataType.STRING,id.toString());
+
+        stack.setItemMeta(meta);
+
+        return stack;
+    }
+
+    public static void giveItem(Player player,CustomItem item){
+        player.getInventory().addItem(createStack(item));
+    }
+
+    private static final NamespacedKey ITEM_UUID_KEY = new NamespacedKey("simpler","item_uuid");
 
     /**
      * Gives someone an {@link ItemStack} of the {@link Material} given.
