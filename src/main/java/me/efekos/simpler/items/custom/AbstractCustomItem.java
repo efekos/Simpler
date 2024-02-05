@@ -22,10 +22,8 @@
 
 package me.efekos.simpler.items.custom;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import me.efekos.simpler.exception.InvalidAnnotationException;
 import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
@@ -55,7 +53,7 @@ abstract class AbstractCustomItem {
         for (Field field : getClass().getFields()) {
             SaveField annotation = field.getAnnotation(SaveField.class);
             if(annotation==null)continue;
-            saveFieldsMap.put(annotation.value(),field);
+            saveFieldsMap.put(annotation,field);
         }
     }
 
@@ -81,31 +79,46 @@ abstract class AbstractCustomItem {
     public void putSaveFields(JsonObject object){
         Field[] fields = this.getClass().getFields();
 
-        for (Field field : fields) {
-            SaveField annotation = field.getAnnotation(SaveField.class);
-            if(annotation==null)continue;
+        saveFieldsMap.forEach((annotation, field) -> {
             String s = annotation.value();
 
             try {
                 Object o = field.get(this);
 
-                object.add(s, JsonParser.parseString(new Gson().toJson(o)));
+                switch (annotation.fieldType()){
+                    case STRING -> object.addProperty(s,o.toString());
+                    case FLOAT -> object.addProperty(s,o instanceof Float?(Float)o:(float)o);
+                    case LONG -> object.addProperty(s,o instanceof Long?(Long)o:(long)o);
+                    case DOUBLE -> object.addProperty(s,o instanceof Double?(Double)o:(double)o);
+                    case INTEGER -> object.addProperty(s,o instanceof Integer?(Integer)o:(int)o);
+                    case BYTE -> object.addProperty(s,o instanceof Byte?(Byte)o:(byte)o);
+                    case BOOLEAN -> object.addProperty(s,o instanceof Boolean?(Boolean) o:(boolean)o);
+                }
+
             } catch (Exception e){
                 e.printStackTrace();
             }
-        }
-    }
+        });
 
-    private String player = "";
+    }
 
     public void loadSaveFields(JsonObject object){
         saveFieldsMap.forEach((key, field) -> {
             JsonElement jsonElement = object.get(key.value());
 
-            switch (key.fieldType()){
-                case STRING -> field.set(this,jsonElement.getAsString());
+            try {
+                switch (key.fieldType()){
+                    case STRING -> field.set(this,jsonElement.getAsString());
+                    case INTEGER -> field.set(this,jsonElement.getAsInt());
+                    case DOUBLE -> field.set(this,jsonElement.getAsDouble());
+                    case LONG -> field.set(this,jsonElement.getAsLong());
+                    case BOOLEAN -> field.set(this,jsonElement.getAsBoolean());
+                    case FLOAT -> field.set(this,jsonElement.getAsFloat());
+                    case BYTE -> field.set(this,jsonElement.getAsByte());
+                }
+            } catch (Exception e){
+                e.printStackTrace();
             }
-
 
         });
     }

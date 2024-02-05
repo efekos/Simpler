@@ -25,14 +25,10 @@ package me.efekos.simpler.items.custom;
 import org.bukkit.NamespacedKey;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Consumer;
 
 public class CustomItem extends AbstractCustomItem {
     private final NamespacedKey key;
-    private final List<Method> methods = new ArrayList<>();
 
     public CustomItem(NamespacedKey key, Consumer<ItemStack> appearance) {
         super(appearance);
