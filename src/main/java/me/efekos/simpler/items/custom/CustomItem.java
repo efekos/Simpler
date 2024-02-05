@@ -22,85 +22,24 @@
 
 package me.efekos.simpler.items.custom;
 
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
-import me.efekos.simpler.exception.InvalidAnnotationException;
 import org.bukkit.NamespacedKey;
-import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
-import java.lang.reflect.Field;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-public class CustomItem {
+public class CustomItem extends AbstractCustomItem {
     private final NamespacedKey key;
-    private final Consumer<ItemStack> appearance;
     private final List<Method> methods = new ArrayList<>();
 
     public CustomItem(NamespacedKey key, Consumer<ItemStack> appearance) {
+        super(appearance);
         this.key = key;
-        this.appearance = appearance;
-        findMethods();
-    }
-
-    private void findMethods() {
-        Method[] allMethods = this.getClass().getMethods();
-
-        for (Method method : allMethods) {
-            if (method.getAnnotation(HandleEvent.class) != null) {
-
-                if (!Modifier.isPublic(method.getModifiers()))
-                    throw new RuntimeException(new InvalidAnnotationException("me.efekos.simpler.items.custom.HandleEvent must be applied to a public method, " + method.getName() + " is not."));
-
-                methods.add(method);
-            }
-        }
     }
 
     public NamespacedKey getKey() {
         return key;
-    }
-
-    public ItemStack makeAppearance(ItemStack stack) {
-        ItemStack clonedStack = stack.clone();
-
-        appearance.accept(clonedStack);
-
-        return clonedStack;
-    }
-
-    public void runMethods(Event event) {
-        for (Method method : methods) {
-            try {
-                method.invoke(this, event);
-            } catch (InvocationTargetException ignored) {
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
-    public void putSaveFields(JsonObject object){
-        Field[] fields = this.getClass().getFields();
-
-        for (Field field : fields) {
-            SaveField annotation = field.getAnnotation(SaveField.class);
-            if(annotation==null)continue;
-            String s = annotation.value();
-
-            try {
-                Object o = field.get(this);
-
-                object.add(s, JsonParser.parseString(new Gson().toJson(o)));
-            } catch (Exception e){
-                e.printStackTrace();
-            }
-        }
     }
 }
