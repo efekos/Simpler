@@ -23,17 +23,45 @@
 package me.efekos.simpler.items;
 
 import me.efekos.simpler.items.custom.CustomItem;
+import me.efekos.simpler.items.custom.CustomItemRegistry;
 import org.bukkit.Material;
+import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.SkullMeta;
+import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * Static manager for {@link CustomItem}s. You can register your {@link CustomItem}s using this class.
  */
 public class ItemManager {
+
+    private static final CustomItemRegistry registry = new CustomItemRegistry();
+
+    private static Map<UUID,CustomItem> itemMap = new HashMap<>();
+    private static JavaPlugin plugin;
+
+    public static void saveCustomItems() {
+        registry.save(plugin, itemMap);
+    }
+
+    public static void loadCustomItems() {
+        itemMap = registry.load(plugin);
+    }
+
+    public static void setPlugin(JavaPlugin plugin){
+        ItemManager.plugin = plugin;
+    }
+
+    public static void registerItem(NamespacedKey key, Class<? extends CustomItem> item) {
+        registry.registerItem(key, item);
+    }
 
     /**
      * Gives someone an {@link ItemStack} of the {@link Material} given.
