@@ -68,8 +68,7 @@ public class StringArgument extends Argument {
     }
 
     /**
-     * Returns a short placeholder to represent this argument. However, {@link #toString()} is more recommended than {@link #getPlaceHolder()} if you want to represent this argument as a {@link String}.
-     * @return The placeholder of this argument. Placeholder is usually a one-word string that represents what this argument should be. For example: {@code <player>} argument should be the name of an {@link org.bukkit.OfflinePlayer}. We are able to understand this, because that argument's placeholder is "player", meaning we should enter someone's name there.
+     * {@inheritDoc}
      */
     @Override
     public String getPlaceHolder() {
@@ -77,10 +76,7 @@ public class StringArgument extends Argument {
     }
 
     /**
-     * Generates a list of suggestions about this argument.
-     * @param player Player who needs suggestions for this argument.
-     * @param current Current string player entered so far.
-     * @return List of the strings player will see.
+     * {@inheritDoc}
      */
     @Override
     public List<String> getList(Player player, String current) {
@@ -88,8 +84,7 @@ public class StringArgument extends Argument {
     }
 
     /**
-     * Returns a priority about this argument.
-     * @return Priority of this argument. You can make your argument an optional or required argument using this.
+     * {@inheritDoc}
      */
     @Override
     public ArgumentPriority getPriority() {
@@ -97,9 +92,7 @@ public class StringArgument extends Argument {
     }
 
     /**
-     * Makes sure that the argument player wrote is valid.
-     * @param given The string that someone wrote as a value for this argument
-     * @return Is the given argument valid?
+     * {@inheritDoc}
      */
     @Override
     public ArgumentHandleResult handleCorrection(String given) {

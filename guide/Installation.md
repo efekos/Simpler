@@ -23,9 +23,9 @@ Add this repository
 Add this dependency to your dependencies.
 ````xml
 <dependency>
-	    <groupId>com.github.efe124</groupId>
+	    <groupId>com.github.efekos</groupId>
 	    <artifactId>Simpler</artifactId>
-	    <version>1.6.0</version>
+	    <version>1.6.6</version>
 </dependency>
 ````
 
@@ -44,6 +44,6 @@ allprojects {
 Add this dependency
 ````gradle
 dependencies {
-	 implementation 'com.github.efe124:Simpler:1.6.0'
+	 implementation 'com.github.efe124:Simpler:1.6.6'
 }
 ````

@@ -50,8 +50,16 @@ public class ArgumentHandleResult {
      * Returns the reason of why this result does not pass, if it doesn't.
      * @return A reason if this result didn't passed.
      */
-    public String getReason() {
+    public @org.jetbrains.annotations.Nullable String getReason() {
         return reason;
+    }
+
+    /**
+     * Returns {@code true} if this result has a reason. {@code false} otherwise.
+     * @return Whether this handle result has a reason (probably for failing)
+     */
+    public boolean hasReason(){
+        return reason!=null;
     }
 
     /**
@@ -59,7 +67,7 @@ public class ArgumentHandleResult {
      * @param pass Is this result passed?
      * @param reason Reason of the failure on this result.
      */
-    private ArgumentHandleResult(boolean pass, String reason) {
+    private ArgumentHandleResult(boolean pass, @org.jetbrains.annotations.Nullable String reason) {
         this.pass = pass;
         this.reason = reason;
     }

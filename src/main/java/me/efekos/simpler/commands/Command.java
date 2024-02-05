@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.annotations;
+package me.efekos.simpler.commands;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

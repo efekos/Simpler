@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,34 +20,14 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.compound;
+package me.efekos.simpler.items.custom;
 
-/**
- * Represents a position inside a lodestone compass.
- * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
- * be removed from here soon.
- */
-@Deprecated
-public class CompassPositionCompound {
-        private final Integer X;
-        private final Integer Y;
-        private final Integer Z;
-
-        public CompassPositionCompound(Integer x, Integer y, Integer z) {
-            X = x;
-            Y = y;
-            Z = z;
-        }
-
-        public Integer getX() {
-            return X;
-        }
-
-        public Integer getY() {
-            return Y;
-        }
-
-        public Integer getZ() {
-            return Z;
-        }
+public enum FieldType {
+    STRING,
+    INTEGER,
+    DOUBLE,
+    LONG,
+    FLOAT,
+    BOOLEAN,
+    BYTE
 }

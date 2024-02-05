@@ -22,7 +22,6 @@
 
 package me.efekos.simpler.commands;
 
-import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.commands.syntax.Argument;
 import org.jetbrains.annotations.NotNull;
 
@@ -75,8 +74,7 @@ public abstract class SubCommand extends BaseCommand{
 
             return "/"+getParent().getAnnotation(Command.class).name()+" "+getName()+builder;
         } catch (Exception e){
-            e.printStackTrace();
+           return "";
         }
-        return "";
     }
 }

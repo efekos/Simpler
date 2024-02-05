@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,29 +20,16 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.compound;
+package me.efekos.simpler.items.custom;
 
-/**
- * Represents the data inside "Fireworks" tag of a firework.
- * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
- * be removed from here soon.
- */
-@Deprecated
-public class FireworkCompound {
-    private final Integer Flight;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-    private final ExplosionCompound[] Explosions;
-
-    public FireworkCompound(Integer flight, ExplosionCompound[] explosions) {
-        Flight = flight;
-        Explosions = explosions;
-    }
-
-    public Integer getFlight() {
-        return Flight;
-    }
-
-    public ExplosionCompound[] getExplosions() {
-        return Explosions;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface SaveField {
+    String value();
+    FieldType fieldType() default FieldType.STRING;
 }

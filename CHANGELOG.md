@@ -105,3 +105,30 @@ keep running if the sender is a player.
 * **Changed** `Simpler` class to be a class that doesn't extend `JavaPlugin`, because it isn't necessary.
 * **Removed** `plugin.yml` from resources.
 * **Deprecated** `ItemContent`, and it's needed classes. Everything here will be moved into [another repository](https://github.com/efekos/ItemContent).
+
+## 1.6.6
+
+* **Added** `BaseCommand#hasPermission`
+* **Added** `CoreCommand#hasPermission`
+* **Added** `ArgumentHandleResult#hasReason`
+* **Added** `DoubleArgument`
+* **Added** `DoubleArgumentNode`
+* **Added** `EnumArgument`: List argument but for enums.
+* **Added** `EnumArgumentNode`: List argument but for enums.
+
+## 1.6.7
+
+* **Fixed** A bug that prevents players from executing any `SubCommand` or `CoreCommand`
+
+# 1.6
+
+* **Added** `HandleEvent`: Annotation to put to your custom item event listeners.
+* **Added** `HandleType`: Determines the type of the handler.
+* **Added** `SaveField`: Lets you save the value of that field.
+* **Added** `FieldType`: Type of the field you want to save.
+* **Added** `CustomItemRegistry`: Register `CustomItem`s using this registry.
+* **Moved** `@.annotations.Command` to `@.commands.Command`
+* **Removed** `Storable`: Changed to `JsonSerializable`
+* **Removed** `@.items.compound`: Moved into [another repository](https://github.com/efekos/ItemContent).
+* **Removed** `@.items.tag`: Moved into [another repository](https://github.com/efekos/ItemContent).
+* **Removed** `@.items.ItemContent`: [another repository](https://github.com/efekos/ItemContent).

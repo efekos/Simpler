@@ -22,7 +22,6 @@
 
 package me.efekos.simpler.commands;
 
-import me.efekos.simpler.annotations.Command;
 import me.efekos.simpler.exception.InvalidAnnotationException;
 import org.bukkit.command.CommandMap;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -54,7 +53,7 @@ public class CommandManager {
         CommandMap commandMap = (CommandMap) commandField.get(plugin.getServer());
 
         for (Class<? extends BaseCommand> command : commands){
-            if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.annotations.Command to be registered as command.");
+            if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.commands.Command to be registered as command.");
 
 
             Constructor<? extends BaseCommand> cmd = command.getConstructor(String.class);
@@ -77,7 +76,7 @@ public class CommandManager {
      * @throws InvalidAnnotationException If given command class does not have a @{@link Command} annotation
      */
     public static void registerBaseCommand(JavaPlugin plugin, Class<? extends BaseCommand> command) throws NoSuchFieldException, IllegalAccessException, NoSuchMethodException, InvocationTargetException, InstantiationException, InvalidAnnotationException {
-        if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.annotations.Command to be registered as command.");
+        if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.commands.Command to be registered as command.");
 
         Field commandField = plugin.getServer().getClass().getDeclaredField("commandMap");
         commandField.setAccessible(true);
@@ -99,7 +98,7 @@ public class CommandManager {
      * @throws NoSuchMethodException If there is no constructor in the {@link CoreCommand} given, or creating a new instance of command fails.
      */
     public static void registerCoreCommand(JavaPlugin plugin,Class<? extends CoreCommand> command) throws InvalidAnnotationException,NoSuchFieldException,IllegalAccessException,NoSuchMethodException{
-        if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.annotations.Command to be registered as command.");
+        if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.commands.Command to be registered as command.");
 
         Field commandField = plugin.getServer().getClass().getDeclaredField("commandMap");
         commandField.setAccessible(true);

@@ -39,11 +39,12 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 /**
  * Used for base commands like /feed, /god etc.
- * Requires {@link me.efekos.simpler.annotations.Command} to be used in {@link me.efekos.simpler.commands.CommandManager}
+ * Requires {@link me.efekos.simpler.commands.Command} to be used in {@link me.efekos.simpler.commands.CommandManager}
  */
 public abstract class BaseCommand extends Command {
 
@@ -67,37 +68,47 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
-     * Grabs the value of {@link me.efekos.simpler.annotations.Command#name()} and returns it.
+     * Grabs the value of {@link me.efekos.simpler.commands.Command#name()} and returns it.
      * @return Command name as a {@link String}.
      */
     @Override
     @NotNull
     public String getName() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if(command!=null)return command.name();
         return super.getName();
     }
 
     /**
-     * Grabs the value of {@link me.efekos.simpler.annotations.Command#permission()} and returns it.
+     * Grabs the value of {@link me.efekos.simpler.commands.Command#permission()} and returns it.
      * @return Permission this command needs to be executed as String, null if this command does not need any permission.
      */
     @Override
     @Nullable
     public String getPermission() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if(command!=null)return command.permission();
         return super.getPermission();
     }
 
     /**
-     * Grabs the value of {@link me.efekos.simpler.annotations.Command#description()} and returns it.
+     * Returns whether this command has a permission.
+     * @return Whether this command has a permission.
+     */
+    public boolean hasPermission(){
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
+        if(command!=null)return command.permission()!=null;
+        else return false;
+    }
+
+    /**
+     * Grabs the value of {@link me.efekos.simpler.commands.Command#description()} and returns it.
      * @return A brief description of this command
      */
     @Override
     @NotNull
     public String getDescription() {
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if(command!=null)return command.description();
         return super.getDescription();
     }
@@ -129,11 +140,11 @@ public abstract class BaseCommand extends Command {
     }
 
     /**
-     * Grabs the value of {@link me.efekos.simpler.annotations.Command#playerOnly()} and returns it.
+     * Grabs the value of {@link me.efekos.simpler.commands.Command#playerOnly()} and returns it.
      * @return Is this command can be used by something that is not player?
      */
     public boolean isPlayerOnly(){
-        me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
+        me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
         if(command!=null)return command.playerOnly();
         return false;
     }
@@ -164,9 +175,8 @@ public abstract class BaseCommand extends Command {
     public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args){
         MessageConfiguration configuration = Simpler.getMessageConfiguration();
         a:{
-            if(sender instanceof Player){ //sender is a player
-                me.efekos.simpler.annotations.Command command = this.getClass().getAnnotation(me.efekos.simpler.annotations.Command.class);
-                Player p = (Player) sender;
+            if(sender instanceof Player p){ //sender is a player
+                me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
 
                 if(!command.permission().isEmpty() &&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
 
@@ -183,7 +193,7 @@ public abstract class BaseCommand extends Command {
 
                         ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
                         if(!handleResult.isPassed()){
-                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
+                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.hasReason()? Objects.requireNonNull(handleResult.getReason()) :"")));
                             break a;
                         }
                     }
@@ -203,7 +213,7 @@ public abstract class BaseCommand extends Command {
 
                         ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
                         if(!handleResult.isPassed()){
-                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.getReason())));
+                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.hasReason()? Objects.requireNonNull(handleResult.getReason()) :"")));
                             break a;
                         }
                     }
@@ -232,11 +242,10 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
-        if(sender instanceof Player){
-            Player p = (Player) sender;
+        if(sender instanceof Player p){
             List<Argument> arguments = getSyntax().getArguments();
 
-            if(!p.hasPermission(getPermission()))return new ArrayList<>();
+            if(hasPermission()&&!p.hasPermission(Objects.requireNonNull(getPermission())))return new ArrayList<>();
 
             int num = args.length-1;
 
@@ -263,19 +272,6 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
-        if(sender instanceof Player){
-            Player p = (Player) sender;
-            List<Argument> arguments = getSyntax().getArguments();
-
-            if(!p.hasPermission(getPermission()))return new ArrayList<>();
-
-            int num = args.length-1;
-
-            if(num<arguments.size()&&arguments.get(num)!=null){
-                Argument arg = arguments.get(num);
-                return arg.getList(p,args[num]);
-            }
-        }
-        return new ArrayList<>();
+       return tabComplete(sender, alias, args);
     }
 }

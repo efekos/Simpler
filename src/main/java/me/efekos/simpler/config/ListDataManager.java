@@ -168,6 +168,8 @@ public class ListDataManager<T extends Storable> {
                 for (T t : n) {
                     datas.add(t);
                 }
+
+                reader.close();
             } catch (Exception e){
                 e.printStackTrace();
             }

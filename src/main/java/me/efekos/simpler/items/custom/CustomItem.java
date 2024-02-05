@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,20 +20,22 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.tag;
+package me.efekos.simpler.items.custom;
 
-import me.efekos.simpler.items.compound.BannerCompound;
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
 
-@Deprecated
-public class BannerTag extends ItemTag{
-    private final BannerCompound BlockEntityTag;
+import java.util.function.Consumer;
 
-    public BannerTag(ItemTag oldItemTag, BannerCompound banner){
-        super(oldItemTag.Damage, oldItemTag.getHideFlags(), oldItemTag.display, oldItemTag.isUnbreakable(), oldItemTag.getCustomModelData(), oldItemTag.getEnchantments(), oldItemTag.RepairCost);
-        this.BlockEntityTag = banner;
+public class CustomItem extends AbstractCustomItem {
+    private final NamespacedKey key;
+
+    public CustomItem(NamespacedKey key, Consumer<ItemStack> appearance) {
+        super(appearance);
+        this.key = key;
     }
 
-    public BannerCompound getBlockEntityTag() {
-        return BlockEntityTag;
+    public NamespacedKey getKey() {
+        return key;
     }
 }

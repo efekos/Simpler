@@ -23,13 +23,15 @@
 package me.efekos.simpler.annotations;
 
 
+import me.efekos.simpler.items.custom.CustomItem;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Used to tell Simple that this method should be called when something about the {@link me.efekos.simpler.items.CustomItem} happens.<br>
+ * Used to tell Simple that this method should be called when something about the {@link CustomItem} happens.<br>
  * Every method annotated with {@link Listen} must follow the instructions below:
  * <ul>
  *     <li>

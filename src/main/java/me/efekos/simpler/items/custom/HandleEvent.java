@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,35 +20,15 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.compound;
+package me.efekos.simpler.items.custom;
 
-import org.bukkit.enchantments.Enchantment;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-/**
- * Represents an enchantment with its string id and level.
- * @deprecated This class is moved into <a href="https://github.com/efekos/ItemContent">another repository</a>, and will
- * be removed from here soon.
- */
-@Deprecated
-public class EnchantmentCompound {
-    private final String id;
-    private final Integer lvl;
-
-    public EnchantmentCompound(String id, Integer lvl) {
-        this.id = id;
-        this.lvl = lvl;
-    }
-
-    public EnchantmentCompound(Enchantment id, Integer lvl){
-        this.id = id.getKey().getNamespace()+":"+id.getKey().getKey();
-        this.lvl = lvl;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public Integer getLvl() {
-        return lvl;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.METHOD)
+public @interface HandleEvent {
+    HandleType value() default HandleType.RIGHT_CLICK;
 }
