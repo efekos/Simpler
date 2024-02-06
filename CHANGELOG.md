@@ -135,6 +135,4 @@ keep running if the sender is a player.
 * **Removed** `@.items.compound`: Moved into [another repository](https://github.com/efekos/ItemContent).
 * **Removed** `@.items.tag`: Moved into [another repository](https://github.com/efekos/ItemContent).
 * **Removed** `@.items.ItemContent`: [another repository](https://github.com/efekos/ItemContent).
-* **Removed** `@.annotations.Listen`: Useless
-* **Removed** `@.annotations.LeftClick`: Useless
-* **Removed** `@.annotations.RightClick`: Useless
+* **Removed** `@.annotations` package: Useless

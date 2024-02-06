@@ -22,7 +22,6 @@
 
 package me.efekos.simpler.menu;
 
-import me.efekos.simpler.menu.Menu;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
