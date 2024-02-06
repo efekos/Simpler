@@ -23,10 +23,10 @@
 package me.efekos.simpler.items;
 
 import me.efekos.simpler.Simpler;
-import me.efekos.simpler.items.custom.*;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityPickupItemEvent;
+import org.bukkit.event.player.PlayerDropItemEvent;
 
 public class TestItem extends CustomItem {
 
@@ -66,5 +66,12 @@ public class TestItem extends CustomItem {
     public void onPickup(EntityPickupItemEvent e){
         Player player = (Player) e.getEntity();
         player.sendMessage("You just picked up a HOLY GUN");
+    }
+
+    @HandleEvent(HandleType.DROP)
+    public void onDrop(PlayerDropItemEvent e){
+        Player player = e.getPlayer();
+        player.sendMessage("Nuh uh! You can't drop a gun");
+        e.getItemDrop().remove();
     }
 }
