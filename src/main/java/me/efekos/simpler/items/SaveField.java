@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2023 efekos
+ * Copyright (c) 2024 efekos
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,16 @@
  * SOFTWARE.
  */
 
-/**
- * Events classes that get registered automatically as you use {@link me.efekos.simpler.items.ItemManager#setPlugin(org.bukkit.plugin.java.JavaPlugin)} or {@link me.efekos.simpler.menu.MenuManager#setPlugin(org.bukkit.plugin.java.JavaPlugin)}.
- */
-package me.efekos.simpler.events;
+package me.efekos.simpler.items;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface SaveField {
+    String value();
+    FieldType fieldType() default FieldType.STRING;
+}

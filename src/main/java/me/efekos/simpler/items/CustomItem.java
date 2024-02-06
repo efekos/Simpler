@@ -20,14 +20,22 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.custom;
+package me.efekos.simpler.items;
 
-public enum FieldType {
-    STRING,
-    INTEGER,
-    DOUBLE,
-    LONG,
-    FLOAT,
-    BOOLEAN,
-    BYTE
+import org.bukkit.NamespacedKey;
+import org.bukkit.inventory.ItemStack;
+
+import java.util.function.Consumer;
+
+public class CustomItem extends AbstractCustomItem {
+    private final NamespacedKey key;
+
+    public CustomItem(NamespacedKey key, Consumer<ItemStack> appearance) {
+        super(appearance);
+        this.key = key;
+    }
+
+    public NamespacedKey getKey() {
+        return key;
+    }
 }

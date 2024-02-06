@@ -22,7 +22,6 @@
 
 package me.efekos.simpler.menu;
 
-import me.efekos.simpler.events.MenuEvents;
 import me.efekos.simpler.exception.NoPluginException;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;

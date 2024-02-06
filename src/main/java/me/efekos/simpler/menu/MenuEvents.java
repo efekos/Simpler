@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.events;
+package me.efekos.simpler.menu;
 
 import me.efekos.simpler.menu.Menu;
 import org.bukkit.event.EventHandler;

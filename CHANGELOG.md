@@ -127,8 +127,14 @@ keep running if the sender is a player.
 * **Added** `SaveField`: Lets you save the value of that field.
 * **Added** `FieldType`: Type of the field you want to save.
 * **Added** `CustomItemRegistry`: Register `CustomItem`s using this registry.
+* **Added** `ItemManager#isCustom(ItemStack)`: Returns true if given stack is a custom item.
+* **Added** `ItemManager#getItem(ItemStack)`: Returns the custom item instance of the stack.
 * **Moved** `@.annotations.Command` to `@.commands.Command`
-* **Removed** `Storable`: Changed to `JsonSerializable`
+* **Removed** `@.events` package: Event classes now need access to non-public methods
+* **Changed** `CustomItem`'s entire behaviour.
 * **Removed** `@.items.compound`: Moved into [another repository](https://github.com/efekos/ItemContent).
 * **Removed** `@.items.tag`: Moved into [another repository](https://github.com/efekos/ItemContent).
 * **Removed** `@.items.ItemContent`: [another repository](https://github.com/efekos/ItemContent).
+* **Removed** `@.annotations.Listen`: Useless
+* **Removed** `@.annotations.LeftClick`: Useless
+* **Removed** `@.annotations.RightClick`: Useless
