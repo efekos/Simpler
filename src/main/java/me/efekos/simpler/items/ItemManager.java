@@ -57,6 +57,7 @@ public class ItemManager {
 
     public static void setPlugin(JavaPlugin plugin){
         ItemManager.plugin = plugin;
+        plugin.getServer().getPluginManager().registerEvents(new ItemEvents(),plugin);
     }
 
     public static void registerItem(NamespacedKey key, Class<? extends CustomItem> item) {
