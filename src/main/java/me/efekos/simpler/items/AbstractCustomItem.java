@@ -29,6 +29,7 @@ import org.bukkit.event.Event;
 import org.bukkit.inventory.ItemStack;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
@@ -64,7 +65,14 @@ abstract class AbstractCustomItem {
 
     void runMethods(Event event,HandleType handleType) {
         methodMap.forEach((handleEvent, method) -> {
-            //TODO
+            if(handleEvent.value()!=handleType)return;
+
+            try {
+                method.invoke(event);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         });
     }
 
