@@ -28,6 +28,6 @@ public final class Simpler {
     }
 
     //TODO: NMS commands
-    //TODO: rework custom items
     //TODO: finish guides
+    //TODO: command registration with just annotations
 }
