@@ -62,7 +62,7 @@ abstract class AbstractCustomItem {
         return clonedStack;
     }
 
-    void runMethods(Event event) {
+    void runMethods(Event event,HandleType handleType) {
         methodMap.forEach((handleEvent, method) -> {
             //TODO
         });
