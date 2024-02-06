@@ -22,8 +22,6 @@
 
 package me.efekos.simpler.items;
 
-import me.efekos.simpler.items.custom.CustomItem;
-import me.efekos.simpler.items.custom.CustomItemRegistry;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.OfflinePlayer;
@@ -81,11 +79,20 @@ public class ItemManager {
         return stack;
     }
 
+    public static boolean isCustom(ItemStack stack){
+        return stack.hasItemMeta()&&stack.getItemMeta().getPersistentDataContainer().has(ITEM_UUID_KEY,PersistentDataType.STRING);
+    }
+
+    public static CustomItem getItem(ItemStack stack){
+        if(!isCustom(stack))return null;
+        return itemMap.get(UUID.fromString(stack.getItemMeta().getPersistentDataContainer().get(ITEM_UUID_KEY,PersistentDataType.STRING)));
+    }
+
     public static void giveItem(Player player,CustomItem item){
         player.getInventory().addItem(createStack(item));
     }
 
-    private static final NamespacedKey ITEM_UUID_KEY = new NamespacedKey("simpler","item_uuid");
+    public static final NamespacedKey ITEM_UUID_KEY = new NamespacedKey("simpler","item_uuid");
 
     /**
      * Gives someone an {@link ItemStack} of the {@link Material} given.
