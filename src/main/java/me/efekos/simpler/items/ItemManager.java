@@ -81,7 +81,7 @@ public class ItemManager {
     }
 
     public static boolean isCustom(ItemStack stack){
-        return stack.hasItemMeta()&&stack.getItemMeta().getPersistentDataContainer().has(ITEM_UUID_KEY,PersistentDataType.STRING);
+        return stack!=null&&stack.hasItemMeta()&&stack.getItemMeta().getPersistentDataContainer().has(ITEM_UUID_KEY,PersistentDataType.STRING);
     }
 
     public static CustomItem getItem(ItemStack stack){
