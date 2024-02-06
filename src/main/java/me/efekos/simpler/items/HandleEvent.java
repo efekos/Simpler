@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.custom;
+package me.efekos.simpler.items;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -28,8 +28,7 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
-@Target(ElementType.FIELD)
-public @interface SaveField {
-    String value();
-    FieldType fieldType() default FieldType.STRING;
+@Target(ElementType.METHOD)
+public @interface HandleEvent {
+    HandleType value() default HandleType.RIGHT_CLICK;
 }

@@ -20,22 +20,16 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.custom;
+package me.efekos.simpler.items;
 
-import org.bukkit.NamespacedKey;
-import org.bukkit.inventory.ItemStack;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-import java.util.function.Consumer;
-
-public class CustomItem extends AbstractCustomItem {
-    private final NamespacedKey key;
-
-    public CustomItem(NamespacedKey key, Consumer<ItemStack> appearance) {
-        super(appearance);
-        this.key = key;
-    }
-
-    public NamespacedKey getKey() {
-        return key;
-    }
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface SaveField {
+    String value();
+    FieldType fieldType() default FieldType.STRING;
 }

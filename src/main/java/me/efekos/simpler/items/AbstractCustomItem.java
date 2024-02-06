@@ -20,7 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items.custom;
+package me.efekos.simpler.items;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -137,7 +137,7 @@ abstract class AbstractCustomItem {
             if (method.getAnnotation(HandleEvent.class) != null) {
 
                 if (!Modifier.isPublic(method.getModifiers()))
-                    throw new RuntimeException(new InvalidAnnotationException("me.efekos.simpler.items.custom.HandleEvent must be applied to a public method, " + method.getName() + " is not."));
+                    throw new RuntimeException(new InvalidAnnotationException("me.efekos.simpler.items.HandleEvent must be applied to a public method, " + method.getName() + " is not."));
 
                 methods.add(method);
             }
