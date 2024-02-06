@@ -45,13 +45,19 @@ public class ItemManager {
     private static final CustomItemRegistry registry = new CustomItemRegistry();
 
     private static Map<UUID,CustomItem> itemMap = new HashMap<>();
-    private static JavaPlugin plugin;
+    private static JavaPlugin plugin = null;
+
+    private static boolean isSetup(){
+        return plugin!=null;
+    }
 
     public static void saveCustomItems() {
+        if(!isSetup()) throw new IllegalStateException("Call me.efekos.simpler.ItemManager.setPlugin(JavaPlugin) before calling me.efekos.simpler.ItemManager.saveCustomItems()");
         registry.save(plugin, itemMap);
     }
 
     public static void loadCustomItems() {
+        if(!isSetup()) throw new IllegalStateException("Call me.efekos.simpler.ItemManager.setPlugin(JavaPlugin) before calling me.efekos.simpler.ItemManager.loadCustomItems()");
         itemMap = registry.load(plugin);
     }
 
@@ -65,6 +71,7 @@ public class ItemManager {
     }
 
     public static ItemStack createStack(CustomItem item){
+        if(!isSetup()) throw new IllegalStateException("Call me.efekos.simpler.ItemManager.setPlugin(JavaPlugin) before calling me.efekos.simpler.ItemManager.createStack(ItemStack)");
         UUID id = UUID.randomUUID();
 
         itemMap.put(id,item);
