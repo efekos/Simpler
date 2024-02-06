@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
-public class CustomItemRegistry{
+public final class CustomItemRegistry{
 
     private Path getDataPath(JavaPlugin plugin){
         File dataFolder = plugin.getDataFolder();
