@@ -42,34 +42,71 @@ import java.util.UUID;
  */
 public class ItemManager {
 
+    /**
+     * Singleton instance of the custom item registry.
+     */
     private static final CustomItemRegistry registry = new CustomItemRegistry();
 
+    /**
+     * A map that holds every {@link CustomItem} instance.
+     */
     private static Map<UUID,CustomItem> itemMap = new HashMap<>();
+
+    /**
+     * The plugin that is currently using this system.
+     */
     private static JavaPlugin plugin = null;
 
+
+    /**
+     * Returns true if there is a plugin instance.
+     * @return whether the plugin is not null.
+     */
     private static boolean isSetup(){
         return plugin!=null;
     }
 
+    /**
+     * Saves the custom item data to the plugin given before using {@link #setPlugin(JavaPlugin)}
+     */
     public static void saveCustomItems() {
         if(!isSetup()) throw new IllegalStateException("Call me.efekos.simpler.ItemManager.setPlugin(JavaPlugin) before calling me.efekos.simpler.ItemManager.saveCustomItems()");
         registry.save(plugin, itemMap);
     }
 
+
+    /**
+     * Loads the custom item data from the plugin given before using {@link #setPlugin(JavaPlugin)}
+     */
     public static void loadCustomItems() {
         if(!isSetup()) throw new IllegalStateException("Call me.efekos.simpler.ItemManager.setPlugin(JavaPlugin) before calling me.efekos.simpler.ItemManager.loadCustomItems()");
         itemMap = registry.load(plugin);
     }
 
+    /**
+     * Registers the event listeners using the plugin given.
+     * @param plugin An instance of the plugin that will use this manager.
+     */
     public static void setPlugin(JavaPlugin plugin){
         ItemManager.plugin = plugin;
         plugin.getServer().getPluginManager().registerEvents(new ItemEvents(),plugin);
     }
 
+    /**
+     * Registers a custom item.
+     * @param key Identifier of this custom item type.
+     * @param item Class of the custom item.
+     */
     public static void registerItem(NamespacedKey key, Class<? extends CustomItem> item) {
         registry.registerItem(key, item);
     }
 
+    /**
+     * Creates an item stack using the custom item instance given.
+     * @param item An instance of a custom item.
+     * @return The stack created.
+     * @throws IllegalStateException If a plugin isn't set
+     */
     public static ItemStack createStack(CustomItem item){
         if(!isSetup()) throw new IllegalStateException("Call me.efekos.simpler.ItemManager.setPlugin(JavaPlugin) before calling me.efekos.simpler.ItemManager.createStack(ItemStack)");
         UUID id = UUID.randomUUID();
@@ -87,19 +124,37 @@ public class ItemManager {
         return stack;
     }
 
+    /**
+     * Checks the stack to validate that it is a custom item instance.
+     * @param stack An item stack.
+     * @return Whether the stack given is a custom item instance.
+     */
     public static boolean isCustom(ItemStack stack){
         return stack!=null&&stack.hasItemMeta()&&stack.getItemMeta().getPersistentDataContainer().has(ITEM_UUID_KEY,PersistentDataType.STRING);
     }
 
+    /**
+     * Finds the {@link CustomItem} instance of the {@link ItemStack} given.
+     * @param stack A stack.
+     * @return A {@link CustomItem} instance if found, {@code null} otherwise.
+     */
     public static CustomItem getItem(ItemStack stack){
         if(!isCustom(stack))return null;
         return itemMap.get(UUID.fromString(stack.getItemMeta().getPersistentDataContainer().get(ITEM_UUID_KEY,PersistentDataType.STRING)));
     }
 
+    /**
+     * Creates an {@link ItemStack} for the item given, and gives it to the player.
+     * @param player A player that will receive this custom item.
+     * @param item A {@link CustomItem} instance.
+     */
     public static void giveItem(Player player,CustomItem item){
         player.getInventory().addItem(createStack(item));
     }
 
+    /**
+     * Key that is used to save item ids of {@link CustomItem}s on {@link ItemStack}s.
+     */
     public static final NamespacedKey ITEM_UUID_KEY = new NamespacedKey("simpler","item_uuid");
 
     /**

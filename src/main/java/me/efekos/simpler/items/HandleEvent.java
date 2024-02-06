@@ -27,8 +27,16 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Must be added to event handler methods when making a {@link CustomItem}.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface HandleEvent {
+    /**
+     * Type of this handler. The event parameter you must use changes according to this type. see all members of
+     * {@link HandleType} for more.
+     * @return Type of this handler.
+     */
     HandleType value() default HandleType.RIGHT_CLICK;
 }

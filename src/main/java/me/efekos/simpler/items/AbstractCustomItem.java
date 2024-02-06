@@ -36,17 +36,36 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Consumer;
 
+/**
+ * A private class used to hide a lot of methods that users won't use.
+ */
 abstract class AbstractCustomItem {
+    /**
+     * A consumer that changes an {@link ItemStack} to give it the appearance user wanted.
+     */
     private final Consumer<ItemStack> appearance;
+    /**
+     * A map that contains event handler methods annotated with {@link HandleEvent}.
+     */
     private final Map<HandleEvent, Method> methodMap = new HashMap<>();
+    /**
+     * A map that contains fields annotated with {@link SaveField}.
+     */
     private final Map<SaveField, Field> saveFieldsMap = new HashMap<>();
 
+    /**
+     * Creates a new instance of this item
+     * @param appearance A consumer that changes stacks of this custom item.
+     */
     AbstractCustomItem(Consumer<ItemStack> appearance) {
         this.appearance = appearance;
         findMethods();
         findSaveFields();
     }
 
+    /**
+     * Finds save fields of this class.
+     */
     private void findSaveFields() {
         for (Field field : getClass().getDeclaredFields()) {
             SaveField annotation = field.getAnnotation(SaveField.class);
@@ -55,6 +74,11 @@ abstract class AbstractCustomItem {
         }
     }
 
+    /**
+     * Applies the {@link AbstractCustomItem#appearance} consumer to a clone of the {@link ItemStack} given.
+     * @param stack An {@link ItemStack} you want to apply the consumer.
+     * @return Changed and cloned {@link ItemStack}.
+     */
     public ItemStack makeAppearance(ItemStack stack) {
         ItemStack clonedStack = stack.clone();
 
@@ -63,6 +87,11 @@ abstract class AbstractCustomItem {
         return clonedStack;
     }
 
+    /**
+     * Runs event handler methods.
+     * @param event The event.
+     * @param handleType Handle type to match methods.
+     */
     void runMethods(Event event,HandleType handleType) {
         methodMap.forEach((handleEvent, method) -> {
             if(handleEvent.value()==handleType){
@@ -78,6 +107,10 @@ abstract class AbstractCustomItem {
         });
     }
 
+    /**
+     * Adds the values of fields annotated with {@link SaveField} to the given object.
+     * @param object An object.
+     */
     void putSaveFields(JsonObject object) {
         if (saveFieldsMap.isEmpty()) findSaveFields();
         saveFieldsMap.forEach((annotation, field) -> {
@@ -105,6 +138,10 @@ abstract class AbstractCustomItem {
 
     }
 
+    /**
+     * Fills the fields annotated with {@link SaveField} using the object given.
+     * @param object An object.
+     */
     void loadSaveFields(JsonObject object) {
         if (saveFieldsMap.isEmpty()) findSaveFields();
 
@@ -132,6 +169,9 @@ abstract class AbstractCustomItem {
         });
     }
 
+    /**
+     * Finds all the event handler methods annotated with {@link HandleEvent}.
+     */
     void findMethods() {
         Method[] allMethods = getClass().getDeclaredMethods();
 

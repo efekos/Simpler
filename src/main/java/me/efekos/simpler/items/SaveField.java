@@ -27,9 +27,22 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Add this annotation to fields that you want to be saved in your {@link CustomItem}.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface SaveField {
+    /**
+     * Key that will be used to save the value of this field.
+     * @return Key.
+     */
     String value();
+
+    /**
+     * Field type that tells the type of this field. Only primitive types and {@link String} is supported. You should not
+     * use other types inside a {@link CustomItem}.
+     * @return Field type.
+     */
     FieldType fieldType() default FieldType.STRING;
 }

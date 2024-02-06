@@ -34,10 +34,14 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 
 /**
- * Listener class for custom items
+ * Listener class for custom items.
  */
 public class ItemEvents  implements Listener {
 
+    /**
+     * handles item pickup
+     * @param e event
+     */
     @EventHandler
     public void onPickup(EntityPickupItemEvent e){
         if(!e.getEntityType().equals(EntityType.PLAYER))return;
@@ -46,50 +50,87 @@ public class ItemEvents  implements Listener {
         handleEvent(e,stack,HandleType.PICKUP);
     }
 
+    /**
+     * handles item drop
+     * @param e event
+     */
     @EventHandler
     public void onDrop(PlayerDropItemEvent e){
         handleEvent(e,e.getItemDrop().getItemStack(),HandleType.DROP);
     }
 
+    /**
+     * handles item clicks
+     * @param e event
+     */
     @EventHandler
     public void onInteract(PlayerInteractEvent e){
 
         if(!e.getHand().equals(EquipmentSlot.HAND))return;
 
         switch (e.getAction()){
-            case LEFT_CLICK_AIR -> handleEvent(e,e.getItem(),HandleType.LEFT_CLICK);
+            case LEFT_CLICK_AIR,LEFT_CLICK_BLOCK -> handleEvent(e,e.getItem(),HandleType.LEFT_CLICK);
+            case RIGHT_CLICK_AIR,RIGHT_CLICK_BLOCK -> handleEvent(e,e.getItem(),HandleType.RIGHT_CLICK);
+        }
+
+        switch (e.getAction()){
+            case LEFT_CLICK_AIR -> handleEvent(e,e.getItem(),HandleType.LEFT_CLICK_AIR);
             case LEFT_CLICK_BLOCK -> handleEvent(e,e.getItem(),HandleType.LEFT_CLICK_BLOCK);
-            case RIGHT_CLICK_AIR -> handleEvent(e,e.getItem(),HandleType.RIGHT_CLICK);
+            case RIGHT_CLICK_AIR -> handleEvent(e,e.getItem(),HandleType.RIGHT_CLICK_AIR);
             case RIGHT_CLICK_BLOCK -> handleEvent(e,e.getItem(),HandleType.RIGHT_CLICK_BLOCK);
         }
 
     }
 
+    /**
+     * handles item break block
+     * @param e event
+     */
     @EventHandler
     public void onBreakBlock(BlockBreakEvent e){
         handleEvent(e,e.getPlayer().getInventory().getItemInMainHand(),HandleType.BREAK_BLOCK);
     }
 
+    /**
+     * handles item break
+     * @param e event
+     */
     @EventHandler
     public void onBreak(PlayerItemBreakEvent e){
         handleEvent(e,e.getBrokenItem(),HandleType.BREAK);
     }
 
+    /**
+     * handles item damage
+     * @param e damage
+     */
     @EventHandler
     public void onDamage(PlayerItemDamageEvent e){
         handleEvent(e,e.getItem(),HandleType.DAMAGE);
     }
 
+    /**
+     * handles item consume
+     * @param e event
+     */
     @EventHandler
     public void onConsume(PlayerItemConsumeEvent e){
         handleEvent(e,e.getItem(),HandleType.CONSUME);
     }
 
+    /**
+     * handles item mend
+     * @param e event
+     */
     @EventHandler
     public void onMend(PlayerItemMendEvent e){
         handleEvent(e,e.getItem(),HandleType.MEND);
     }
 
+    /**
+     * handles item held
+     * @param e event
+     */
     @EventHandler
     public void onHeld(PlayerItemHeldEvent e){
         PlayerInventory inventory = e.getPlayer().getInventory();
@@ -101,6 +142,13 @@ public class ItemEvents  implements Listener {
         handleEvent(e,prev,HandleType.HOLD_ON);
     }
 
+    /**
+     * Handles any event that contains an item and a player.
+     * @param e The event.
+     * @param stack The stack used.
+     * @param handleType Which event handler methods should this event handling process execute on the {@link CustomItem}
+     *                   if found?
+     */
     private void handleEvent(Event e, ItemStack stack,HandleType handleType) {
         if(!ItemManager.isCustom(stack))return;
 

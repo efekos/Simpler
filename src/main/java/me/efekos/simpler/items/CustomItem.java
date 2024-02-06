@@ -28,13 +28,27 @@ import org.bukkit.inventory.ItemStack;
 import java.util.function.Consumer;
 
 public class CustomItem extends AbstractCustomItem {
+    /**
+     * Identifier of this custom item.
+     */
     private final NamespacedKey key;
 
+
+    /**
+     * Creates an instance of this custom item. NOTE TO SUB-CLASSES: Do NOT override this constructor in your class. Make
+     * a constructor with no parameters that calls this constructor instead.
+     * @param key Identifier of this item.
+     * @param appearance A consumer that will be applied to every instance of this item.
+     */
     public CustomItem(NamespacedKey key, Consumer<ItemStack> appearance) {
         super(appearance);
         this.key = key;
     }
 
+    /**
+     * Returns the identifier of this custom item.
+     * @return Identifier of this custom item.
+     */
     public NamespacedKey getKey() {
         return key;
     }
