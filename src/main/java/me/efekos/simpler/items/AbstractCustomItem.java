@@ -65,12 +65,14 @@ abstract class AbstractCustomItem {
 
     void runMethods(Event event,HandleType handleType) {
         methodMap.forEach((handleEvent, method) -> {
-            if(handleEvent.value()!=handleType)return;
+            if(handleEvent.value()==handleType){
 
-            try {
-                method.invoke(event);
-            } catch (Exception e) {
-                e.printStackTrace();
+                try {
+                    method.invoke(this,event);
+                } catch (InvocationTargetException ignored) {}
+                catch (IllegalAccessException e){
+                    throw new RuntimeException("Event handler methods must be public, "+method+" is not." /*because there is an illegal access exception*/);
+                }
             }
 
         });
