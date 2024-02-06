@@ -70,6 +70,9 @@ public enum HandleType {
     /**
      * Needed event: {@link org.bukkit.event.player.PlayerItemHeldEvent}
      */
-    HELD
-
+    HOLD_ON,
+    /**
+     * Needed event: {@link org.bukkit.event.player.PlayerItemHeldEvent}
+     */
+    HOLD_OFF
 }

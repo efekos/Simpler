@@ -31,6 +31,7 @@ import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
 /**
  * Listener class for custom items
@@ -91,7 +92,13 @@ public class ItemEvents  implements Listener {
 
     @EventHandler
     public void onHeld(PlayerItemHeldEvent e){
-        handleEvent(e,e.getPlayer().getInventory().getItem(e.getNewSlot()), HandleType.HELD);
+        PlayerInventory inventory = e.getPlayer().getInventory();
+
+        ItemStack prev = inventory.getItem(e.getPreviousSlot());
+        ItemStack nev = inventory.getItem(e.getNewSlot());
+
+        handleEvent(e,prev,HandleType.HOLD_OFF);
+        handleEvent(e,prev,HandleType.HOLD_ON);
     }
 
     private void handleEvent(Event e, ItemStack stack,HandleType handleType) {
