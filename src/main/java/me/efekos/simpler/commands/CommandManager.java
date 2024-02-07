@@ -116,6 +116,16 @@ public class CommandManager {
         } catch (Exception e){e.printStackTrace();}
     }
 
+    /**
+     * Registers a {@link CoreCommand} with its children being {@link SubCommand}s given.
+     * @param plugin an instance of your {@link JavaPlugin}.
+     * @param command the {@link CoreCommand} that you want to register
+     * @param subCommands An array of {@link SubCommand}s this {@link CoreCommand} will contain.
+     * @throws InvalidAnnotationException if the given {@link CoreCommand} does not have a @{@link Command} annotation
+     * @throws NoSuchFieldException If there is no commandMap, which is not usual in a healthy server.
+     * @throws IllegalAccessException If we can't access commandField
+     * @throws NoSuchMethodException If there is no constructor in the {@link CoreCommand} given, or creating a new instance of command fails.
+     */
     @SafeVarargs
     public static void registerCoreCommand(JavaPlugin plugin, Class<? extends CoreCommand> command, Class<? extends SubCommand>... subCommands) throws InvalidAnnotationException,NoSuchFieldException,IllegalAccessException,NoSuchMethodException{
         if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.commands.Command to be registered as command.");
