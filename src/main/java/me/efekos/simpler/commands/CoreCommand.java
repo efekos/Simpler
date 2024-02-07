@@ -101,13 +101,21 @@ public abstract class CoreCommand extends Command {
         return "/" + getName() + " <sub> <args>";
     }
 
+    private List<Class<? extends SubCommand>> subList = new ArrayList<>();
+
+    public void setSubList(List<Class<? extends SubCommand>> subList) {
+        this.subList = subList;
+    }
+
     /**
      * Returns a list of the {@link SubCommand}s that belong to this {@link CoreCommand}.
      *
      * @return List of the subs.
      */
     @NotNull
-    public abstract List<Class<? extends SubCommand>> getSubs();
+    public List<Class<? extends SubCommand>> getSubs() {
+        return subList;
+    }
 
     /**
      * Finds a {@link SubCommand} by its name using {@link SubCommand#getName()}.

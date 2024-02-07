@@ -1,20 +1,17 @@
 package me.efekos.simpler;
 
-import me.efekos.simpler.commands.CommandManager;
-import me.efekos.simpler.commands.CommandTree;
-import me.efekos.simpler.commands.node.impl.LabelNode;
-import me.efekos.simpler.commands.node.impl.StringArgumentNode;
+import me.efekos.simpler.commands.*;
 import me.efekos.simpler.config.MessageConfiguration;
-import me.efekos.simpler.items.ItemManager;
-import me.efekos.simpler.items.TestItem;
-import org.bukkit.NamespacedKey;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.reflections.Reflections;
+
+import java.util.List;
+import java.util.Set;
 
 /**
  * Main class of Simpler.
  */
-public final class Simpler extends JavaPlugin {
+public final class Simpler {
     /**
      * Main configuration for messages that Simpler uses.
      */
@@ -36,52 +33,45 @@ public final class Simpler extends JavaPlugin {
         Simpler.configuration = configuration;
     }
 
-    public static NamespacedKey TEST_ITEM_KEY;
+    public static void registerCommands(JavaPlugin plugin){
+        Reflections reflections = new Reflections(plugin.getClass().getPackageName());
 
-    @Override
-    public void onEnable() {
+        Set<Class<?>> commandClasses = reflections.getTypesAnnotatedWith(Command.class);
+        Set<Class<?>> subCommandClasses = reflections.getTypesAnnotatedWith(SubOf.class);
 
-        try {
-            CommandManager.registerCommandTree(this,new CommandTree("test","test command","test.test")
-                    .addChild(new LabelNode("hello")
-                            .addChild(new StringArgumentNode().setExecutive(context -> {
-                                Player player = context.getSenderAsPlayer();
 
-                                ItemManager.giveItem(player,new TestItem(8,"cool_item"));
-                            })
-                    )
-            ));
+        for (Class<?> commandClass : commandClasses) {
+            try {
+                if(commandClass.getSuperclass()==null) throw new RuntimeException("Command classes must extend something, "+commandClass.getName()+" doesn't");
 
-            TEST_ITEM_KEY = new NamespacedKey(this,"test_item");
+                if(commandClass.getSuperclass()== BaseCommand.class) CommandManager.registerBaseCommand(plugin, ((Class<? extends BaseCommand>) commandClass));
+                else if (commandClass.getSuperclass()== CoreCommand.class){
 
-            ItemManager.setPlugin(this);
-            ItemManager.registerItem(TEST_ITEM_KEY, TestItem.class);
+                    List<Class<?>> subs = subCommandClasses.stream()
+                            .filter(aClass -> aClass.getAnnotation(SubOf.class).value() == commandClass)
+                            .filter(aClass -> aClass.getSuperclass() == SubCommand.class)
+                            .toList();
 
-            ItemManager.loadCustomItems();
+                    CommandManager.registerCoreCommand(plugin,commandClass.asSubclass(CoreCommand.class), subs.toArray(Class[]::new));
 
-        } catch (Exception e){
-            e.printStackTrace();
+                } else if (commandClass.getSuperclass()== SubCommand.class){
+                    if(!subCommandClasses.contains(commandClass)) throw new RuntimeException("Sub commands must contain @SubOf, "+commandClass.getName()+" doesn't.");
+                }
+
+                for (Class<?> aClass : reflections.getTypesAnnotatedWith(CommandTreeHandler.class)) {
+                    if(aClass.getSuperclass()!= CommandTreeHandler.class) throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, "+aClass.getName()+" doesn't");
+
+                    TreeCommandHandler handler = (TreeCommandHandler) aClass.getConstructor().newInstance();
+
+                    CommandManager.registerCommandTree(plugin,handler.getTree());
+                }
+
+            } catch (Exception e){
+                e.printStackTrace();
+            }
         }
-
-        //this thing simply makes a /home set <pos> command with nms. I'll use it later 👀👀
-        //CommandDispatcher<CommandListenerWrapper> dispatcher = MinecraftServer.getServer().vanillaCommandDispatcher.a();
-
-        //
-        //dispatcher.register(net.minecraft.commands.CommandDispatcher.a("home")
-        //        .then(net.minecraft.commands.CommandDispatcher.a("set")
-        //                .then(net.minecraft.commands.CommandDispatcher.a("pos", ArgumentPosition.a())
-        //                        .executes(commandContext -> {
-        //                            commandContext.getSource().a(IChatBaseComponent.a("sdf"));
-        //                            return 1;
-        //                        })
-        //                )
-        //        )
-        //);
     }
 
-    @Override
-    public void onDisable() {
-        super.onDisable();
-        ItemManager.saveCustomItems();
-    }
+    //TODO: NMS commands
+    //TODO: finish guides
 }

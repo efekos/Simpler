@@ -120,7 +120,7 @@ keep running if the sender is a player.
 
 * **Fixed** A bug that prevents players from executing any `SubCommand` or `CoreCommand`
 
-# 1.6
+# 1.7
 
 * **Added** `HandleEvent`: Annotation to put to your custom item event listeners.
 * **Added** `HandleType`: Determines the type of the handler.
@@ -129,12 +129,17 @@ keep running if the sender is a player.
 * **Added** `CustomItemRegistry`: Register `CustomItem`s using this registry.
 * **Added** `ItemManager#isCustom(ItemStack)`: Returns true if given stack is a custom item.
 * **Added** `ItemManager#getItem(ItemStack)`: Returns the custom item instance of the stack.
+* **Added** `SubOf`: Add to your sub commands.
+* **Added** `Simpler#registerCommands(JavaPlugin)`: Scans your classes and registers commands.
+* **Added** `TreeCommandHandler`: Annotate with @`CommandTreeHandler`
+* **Added** `CommandTreeHandler`: Used for classes extending `TreeCommandHandler`
+* **Changed** `CoreCommand#getSubs` to be not abstract because you don't have to manually add sub commands anymore.
+* **Changed** `CustomItem`'s entire behaviour.
+* **Deprecated** `CommandManager#registerCoreCommand(JavaPlugin,Class<? extends CoreCommand>)`: You have to define sub
+command classes yourself.
 * **Moved** `@.annotations.Command` to `@.commands.Command`
 * **Removed** `@.events` package: Event classes now need access to non-public methods
-* **Changed** `CustomItem`'s entire behaviour.
 * **Removed** `@.items.compound`: Moved into [another repository](https://github.com/efekos/ItemContent).
 * **Removed** `@.items.tag`: Moved into [another repository](https://github.com/efekos/ItemContent).
 * **Removed** `@.items.ItemContent`: [another repository](https://github.com/efekos/ItemContent).
-* **Removed** `@.annotations.Listen`: Useless
-* **Removed** `@.annotations.LeftClick`: Useless
-* **Removed** `@.annotations.RightClick`: Useless
+* **Removed** `@.annotations` package: Useless

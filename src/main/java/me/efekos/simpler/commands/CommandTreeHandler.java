@@ -20,38 +20,7 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.items;
+package me.efekos.simpler.commands;
 
-/**
- * Represents type of a field annotated with {@link SaveField}.
- */
-public enum FieldType {
-    /**
-     * String type. Your field must be a {@link String} when using this.
-     */
-    STRING,
-    /**
-     * Integer type. Your field must be an {@code int} or an {@link Integer} when using this.
-     */
-    INTEGER,
-    /**
-     * Double type. Your field must be a {@code double} or a {@link Double} when using this.
-     */
-    DOUBLE,
-    /**
-     * Long type. Your field must be a {@code long} or a {@link Long} when using this.
-     */
-    LONG,
-    /**
-     * Float type. Your field must be a {@code float} or a {@link Float} when using this.
-     */
-    FLOAT,
-    /**
-     * Boolean type. Your field must be a {@code boolean} or a {@link Boolean} when using this.
-     */
-    BOOLEAN,
-    /**
-     * Byte type. Your field must be a {@code byte} or a {@link Byte} when using this.
-     */
-    BYTE
+public @interface CommandTreeHandler {
 }

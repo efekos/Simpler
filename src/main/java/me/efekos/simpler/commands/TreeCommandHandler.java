@@ -20,7 +20,9 @@
  * SOFTWARE.
  */
 
-/**
- * All the annotations of Simpler.
- */
-package me.efekos.simpler.annotations;
+package me.efekos.simpler.commands;
+
+public abstract class TreeCommandHandler {
+
+    public abstract CommandTree getTree();
+}
