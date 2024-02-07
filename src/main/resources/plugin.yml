@@ -2,5 +2,5 @@ description: simp APı
 author: efekos
 name: Simpler
 main: me.efekos.simpler.Simpler
-version: 1.6.7
+version: 1.7
 api-version: 1.20

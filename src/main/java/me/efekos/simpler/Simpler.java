@@ -11,7 +11,7 @@ import java.util.Set;
 /**
  * Main class of Simpler.
  */
-public final class Simpler {
+public final class Simpler extends JavaPlugin{
     /**
      * Main configuration for messages that Simpler uses.
      */
