@@ -116,7 +116,8 @@ public class CommandManager {
         } catch (Exception e){e.printStackTrace();}
     }
 
-    public static void registerCoreCommand(JavaPlugin plugin,Class<? extends CoreCommand> command,Class<? extends SubCommand>... subCommands) throws InvalidAnnotationException,NoSuchFieldException,IllegalAccessException,NoSuchMethodException{
+    @SafeVarargs
+    public static void registerCoreCommand(JavaPlugin plugin, Class<? extends CoreCommand> command, Class<? extends SubCommand>... subCommands) throws InvalidAnnotationException,NoSuchFieldException,IllegalAccessException,NoSuchMethodException{
         if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.commands.Command to be registered as command.");
 
         Field commandField = plugin.getServer().getClass().getDeclaredField("commandMap");
