@@ -22,5 +22,18 @@
 
 package me.efekos.simpler.commands;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * An interface that must be added to subclasses of {@link TreeCommandHandler}, so {@link me.efekos.simpler.Simpler#registerCommands(JavaPlugin)}
+ * can notice {@link TreeCommandHandler}.
+ */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
 public @interface CommandTreeHandler {
 }
