@@ -29,6 +29,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Arrays;
 
 /**
  * Static command manager for registering commands.
@@ -96,7 +97,9 @@ public class CommandManager {
      * @throws NoSuchFieldException If there is no commandMap, which is not usual in a healthy server.
      * @throws IllegalAccessException If we can't access commandField
      * @throws NoSuchMethodException If there is no constructor in the {@link CoreCommand} given, or creating a new instance of command fails.
+     * @deprecated If you want to use this method, you have to include sub commands yourself, using {@link CommandManager#registerCoreCommand(JavaPlugin, Class, Class[])}
      */
+    @Deprecated
     public static void registerCoreCommand(JavaPlugin plugin,Class<? extends CoreCommand> command) throws InvalidAnnotationException,NoSuchFieldException,IllegalAccessException,NoSuchMethodException{
         if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.commands.Command to be registered as command.");
 
@@ -108,6 +111,23 @@ public class CommandManager {
         cmd.setAccessible(true);
         try{
             CoreCommand newCommand = cmd.newInstance(command.getName());
+
+            map.register(plugin.getName(),newCommand);
+        } catch (Exception e){e.printStackTrace();}
+    }
+
+    public static void registerCoreCommand(JavaPlugin plugin,Class<? extends CoreCommand> command,Class<? extends SubCommand>... subCommands) throws InvalidAnnotationException,NoSuchFieldException,IllegalAccessException,NoSuchMethodException{
+        if(command.getAnnotation(Command.class)==null) throw new InvalidAnnotationException(command.getName() + " Requires a me.efekos.simpler.commands.Command to be registered as command.");
+
+        Field commandField = plugin.getServer().getClass().getDeclaredField("commandMap");
+        commandField.setAccessible(true);
+        CommandMap map = (CommandMap) commandField.get(plugin.getServer());
+
+        Constructor<? extends CoreCommand> cmd = command.getConstructor(String.class);
+        cmd.setAccessible(true);
+        try{
+            CoreCommand newCommand = cmd.newInstance(command.getName());
+            newCommand.setSubList(Arrays.asList(subCommands));
 
             map.register(plugin.getName(),newCommand);
         } catch (Exception e){e.printStackTrace();}
