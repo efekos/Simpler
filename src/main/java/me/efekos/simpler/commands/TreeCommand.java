@@ -39,16 +39,30 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 /**
- * Class for the actual command that handles a tree command. Only can be created using {@link CommandManager#registerCommandTree(JavaPlugin, CommandTree)}.
+ * Class for the actual command that handles a {@link TreeCommand}. Only can be created using {@link CommandManager#registerCommandTree(JavaPlugin, CommandTree)}.
  */
 class TreeCommand extends Command {
+    /**
+     * Main {@link CommandTree} that was provided by the user.
+     */
     private final CommandTree base;
 
+    /**
+     * Creates a new tree command.
+     * @param base {@link CommandTree} that this {@link TreeCommand} will handle.
+     */
     TreeCommand(@NotNull CommandTree base) {
         super(base.getBaseName());
         this.base = base;
     }
 
+    /**
+     * execute command.
+     * @param commandSender Source object which is executing this command
+     * @param s The alias of the command used
+     * @param args All arguments passed to the command, split via ' '
+     * @return {@code true}.
+     */
     @Override
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
 
@@ -90,12 +104,24 @@ class TreeCommand extends Command {
         return true;
     }
 
+    /**
+     * tab complete command
+     * @param sender Source object which is executing this command
+     * @param alias the alias being used
+     * @param args All arguments passed to the command, split via ' '
+     * @return a list.
+     * @throws IllegalArgumentException when something unexpected happens.
+     */
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
         return super.tabComplete(sender, alias, args);
     }
 
+    /**
+     * Returns aliases.
+     * @return aliases.
+     */
     @NotNull
     @Override
     public List<String> getAliases() {
@@ -103,6 +129,15 @@ class TreeCommand extends Command {
     }
 
 
+    /**
+     * actual tab-complete method.
+     * @param sender Source object which is executing this command
+     * @param alias the alias being used
+     * @param args All arguments passed to the command, split via ' '
+     * @param location The position looked at by the sender, or null if none
+     * @return a list of tab completions.
+     * @throws IllegalArgumentException when something unexpected happens.
+     */
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
@@ -133,6 +168,10 @@ class TreeCommand extends Command {
         return finalListFound;
     }
 
+    /**
+     * Returns the description of his command.
+     * @return Description.
+     */
     @NotNull
     @Override
     public String getDescription() {

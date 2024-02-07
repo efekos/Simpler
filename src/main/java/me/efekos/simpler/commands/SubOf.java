@@ -22,13 +22,23 @@
 
 package me.efekos.simpler.commands;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * An interface that determines which {@link CoreCommand} will contain this {@link SubCommand}. It is required to add
+ * this annotation to {@link SubCommand}'s subclasses if you want to use {@link me.efekos.simpler.Simpler#registerCommands(JavaPlugin)}.
+ */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
 public @interface SubOf {
+    /**
+     * Returns a {@link CoreCommand} class.
+     * @return A {@link CoreCommand} class that will contain this {@link SubCommand}.
+     */
     Class<? extends CoreCommand> value();
 }
