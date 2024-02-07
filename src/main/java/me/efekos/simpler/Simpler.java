@@ -59,7 +59,7 @@ public final class Simpler {
                 }
 
                 for (Class<?> aClass : reflections.getTypesAnnotatedWith(CommandTreeHandler.class)) {
-                    if(aClass.getSuperclass()!= CommandTreeHandler.class) throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, "+aClass.getName()+" doesn't");
+                    if(aClass.getSuperclass()!= TreeCommandHandler.class) throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, "+aClass.getName()+" doesn't");
 
                     TreeCommandHandler handler = (TreeCommandHandler) aClass.getConstructor().newInstance();
 
