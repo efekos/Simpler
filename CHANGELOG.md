@@ -130,6 +130,7 @@ keep running if the sender is a player.
 * **Added** `ItemManager#isCustom(ItemStack)`: Returns true if given stack is a custom item.
 * **Added** `ItemManager#getItem(ItemStack)`: Returns the custom item instance of the stack.
 * **Added** `SubOf`: Add to your sub commands.
+* **Added** `Simpler#registerCommands(JavaPlugin)`: Scans your classes and registers commands.
 * **Moved** `@.annotations.Command` to `@.commands.Command`
 * **Removed** `@.events` package: Event classes now need access to non-public methods
 * **Changed** `CustomItem`'s entire behaviour.
