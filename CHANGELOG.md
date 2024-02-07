@@ -131,6 +131,8 @@ keep running if the sender is a player.
 * **Added** `ItemManager#getItem(ItemStack)`: Returns the custom item instance of the stack.
 * **Added** `SubOf`: Add to your sub commands.
 * **Added** `Simpler#registerCommands(JavaPlugin)`: Scans your classes and registers commands.
+* **Added** `TreeCommandHandler`: Annotate with @`CommandTreeHandler`
+* **Added** `CommandTreeHandler`: Used for classes extending `TreeCommandHandler`
 * **Changed** `CoreCommand#getSubs` to be not abstract because you don't have to manually add sub commands anymore.
 * **Changed** `CustomItem`'s entire behaviour.
 * **Deprecated** `CommandManager#registerCoreCommand(JavaPlugin,Class<? extends CoreCommand>)`: You have to define sub
