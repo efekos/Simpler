@@ -2,6 +2,7 @@ package me.efekos.simpler;
 
 import me.efekos.simpler.commands.*;
 import me.efekos.simpler.config.MessageConfiguration;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
@@ -12,6 +13,7 @@ import java.util.Set;
  * Main class of Simpler.
  */
 public final class Simpler extends JavaPlugin{
+    public static final NamespacedKey TEST_ITEM_KEY = new NamespacedKey("simpler", "gun");
     /**
      * Main configuration for messages that Simpler uses.
      */
@@ -59,7 +61,7 @@ public final class Simpler extends JavaPlugin{
                 }
 
                 for (Class<?> aClass : reflections.getTypesAnnotatedWith(CommandTreeHandler.class)) {
-                    if(aClass.getSuperclass()!= CommandTreeHandler.class) throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, "+aClass.getName()+" doesn't");
+                    if(aClass.getSuperclass()!= TreeCommandHandler.class) throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, "+aClass.getName()+" doesn't");
 
                     TreeCommandHandler handler = (TreeCommandHandler) aClass.getConstructor().newInstance();
 
@@ -74,4 +76,12 @@ public final class Simpler extends JavaPlugin{
 
     //TODO: NMS commands
     //TODO: finish guides
+
+
+    @Override
+    public void onEnable() {
+        super.onEnable();
+
+        registerCommands(this);
+    }
 }
