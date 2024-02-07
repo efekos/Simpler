@@ -1,13 +1,11 @@
 package me.efekos.simpler;
 
-import me.efekos.simpler.commands.BaseCommand;
-import me.efekos.simpler.commands.Command;
-import me.efekos.simpler.commands.CommandManager;
-import me.efekos.simpler.commands.SubOf;
+import me.efekos.simpler.commands.*;
 import me.efekos.simpler.config.MessageConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -44,10 +42,29 @@ public final class Simpler {
 
         for (Class<?> commandClass : commandClasses) {
             try {
+                if(commandClass.getSuperclass()==null) throw new RuntimeException("Command classes must extend something, "+commandClass.getName()+" doesn't");
 
-                if(commandClass.getSuperclass()!=null&&commandClass.getSuperclass()== BaseCommand.class) CommandManager.registerBaseCommand(plugin, ((Class<? extends BaseCommand>) commandClass));
-                //TODO core commands
-                //TODO tree commands
+                if(commandClass.getSuperclass()== BaseCommand.class) CommandManager.registerBaseCommand(plugin, ((Class<? extends BaseCommand>) commandClass));
+                else if (commandClass.getSuperclass()== CoreCommand.class){
+
+                    List<Class<?>> subs = subCommandClasses.stream()
+                            .filter(aClass -> aClass.getAnnotation(SubOf.class).value() == commandClass)
+                            .filter(aClass -> aClass.getSuperclass() == SubCommand.class)
+                            .toList();
+
+                    CommandManager.registerCoreCommand(plugin,commandClass.asSubclass(CoreCommand.class), subs.toArray(Class[]::new));
+
+                } else if (commandClass.getSuperclass()== SubCommand.class){
+                    if(!subCommandClasses.contains(commandClass)) throw new RuntimeException("Sub commands must contain @SubOf, "+commandClass.getName()+" doesn't.");
+                }
+
+                for (Class<?> aClass : reflections.getTypesAnnotatedWith(CommandTreeHandler.class)) {
+                    if(aClass.getSuperclass()!= CommandTreeHandler.class) throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, "+aClass.getName()+" doesn't");
+
+                    TreeCommandHandler handler = (TreeCommandHandler) aClass.getConstructor().newInstance();
+
+                    CommandManager.registerCommandTree(plugin,handler.getTree());
+                }
 
             } catch (Exception e){
                 e.printStackTrace();
