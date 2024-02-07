@@ -129,6 +129,7 @@ keep running if the sender is a player.
 * **Added** `CustomItemRegistry`: Register `CustomItem`s using this registry.
 * **Added** `ItemManager#isCustom(ItemStack)`: Returns true if given stack is a custom item.
 * **Added** `ItemManager#getItem(ItemStack)`: Returns the custom item instance of the stack.
+* **Added** `SubOf`: Add to your sub commands.
 * **Moved** `@.annotations.Command` to `@.commands.Command`
 * **Removed** `@.events` package: Event classes now need access to non-public methods
 * **Changed** `CustomItem`'s entire behaviour.
