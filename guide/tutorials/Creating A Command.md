@@ -175,7 +175,7 @@ public class Example extends JavaPlugin {
 ````
 
 ## Creating a CoreCommand
-Let's say we want to seperate the `/feed` command to two commands called `/full health` and `/full hunger`. In a case like
+Let's say we want to separate the `/feed` command to two commands called `/full health` and `/full hunger`. In a case like
 this, we might need a `CoreCommand` to be in action.
 
 `CoreCommand`s are simply a tree containing `SubCommand`s inside them. So we won't do actual command stuff like we did in
@@ -190,23 +190,17 @@ import me.efekos.simpler.commands.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Command(name = "full", description = "Commands of fulling your stuff!", permission = "examples.core.full", playerOnly = true)
-public class Full extends CoreCommand {
+public class FullCommand extends CoreCommand {
 
-  public Full(@NotNull String name) {
+  public FullCommand(@NotNull String name) {
     super(name);
   }
 
-  public Full(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
+  public FullCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
     super(name, description, usageMessage, aliases);
-  }
-
-  @Override
-  public @NotNull List<Class<? extends SubCommand>> getSubs() {
-    return new ArrayList<>();
   }
 
   @Override
@@ -216,21 +210,17 @@ public class Full extends CoreCommand {
 }
 ```
 
-At this class, we have two important methods:
+At this class, we have an important method:
 
-* **getSubs()** _-_ This method should return every `SubCommand` that will be under this `CoreCommand` in a list. You can
-  use `Arrays.asList(...)` as the simplest method.
-* **renderHelpList()** _-_ This method should send a help list to the `CommandSender` as message. You can use a for method
+**renderHelpList()** _-_ This method should send a help list to the `CommandSender` as message. You can use a for method
   to send messages for each command, combine it with a header and footer, and you are done!
 
-Once you made these two methods work correctly, you can move on to the next step of creating a sub command.
+Once you made these methods work correctly, you can move on to the next step, creating a sub command.
 
 ### Creating a SubCommand
 
-`SubCommand` is a superclass of `BaseCommand`, so you can create a sub command just like you did for base commands. All
-you need to do is override these methods too:
-
-* **getParent()** _-_ Should return `YourCoreCommandClass.class`.
+`SubCommand` is a subclass of `BaseCommand`, so you can create a sub command just like you did for base commands. All
+you need to do is add a @`SubOf` annotation as well.
 
 ## Registering a CoreCommand
 
@@ -239,12 +229,14 @@ To register a `CoreCommand`, all you have to do is call `CommandManager#register
 ````java
 import me.efekos.simpler.commands.CommandManager;
 import org.bukkit.plugin.java.JavaPlugin;
-import me.efekos.examples.core.commands.Full;
+import me.efekos.examples.core.commands.FullCommand;
+import me.efekos.examples.core.commands.FullHungerCommand;
+import me.efekos.examples.core.commands.FullHealthCommand;
 
 public class Examples extends JavaPlugin {
   @Override
   public void onEnable() {
-    CommandManager.registerCoreCommand(this,Full.class);
+    CommandManager.registerCoreCommand(this,FullCommand.class,FullHungerCommand.class,FullHealthCommand.class);
   }
 }
 ````
