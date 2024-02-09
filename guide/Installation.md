@@ -25,7 +25,7 @@ Add this dependency to your dependencies.
 <dependency>
 	    <groupId>com.github.efekos</groupId>
 	    <artifactId>Simpler</artifactId>
-	    <version>1.6.6</version>
+	    <version>1.7</version>
 </dependency>
 ````
 
@@ -44,6 +44,6 @@ allprojects {
 Add this dependency
 ````gradle
 dependencies {
-	 implementation 'com.github.efe124:Simpler:1.6.6'
+	 implementation 'com.github.efe124:Simpler:1.7'
 }
 ````
