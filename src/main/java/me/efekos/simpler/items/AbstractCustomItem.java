@@ -43,7 +43,7 @@ abstract class AbstractCustomItem {
     /**
      * A consumer that changes an {@link ItemStack} to give it the appearance user wanted.
      */
-    private final Consumer<ItemStack> appearance;
+    private Consumer<ItemStack> appearance;
     /**
      * A map that contains event handler methods annotated with {@link HandleEvent}.
      */
@@ -61,6 +61,14 @@ abstract class AbstractCustomItem {
         this.appearance = appearance;
         findMethods();
         findSaveFields();
+    }
+
+    /**
+     * Changes the appearance. Useful if you want to use class fields in your item.
+     * @param appearance New appearance.
+     */
+    protected void setAppearance(Consumer<ItemStack> appearance){
+        this.appearance = appearance;
     }
 
     /**
