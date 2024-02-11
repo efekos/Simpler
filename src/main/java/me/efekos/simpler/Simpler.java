@@ -12,6 +12,12 @@ import java.util.Set;
  * Main class of Simpler.
  */
 public final class Simpler {
+
+    /**
+     * Creates a new instance.
+     */
+    public Simpler() {}
+
     /**
      * Main configuration for messages that Simpler uses.
      */
@@ -33,6 +39,11 @@ public final class Simpler {
         Simpler.configuration = configuration;
     }
 
+    /**
+     * Scans your entire plugin source to find commands (anything annotated with {@link Command} will be considered a
+     * command) and registers them.
+     * @param plugin Instance of your plugin.
+     */
     public static void registerCommands(JavaPlugin plugin){
         Reflections reflections = new Reflections(plugin.getClass().getPackageName());
 

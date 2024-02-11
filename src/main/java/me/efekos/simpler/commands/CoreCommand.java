@@ -49,10 +49,23 @@ import java.util.stream.Collectors;
  * Used for core commands like /friends invite,/friends list,/friends remove etc. {@link #getSubs()} will return a list of the {@link SubCommand}s that belong to this command. Must be annotated with {@link me.efekos.simpler.commands.Command} to be registered properly.
  */
 public abstract class CoreCommand extends Command {
+    /**
+     * Creates a new core command instance. Not really needed for usage, but you have to override this constructor in
+     * your class.
+     * @param name Name of the command, not important in this case though.
+     */
     protected CoreCommand(@NotNull String name) {
         super(name);
     }
 
+    /**
+     * Creates a new core command instance. Not really needed for usage, but you have to override this constructor in
+     * your class.
+     * @param name Name of the command, not important in this case though.
+     * @param description Description.
+     * @param usageMessage Usage message.
+     * @param aliases Alias list.
+     */
     protected CoreCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
     }

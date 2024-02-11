@@ -24,6 +24,9 @@ package me.efekos.simpler.config;
 
 import me.efekos.simpler.commands.syntax.ArgumentPriority;
 
+/**
+ * Configuration for default messages sent by Simpler through handling, such as argument correction or permission messages.
+ */
 public class MessageConfiguration {
     /**
      * No-Permission message. Appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.
@@ -127,7 +130,16 @@ public class MessageConfiguration {
         this.PAGINATED_MENU_PAGE = PAGINATED_MENU_PAGE;
     }
 
+    /**
+     * Builder class that will hopefully help you create a message configuration.
+     */
     public static class Builder {
+
+        /**
+         * Creates a new builder.
+         */
+        public Builder() {}
+
         /**
          * No-Permission message. Appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.
          */

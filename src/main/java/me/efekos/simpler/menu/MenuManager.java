@@ -34,6 +34,12 @@ import java.util.HashMap;
  * Static manager class for {@link Menu}s.
  */
 public class MenuManager {
+
+    /**
+     * Creates a new menu manager instance if you somehow need one.
+     */
+    public MenuManager() {}
+
     /**
      * A map used to store a {@link MenuData} for every {@link Player}.
      */

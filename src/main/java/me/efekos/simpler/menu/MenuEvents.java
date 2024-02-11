@@ -34,8 +34,15 @@ import org.bukkit.plugin.java.JavaPlugin;
  * Should be registered as one of your plugin's listeners so {@link Menu}s will work. You don't have to register them yourself. Setting up the MenuManager by {@link me.efekos.simpler.menu.MenuManager#setPlugin(JavaPlugin)} also registers this listener to your plugin.
  */
 public class MenuEvents implements Listener {
+
+    /**
+     * Creates a new menu events instance.
+     */
+    public MenuEvents() {}
+
     /**
      * Handles menu clicks.
+     * @param e Event.
      */
     @EventHandler
     public void onMenuClick(InventoryClickEvent e){
@@ -55,6 +62,7 @@ public class MenuEvents implements Listener {
 
     /**
      * Handles menu opening.
+     * @param e Event.
      */
     @EventHandler
     public void onMenuOpen(InventoryOpenEvent e){
@@ -69,6 +77,7 @@ public class MenuEvents implements Listener {
 
     /**
      * Handles menu closing.
+     * @param e Event.
      */
     @EventHandler
     public void onMenuClose(InventoryCloseEvent e){

@@ -43,6 +43,11 @@ import java.util.UUID;
 public class ItemManager {
 
     /**
+     * Creates a new instance if you somehow need one.
+     */
+    public ItemManager() {}
+
+    /**
      * Singleton instance of the custom item registry.
      */
     private static final CustomItemRegistry registry = new CustomItemRegistry();

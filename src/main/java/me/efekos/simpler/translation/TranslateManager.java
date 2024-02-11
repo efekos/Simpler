@@ -41,6 +41,11 @@ import java.util.regex.Pattern;
 public class TranslateManager {
 
     /**
+     * Creates a new manager instance if you somehow need one.
+     */
+    public TranslateManager() {}
+
+    /**
      * The pattern used for detecting hex colors.
      */
     public static final Pattern hexColorsPattern = Pattern.compile("(&#[0-9a-fA-F]{6})");

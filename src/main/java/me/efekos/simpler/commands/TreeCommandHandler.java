@@ -32,6 +32,11 @@ import org.bukkit.plugin.java.JavaPlugin;
 public abstract class TreeCommandHandler {
 
     /**
+     * Creates a new handler.
+     */
+    public TreeCommandHandler() {}
+
+    /**
      * Returns a command tree that will be registered.
      * @return A {@link CommandTree} instance.
      */

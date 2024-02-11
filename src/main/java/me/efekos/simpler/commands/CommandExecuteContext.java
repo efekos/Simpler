@@ -28,6 +28,9 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+/**
+ * A context class that contains some information about a command execution.
+ */
 public class CommandExecuteContext {
     /**
      * Sender that executed this command.

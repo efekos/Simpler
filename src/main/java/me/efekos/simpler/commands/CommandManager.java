@@ -37,6 +37,12 @@ import java.util.Arrays;
 public class CommandManager {
 
     /**
+     * Creates a new {@link CommandManager}, well, if you somehow need one.
+     */
+    public CommandManager() {
+    }
+
+    /**
      * Registers multiple {@link BaseCommand}s at the same time.
      * @param plugin An Instance of your plugin that is using this API. If called within plugin main class, provide this keyword
      * @param commands A class reference of every base command to be registered
