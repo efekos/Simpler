@@ -137,7 +137,7 @@ keep running if the sender is a player.
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Changed `CoreCommand#getSubs` to be not abstract because you don't have to manually add sub commands anymore.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Changed `CustomItem`'s entire behaviour.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-deprecated.svg) Deprecated `CommandManager#registerCoreCommand(JavaPlugin,Class<? extends CoreCommand>)`: You have to define sub
-command classes yourself.
+command classes yourself.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.annotations.Command` to `@.commands.Command`.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-minus.svg) Removed `@.events` package: Event classes now need access to non-public methods.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-minus.svg) Removed `@.items.compound`: Moved into [another repository](https://github.com/efekos/ItemContent).\
@@ -145,6 +145,6 @@ command classes yourself.
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-minus.svg) Removed `@.items.ItemContent`: [another repository](https://github.com/efekos/ItemContent).\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-minus.svg) Removed `@.annotations` package: Useless
 
-# 1.7.1
+## 1.7.1
 
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added icons to changelogs.
