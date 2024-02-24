@@ -22,6 +22,7 @@
 
 package me.efekos.simpler.config;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -151,10 +152,8 @@ public class ListDataManager<T extends Storable> {
 
     /**
      * Loads all the data from the save before. You don't have to check if file exists, because method does it.
-     * @param clazz Accessing a class object of a type parameter is impossible, so you need to give it. Just do
-     * {@code <T>[].class} here, replacing {@code <T>} with name of your type. That type must be same with {@link T}.
      */
-    public void load(Class<T[]> clazz){
+    public void load(){
         Gson gson = new Gson();
         String absPath = plugin.getDataFolder().getAbsolutePath()+path;
         File file = new File(absPath);
@@ -163,7 +162,8 @@ public class ListDataManager<T extends Storable> {
             try {
                 Reader reader = new FileReader(file);
 
-                T[] n = gson.fromJson(reader,clazz);
+
+                T[] n = gson.fromJson(reader, new TypeToken<List<T>>(){}.getType());
 
                 for (T t : n) {
                     datas.add(t);

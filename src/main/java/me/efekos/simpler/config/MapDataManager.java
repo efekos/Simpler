@@ -22,6 +22,7 @@
 
 package me.efekos.simpler.config;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -29,7 +30,10 @@ import org.jetbrains.annotations.NotNull;
 import javax.annotation.Nullable;
 import java.io.*;
 import java.security.InvalidParameterException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 /**
  * A basic database class made using {@link Gson}. You can store a {@link java.util.Map<K,V>} in this data. Use {@link #save()}
@@ -131,10 +135,8 @@ public class MapDataManager<K, V extends Storable> {
 
     /**
      * Loads all the data from the save before. You don't have to check if file exists, because method does it.
-     * @param clazz Accessing a class object of a type parameter is impossible, so you need to give it. Just do
-     * {@code Map<K,V>[].class} here, replacing {@code <K>} and {@code <V>} with the name of your type. That type must be same with {@link K} and {@link V}.
      */
-    public void load(Class<Map<K,V>> clazz){
+    public void load(){
         Gson gson = new Gson();
         String absPath = plugin.getDataFolder().getAbsolutePath()+"\\"+path;
         File file = new File(absPath);
@@ -143,7 +145,10 @@ public class MapDataManager<K, V extends Storable> {
             try {
                 Reader reader = new FileReader(file);
 
-                Map<K,V> n = gson.fromJson(reader,clazz);
+                TypeToken<Map<K, V>> token = new TypeToken<>() {
+                };
+
+                Map<K,V> n = (Map<K, V>) gson.fromJson(reader,token.getRawType());
 
                 data = n;
 
