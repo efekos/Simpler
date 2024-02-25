@@ -164,7 +164,7 @@ public class ListDataManager<T extends Storable> {
                 Reader reader = new FileReader(file);
 
 
-                TypeToken<List<T>> token = new TypeToken<>(){};
+                TypeToken<T[]> token = new TypeToken<>(){};
                 T[] n = gson.fromJson(reader, token.getType());
 
                 Collections.addAll(datas, n);

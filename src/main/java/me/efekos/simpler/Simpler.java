@@ -2,6 +2,7 @@ package me.efekos.simpler;
 
 import me.efekos.simpler.commands.*;
 import me.efekos.simpler.config.MessageConfiguration;
+import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
@@ -12,6 +13,8 @@ import java.util.Set;
  * Main class of Simpler.
  */
 public final class Simpler {
+
+    public static final NamespacedKey TEST_ITEM_KEY = new NamespacedKey("simpler","test_item");
 
     /**
      * Creates a new instance.
