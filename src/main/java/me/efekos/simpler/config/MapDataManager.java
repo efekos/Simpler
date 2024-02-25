@@ -37,7 +37,7 @@ import java.util.UUID;
 
 /**
  * A basic database class made using {@link Gson}. You can store a {@link java.util.Map<K,V>} in this data. Use {@link #save()}
- * and {@link #load(Class)} to load your data.
+ * and {@link #load()} to load your data.
  * @param <K> Type of the keys you will use. Probably {@link String} but you can change it to something else if you want.
  * @param <V>
  *           Type of the data you want to store as a list. Be aware that using incompatible types

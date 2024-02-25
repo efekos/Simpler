@@ -9,6 +9,9 @@
   * [Registering a CoreCommand](#registering-a-corecommand)
 <!-- TOC -->
 
+> [!WARNING]
+> This guide is outdated, and may be wrong.
+
 # Creating a Command With Simpler
 
 There is a class called `CommandManager` in Simpler. We use this class to register our commands to the server. But before
