@@ -1,6 +1,7 @@
 package me.efekos.simpler;
 
 import me.efekos.simpler.commands.*;
+import me.efekos.simpler.config.MapDataManager;
 import me.efekos.simpler.config.MessageConfiguration;
 import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -8,11 +9,12 @@ import org.reflections.Reflections;
 
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 /**
  * Main class of Simpler.
  */
-public final class Simpler {
+public final class Simpler extends JavaPlugin{
 
     public static final NamespacedKey TEST_ITEM_KEY = new NamespacedKey("simpler","test_item");
 
@@ -86,6 +88,24 @@ public final class Simpler {
         }
     }
 
+    private MapDataManager<UUID,storableThing> manager;
+
+    @Override
+    public void onEnable() {
+        super.onEnable();
+
+        manager = new MapDataManager<>("\\data.json",this);
+        manager.load();
+
+        System.out.println("asdf");
+    }
+
     //TODO: NMS commands
     //TODO: finish guides
+
+
+    @Override
+    public void onDisable() {
+        manager.save();
+    }
 }
