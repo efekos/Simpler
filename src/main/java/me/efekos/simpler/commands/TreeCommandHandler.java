@@ -22,7 +22,23 @@
 
 package me.efekos.simpler.commands;
 
+import org.bukkit.plugin.java.JavaPlugin;
+
+/**
+ * A class that hols a {@link CommandTree} for {@link CommandManager} to use. When using {@link me.efekos.simpler.Simpler#registerCommands(JavaPlugin)},
+ * you need to make a class the extends this class and is annotated with {@link CommandTreeHandler} to make Simpler notice
+ * your {@link TreeCommandHandler} class.
+ */
 public abstract class TreeCommandHandler {
 
+    /**
+     * Creates a new handler.
+     */
+    public TreeCommandHandler() {}
+
+    /**
+     * Returns a command tree that will be registered.
+     * @return A {@link CommandTree} instance.
+     */
     public abstract CommandTree getTree();
 }

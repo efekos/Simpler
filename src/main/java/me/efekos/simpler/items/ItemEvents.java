@@ -39,6 +39,12 @@ import org.bukkit.inventory.PlayerInventory;
 public class ItemEvents  implements Listener {
 
     /**
+     * Creates a new item events instance.
+     */
+    public ItemEvents() {
+    }
+
+    /**
      * handles item pickup
      * @param e event
      */

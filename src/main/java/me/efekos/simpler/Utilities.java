@@ -38,6 +38,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
  * Static class for various utilities.
  */
 public class Utilities {
+
+    /**
+     * Creates a new instance if you somehow need one.
+     */
+    public Utilities() {}
+
     /**
      * Checks versions of the current plugin and the current latest resource at spigotmc.org.
      * @param plugin An instance of your plugin.

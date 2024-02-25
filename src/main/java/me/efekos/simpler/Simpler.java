@@ -2,7 +2,6 @@ package me.efekos.simpler;
 
 import me.efekos.simpler.commands.*;
 import me.efekos.simpler.config.MessageConfiguration;
-import org.bukkit.NamespacedKey;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.reflections.Reflections;
 
@@ -12,8 +11,13 @@ import java.util.Set;
 /**
  * Main class of Simpler.
  */
-public final class Simpler extends JavaPlugin{
-    public static final NamespacedKey TEST_ITEM_KEY = new NamespacedKey("simpler", "gun");
+public final class Simpler {
+
+    /**
+     * Creates a new instance.
+     */
+    public Simpler() {}
+
     /**
      * Main configuration for messages that Simpler uses.
      */
@@ -35,6 +39,11 @@ public final class Simpler extends JavaPlugin{
         Simpler.configuration = configuration;
     }
 
+    /**
+     * Scans your entire plugin source to find commands (anything annotated with {@link Command} will be considered a
+     * command) and registers them.
+     * @param plugin Instance of your plugin.
+     */
     public static void registerCommands(JavaPlugin plugin){
         Reflections reflections = new Reflections(plugin.getClass().getPackageName());
 
@@ -76,12 +85,4 @@ public final class Simpler extends JavaPlugin{
 
     //TODO: NMS commands
     //TODO: finish guides
-
-
-    @Override
-    public void onEnable() {
-        super.onEnable();
-
-        registerCommands(this);
-    }
 }

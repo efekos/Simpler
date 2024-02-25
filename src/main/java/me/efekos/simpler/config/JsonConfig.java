@@ -87,6 +87,7 @@ public class JsonConfig {
 
     /**
      * Loads the default configuration file to your plugin's data folder. Recommended to use inside {@link JavaPlugin#onEnable()}.
+     * @throws FileNotFoundException when you don't have a default config file in your 'resources' folder.
      */
     public void setup() throws FileNotFoundException{
         File file = new File(plugin.getDataFolder(), resourceName);

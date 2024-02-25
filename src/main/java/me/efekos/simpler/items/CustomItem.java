@@ -27,6 +27,10 @@ import org.bukkit.inventory.ItemStack;
 
 import java.util.function.Consumer;
 
+/**
+ * Main class you will use for custom item systems. When making a custom item, always use primitive types and {@link SaveField}
+ * annotation in your fields. Annotate handling methods with {@link HandleEvent} annotation, or Simpler won't run them.
+ */
 public class CustomItem extends AbstractCustomItem {
     /**
      * Identifier of this custom item.

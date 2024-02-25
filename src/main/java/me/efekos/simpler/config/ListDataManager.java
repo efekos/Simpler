@@ -22,6 +22,7 @@
 
 package me.efekos.simpler.config;
 
+import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -30,12 +31,13 @@ import javax.annotation.Nullable;
 import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * A basic database class made using {@link Gson}. You can store a {@link List<T>} in this data. Use {@link #save()}
- * and {@link #load(Class)} to load your data.
+ * and {@link #load()} to load your data.
  * @param <T>
  *           Type of the data you want to store as a list. Be aware that using incompatible types
  *           in this type might cause errors. Just to let you know, there is a list of the classes
@@ -151,10 +153,8 @@ public class ListDataManager<T extends Storable> {
 
     /**
      * Loads all the data from the save before. You don't have to check if file exists, because method does it.
-     * @param clazz Accessing a class object of a type parameter is impossible, so you need to give it. Just do
-     * {@code <T>[].class} here, replacing {@code <T>} with name of your type. That type must be same with {@link T}.
      */
-    public void load(Class<T[]> clazz){
+    public void load(){
         Gson gson = new Gson();
         String absPath = plugin.getDataFolder().getAbsolutePath()+path;
         File file = new File(absPath);
@@ -163,11 +163,11 @@ public class ListDataManager<T extends Storable> {
             try {
                 Reader reader = new FileReader(file);
 
-                T[] n = gson.fromJson(reader,clazz);
 
-                for (T t : n) {
-                    datas.add(t);
-                }
+                TypeToken<List<T>> token = new TypeToken<>(){};
+                T[] n = gson.fromJson(reader, token.getType());
+
+                Collections.addAll(datas, n);
 
                 reader.close();
             } catch (Exception e){

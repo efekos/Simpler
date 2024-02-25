@@ -31,27 +31,57 @@ import org.bukkit.inventory.ItemStack;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A custom menu implementation tha lets you make a paginated menu by just providing some items, everything else is
+ * handled by this class.
+ */
 public abstract class PaginatedMenu extends Menu{
+    /**
+     * Creates a new instance of this menu.
+     * @param data Menu data.
+     */
     public PaginatedMenu(MenuData data) {
         super(data);
     }
 
+    /**
+     * Maximum slots that are avaliable to put items in one page.
+     */
     protected static final int maxItemsPerPage= 28;
+    /**
+     * Current page index.
+     */
     private int page = 0;
+    /**
+     * Current item list.
+     */
     private List<ItemStack> items = new ArrayList<>();
 
+    /**
+     * A method that should provide the content of this menu.
+     * @return A list of items to display.
+     */
     protected abstract List<ItemStack> setItems();
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public boolean cancelAllClicks() {
         return true;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public int getRows() {
         return 6;
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void onClick(InventoryClickEvent e) {
         switch (e.getSlot()) {
@@ -72,6 +102,9 @@ public abstract class PaginatedMenu extends Menu{
         }
     }
 
+    /**
+     * {@inheritDoc}
+     */
     @Override
     public void fill() {
         this.items = setItems();

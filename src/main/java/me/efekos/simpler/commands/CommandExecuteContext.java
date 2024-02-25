@@ -28,8 +28,18 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
+/**
+ * A context class that contains some information about a command execution.
+ */
 public class CommandExecuteContext {
+    /**
+     * Sender that executed this command.
+     */
     private final CommandSender sender;
+    /**
+     * A list of the arguments sender gave. {@link me.efekos.simpler.commands.node.impl.LabelNode}s are excluded from
+     * this list.
+     */
     private final List<String> args;
 
 

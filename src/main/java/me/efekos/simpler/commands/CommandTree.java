@@ -104,6 +104,10 @@ public class CommandTree {
         return children;
     }
 
+    /**
+     * Returns the base name that will be the main command of this tree.
+     * @return Base name.
+     */
     public String getBaseName() {
         return baseName;
     }
