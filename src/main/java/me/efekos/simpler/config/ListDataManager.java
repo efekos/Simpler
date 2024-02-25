@@ -22,16 +22,15 @@
 
 package me.efekos.simpler.config;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.io.*;
+import java.lang.reflect.Type;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -164,10 +163,12 @@ public class ListDataManager<T extends Storable> {
                 Reader reader = new FileReader(file);
 
 
-                TypeToken<List<T>> token = new TypeToken<>(){};
-                T[] n = gson.fromJson(reader, token.getType());
+                Type tType = new com.google.common.reflect.TypeToken<List<T>>() {
+                }.getType();
+                List<T> n = gson.fromJson(reader, tType);
 
-                Collections.addAll(datas, n);
+                datas.clear();
+                datas.addAll(n);
 
                 reader.close();
             } catch (Exception e){
