@@ -31,12 +31,13 @@ import javax.annotation.Nullable;
 import java.io.*;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
 /**
  * A basic database class made using {@link Gson}. You can store a {@link List<T>} in this data. Use {@link #save()}
- * and {@link #load(Class)} to load your data.
+ * and {@link #load()} to load your data.
  * @param <T>
  *           Type of the data you want to store as a list. Be aware that using incompatible types
  *           in this type might cause errors. Just to let you know, there is a list of the classes
@@ -163,11 +164,10 @@ public class ListDataManager<T extends Storable> {
                 Reader reader = new FileReader(file);
 
 
-                T[] n = gson.fromJson(reader, new TypeToken<List<T>>(){}.getType());
+                TypeToken<List<T>> token = new TypeToken<>(){};
+                T[] n = gson.fromJson(reader, token.getType());
 
-                for (T t : n) {
-                    datas.add(t);
-                }
+                Collections.addAll(datas, n);
 
                 reader.close();
             } catch (Exception e){

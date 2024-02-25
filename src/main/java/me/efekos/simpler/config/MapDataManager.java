@@ -148,9 +148,7 @@ public class MapDataManager<K, V extends Storable> {
                 TypeToken<Map<K, V>> token = new TypeToken<>() {
                 };
 
-                Map<K,V> n = (Map<K, V>) gson.fromJson(reader,token.getRawType());
-
-                data = n;
+                data = gson.fromJson(reader,token.getType());
 
                 reader.close();
             } catch (Exception e){
