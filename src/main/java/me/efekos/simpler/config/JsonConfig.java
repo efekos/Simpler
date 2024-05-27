@@ -44,27 +44,27 @@ public class JsonConfig {
     /**
      * A map of the keys that has a string value. Every string is stored here.
      */
-     private final Map<String,String> stringValues = new HashMap<>();
+    private final Map<String, String> stringValues = new HashMap<>();
     /**
      * A map of the keys that has a number value. Any number that isn't decimal is stored here.
      */
-    private final Map<String,Integer> numberValues = new HashMap<>();
+    private final Map<String, Integer> numberValues = new HashMap<>();
     /**
      * A map of the keys that has a number value. Only numbers that is compatible for a double is stored here.
      */
-    private final Map<String,Double> doubleValues = new HashMap<>();
+    private final Map<String, Double> doubleValues = new HashMap<>();
     /**
      * A map of the keys that has a boolean value. Every boolean is stored here.
      */
-     private final Map<String,Boolean> booleanValues = new HashMap<>();
+    private final Map<String, Boolean> booleanValues = new HashMap<>();
     /**
      * A map of the keys that has a boolean value. Every string that has only one character is stored here.
      */
-    private final Map<String,Character> characterValues = new HashMap<>();
+    private final Map<String, Character> characterValues = new HashMap<>();
     /**
      * A map of the keys that has an array value. Type of the array is unknown.
      */
-    private final Map<String,List<Object>> arrayValues = new HashMap<>();
+    private final Map<String, List<Object>> arrayValues = new HashMap<>();
     /**
      * List of the keys that has the value {@code null}.
      */
@@ -77,172 +77,179 @@ public class JsonConfig {
 
     /**
      * Another type of configuration that can read JSON files.
+     *
      * @param resourceName Name of the resource you want to use as this config. Make sure that your resource name ends with `.yml` and you have a resource with the exact same name on your 'resources' folder.
-     * @param plugin An instance of your plugin.
+     * @param plugin       An instance of your plugin.
      */
     public JsonConfig(String resourceName, JavaPlugin plugin) {
-        this.resourceName = resourceName.endsWith(".json")?resourceName:resourceName+".json";
+        this.resourceName = resourceName.endsWith(".json") ? resourceName : resourceName + ".json";
         this.plugin = plugin;
     }
 
     /**
      * Loads the default configuration file to your plugin's data folder. Recommended to use inside {@link JavaPlugin#onEnable()}.
+     *
      * @throws FileNotFoundException when you don't have a default config file in your 'resources' folder.
      */
-    public void setup() throws FileNotFoundException{
+    public void setup() throws FileNotFoundException {
         File file = new File(plugin.getDataFolder(), resourceName);
 
-        if(!file.exists()){
-            try{
+        if (!file.exists()) {
+            try {
                 plugin.saveResource(resourceName, false);
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
         JsonObject object = JsonParser.parseReader(new JsonReader(new FileReader(file))).getAsJsonObject();
-        readObject("",object);
+        readObject("", object);
     }
 
-    private void readObject(String preKey,JsonObject object){
+    private void readObject(String preKey, JsonObject object) {
         Set<String> keys = object.keySet();
 
         for (String key : keys) {
             JsonElement element = object.get(key);
 
-            if(element.isJsonNull()) {
-                nullValues.add(preKey+key);
+            if (element.isJsonNull()) {
+                nullValues.add(preKey + key);
                 continue;
             }
 
-            if(element.isJsonPrimitive()){
+            if (element.isJsonPrimitive()) {
                 JsonPrimitive primitive = (JsonPrimitive) element;
-                if(primitive.isBoolean()) {
-                    booleanValues.put(preKey+key,primitive.getAsBoolean());
+                if (primitive.isBoolean()) {
+                    booleanValues.put(preKey + key, primitive.getAsBoolean());
                     continue;
                 }
 
-                if(primitive.isNumber()){
-                    readNumber(preKey,key,primitive);
+                if (primitive.isNumber()) {
+                    readNumber(preKey, key, primitive);
                     continue;
                 }
 
-                if(primitive.isString()){
-                    readString(preKey,key,primitive);
+                if (primitive.isString()) {
+                    readString(preKey, key, primitive);
                     continue;
                 }
 
             } // if element is primitive
 
-            if(element.isJsonObject()) {
+            if (element.isJsonObject()) {
                 JsonObject jsonObject = (JsonObject) element;
-                readObject(preKey+key+".",jsonObject);
+                readObject(preKey + key + ".", jsonObject);
             }
 
-            if(element.isJsonArray()){
+            if (element.isJsonArray()) {
                 List<JsonElement> list = ((JsonArray) element).asList();
                 List<Object> listToSave = new ArrayList<>();
 
 
                 for (JsonElement jsonElement : list) {
-                    if(jsonElement.isJsonNull()) {
+                    if (jsonElement.isJsonNull()) {
                         listToSave.add(null);
                         continue;
                     }
-                    if(jsonElement.isJsonPrimitive()){
+                    if (jsonElement.isJsonPrimitive()) {
                         JsonPrimitive primitive = (JsonPrimitive) jsonElement;
-                        if(primitive.isBoolean()) {
+                        if (primitive.isBoolean()) {
                             listToSave.add(primitive.getAsBoolean());
                             continue;
                         }
 
-                        if(primitive.isNumber()){
+                        if (primitive.isNumber()) {
                             listToSave.add(primitive.getAsNumber());
                             continue;
                         }
 
-                        if(primitive.isString()){
+                        if (primitive.isString()) {
                             listToSave.add(jsonElement.getAsString());
                             continue;
                         }
 
                     }
-                    if(jsonElement.isJsonObject()) {
+                    if (jsonElement.isJsonObject()) {
                         listToSave.add(jsonElement.getAsJsonObject());
                     }
-                    if(jsonElement.isJsonArray()){
+                    if (jsonElement.isJsonArray()) {
                         listToSave.add(jsonElement.getAsJsonArray());
                     }
                 }
 
-                arrayValues.put(preKey+key,listToSave);
+                arrayValues.put(preKey + key, listToSave);
             }
 
         } // string key : keys
     } // method end
 
-    private void readNumber(String preKey,String key,JsonPrimitive primitive){
-        if((double) primitive.getAsInt() != primitive.getAsDouble()) { // number should be a double
-            doubleValues.put(preKey+key,primitive.getAsDouble());
+    private void readNumber(String preKey, String key, JsonPrimitive primitive) {
+        if ((double) primitive.getAsInt() != primitive.getAsDouble()) { // number should be a double
+            doubleValues.put(preKey + key, primitive.getAsDouble());
         } else { // number can be double or integer, so storing the key to both maps.
-            doubleValues.put(preKey+key,primitive.getAsDouble());
-            numberValues.put(preKey+key,primitive.getAsInt());
+            doubleValues.put(preKey + key, primitive.getAsDouble());
+            numberValues.put(preKey + key, primitive.getAsInt());
         }
     }
 
-    private void readString(String preKey,String key,JsonPrimitive primitive){
-        stringValues.put(preKey+key,primitive.getAsString());
-        if(primitive.getAsString().length()==1) characterValues.put(preKey+key,primitive.getAsString().charAt(0));
+    private void readString(String preKey, String key, JsonPrimitive primitive) {
+        stringValues.put(preKey + key, primitive.getAsString());
+        if (primitive.getAsString().length() == 1) characterValues.put(preKey + key, primitive.getAsString().charAt(0));
     }
 
     /**
      * Finds a {@link String} from the configuration
+     *
      * @param path Path to the {@link String} you want.
-     * @param def Default {@link String} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @param def  Default {@link String} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
      * @return Whatever found.
      */
-    public String getString(String path, String def){
-        return stringValues.getOrDefault(path,def);
+    public String getString(String path, String def) {
+        return stringValues.getOrDefault(path, def);
     }
 
     /**
      * Finds a {@link Boolean} from the configuration
+     *
      * @param path Path to the {@link Boolean} you want.
-     * @param def Default {@link Boolean} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @param def  Default {@link Boolean} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
      * @return Whatever found.
      */
-    public Boolean getBoolean(String path,boolean def){
-        return booleanValues.getOrDefault(path,def);
+    public Boolean getBoolean(String path, boolean def) {
+        return booleanValues.getOrDefault(path, def);
     }
 
     /**
      * Finds a {@link Character} from the configuration
+     *
      * @param path Path to the {@link Character} you want.
-     * @param def Default {@link Character} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @param def  Default {@link Character} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
      * @return Whatever found.
      */
-    public Character getCharacter(String path,char def){
-        return characterValues.getOrDefault(path,def);
+    public Character getCharacter(String path, char def) {
+        return characterValues.getOrDefault(path, def);
     }
 
     /**
      * Finds an {@link Integer} from the configuration
+     *
      * @param path Path to the {@link Integer} you want.
-     * @param def Default {@link Integer} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @param def  Default {@link Integer} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
      * @return Whatever found.
      */
-    public Integer getInteger(String path,int def){
-        return numberValues.getOrDefault(path,def);
+    public Integer getInteger(String path, int def) {
+        return numberValues.getOrDefault(path, def);
     }
 
     /**
      * Finds a {@link Double} from the configuration
+     *
      * @param path Path to the {@link Double} you want.
-     * @param def Default {@link Double} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
+     * @param def  Default {@link Double} to be returned in case nothing found in path. There are good reasons behind this parameter being required.
      * @return Whatever found.
      */
-    public Double getDouble(String path,double def){
-        return doubleValues.getOrDefault(path,def);
+    public Double getDouble(String path, double def) {
+        return doubleValues.getOrDefault(path, def);
     }
 
     /**
@@ -254,18 +261,19 @@ public class JsonConfig {
      *     <li>Every object inside an array was saved as {@link JsonObject}</li>
      *     <li>Every array inside an array was saved as {@link JsonArray}</li>
      * </ul>
+     *
      * @param path Key of the value that you want.
      * @return A list if found, {@code null} otherwise.
      */
-    public List<Object> getList(String path){
-        if(nullValues.contains(path))return null;
+    public List<Object> getList(String path) {
+        if (nullValues.contains(path)) return null;
         return arrayValues.get(path);
     }
 
     /**
      * Reloads the config by reading the file again.
      */
-    public void reload(){
+    public void reload() {
         arrayValues.clear();
         nullValues.clear();
         booleanValues.clear();
@@ -276,7 +284,7 @@ public class JsonConfig {
 
         try {
             setup();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

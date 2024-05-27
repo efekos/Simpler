@@ -41,6 +41,7 @@ public class LabelNode extends CommandNode {
 
     /**
      * Creates a new label node.
+     *
      * @param label Main label that this node will hold.
      */
     public LabelNode(String label) {
@@ -49,6 +50,7 @@ public class LabelNode extends CommandNode {
 
     /**
      * Returns the label that this node is holding.
+     *
      * @return Label of this node.
      */
     public String getLabel() {

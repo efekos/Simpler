@@ -31,9 +31,10 @@ import java.util.stream.Stream;
 /**
  * Used to make sub commands for {@link CoreCommand}s. Extend this class to make your own sub commands. Must be annotated with {@link Command} to work properly.
  */
-public abstract class SubCommand extends BaseCommand{
+public abstract class SubCommand extends BaseCommand {
     /**
      * Creates an instance of this command.
+     *
      * @param name Name of the command.
      */
     public SubCommand(@NotNull String name) {
@@ -42,10 +43,11 @@ public abstract class SubCommand extends BaseCommand{
 
     /**
      * Creates an instance of this command.
-     * @param name Name of the command.
-     * @param description Description of the command.
+     *
+     * @param name         Name of the command.
+     * @param description  Description of the command.
      * @param usageMessage Usage message of the command.
-     * @param aliases Aliases for the command.
+     * @param aliases      Aliases for the command.
      */
     public SubCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
@@ -53,12 +55,14 @@ public abstract class SubCommand extends BaseCommand{
 
     /**
      * Returns the parent of this {@link SubCommand}.
+     *
      * @return Class of the {@link CoreCommand} that this {@link SubCommand} should belong to.
      */
     public abstract Class<? extends CoreCommand> getParent();
 
     /**
      * Generates a usage using the {@link #getSyntax()}.
+     *
      * @return Usage syntax of this command in {@link String}.
      */
     @Override
@@ -72,9 +76,9 @@ public abstract class SubCommand extends BaseCommand{
                 builder.append(s1);
             });
 
-            return "/"+getParent().getAnnotation(Command.class).name()+" "+getName()+builder;
-        } catch (Exception e){
-           return "";
+            return "/" + getParent().getAnnotation(Command.class).name() + " " + getName() + builder;
+        } catch (Exception e) {
+            return "";
         }
     }
 }

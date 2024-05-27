@@ -35,6 +35,7 @@ import java.util.List;
 public class StringArgumentNode extends ArgumentNode {
     /**
      * Creates a new node.
+     *
      * @param children Any child nodes if you would like to add to this node. You can use {@link PlayerArgumentNode#addChild(CommandNode)}
      *                 for later.
      */

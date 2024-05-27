@@ -59,6 +59,7 @@ public abstract class CommandNode {
 
     /**
      * Returns the description of this node
+     *
      * @return Description of this node
      */
     public String getDescription() {
@@ -68,6 +69,7 @@ public abstract class CommandNode {
     /**
      * Changes the description of this node. You don't really have to set a description if this node won't have a
      * {@link CommandExecutive}.
+     *
      * @param description Description of this node.
      * @return Itself.
      */
@@ -83,6 +85,7 @@ public abstract class CommandNode {
 
     /**
      * Returns a list of the child nodes that this node contain.
+     *
      * @return Children of this node.
      */
     public List<CommandNode> getChildren() {
@@ -91,6 +94,7 @@ public abstract class CommandNode {
 
     /**
      * Returns a {@link CommandExecutive} to run when this node is executed by someone.
+     *
      * @return Executive of this node.
      */
     public CommandExecutive getExecutive() {
@@ -99,6 +103,7 @@ public abstract class CommandNode {
 
     /**
      * Returns a {@link CommandExecutive} to run when the console executes this node.
+     *
      * @return Console-special executive of this node.
      */
     public CommandExecutive getConsoleExecutive() {
@@ -107,6 +112,7 @@ public abstract class CommandNode {
 
     /**
      * Changes the console-special executive of this node.
+     *
      * @param consoleExecutive New executive to use
      * @return CommandNode itself.
      */
@@ -117,6 +123,7 @@ public abstract class CommandNode {
 
     /**
      * Changes the executive of this node.
+     *
      * @param executive New executive to use.
      * @return CommandNode itself.
      */
@@ -127,6 +134,7 @@ public abstract class CommandNode {
 
     /**
      * Creates a new {@link CommandNode}.
+     *
      * @param children Any amount of child nodes if you would like to add now. You can still add child nodes using
      *                 {@link CommandNode#addChild(CommandNode)} later.
      */
@@ -139,6 +147,7 @@ public abstract class CommandNode {
 
     /**
      * Returns the parent of this node.
+     *
      * @return Parent of this node.
      */
     public CommandNode getParent() {
@@ -148,6 +157,7 @@ public abstract class CommandNode {
     /**
      * Changes the parent of this node. Please note that parents are only used for display purposes, and does not affect
      * the command tree in any way. It is not recommended to change the parent of any node.
+     *
      * @param parent New parent of this node.
      * @return {@link CommandNode} itself.
      */
@@ -158,10 +168,11 @@ public abstract class CommandNode {
 
     /**
      * Adds the given {@link CommandNode} to the children of this class and returns it.
+     *
      * @param node New child node to add to this node.
      * @return {@link CommandNode} itself.
      */
-    public CommandNode addChild(CommandNode node){
+    public CommandNode addChild(CommandNode node) {
         node.setParent(this);
         children.add(node);
         return this;
@@ -169,15 +180,17 @@ public abstract class CommandNode {
 
     /**
      * Adds the given string as a {@link LabelNode} to the children of this node and returns it.
+     *
      * @param label New label node to add to this one.
      * @return {@link CommandNode} itself.
      */
-    public CommandNode addChild(String label){
+    public CommandNode addChild(String label) {
         return addChild(new LabelNode(label).setParent(this));
     }
 
     /**
      * Returns the permission that this {@link CommandNode} requires to run the executive of this node.
+     *
      * @return Permission of this node.
      */
     public String getPermission() {
@@ -186,6 +199,7 @@ public abstract class CommandNode {
 
     /**
      * Changes the permission of this {@link CommandNode} and returns it.
+     *
      * @param permission Permission that this {@link CommandNode} will require to run its executive.
      * @return {@link CommandNode} itself.
      */
@@ -196,9 +210,10 @@ public abstract class CommandNode {
 
     /**
      * Provides a list that can be added to the final list of tab completion.
+     *
      * @param sender Sender that needs a tab completion. Probably a {@link org.bukkit.entity.Player} since console doesn't
      *               need a tab completion.
-     * @param args List of the other arguments given by the sender.
+     * @param args   List of the other arguments given by the sender.
      * @return A list for tab completion.
      */
     public abstract List<String> suggest(CommandSender sender, List<String> args);

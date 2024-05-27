@@ -35,9 +35,10 @@ import java.util.List;
  * A custom menu implementation tha lets you make a paginated menu by just providing some items, everything else is
  * handled by this class.
  */
-public abstract class PaginatedMenu extends Menu{
+public abstract class PaginatedMenu extends Menu {
     /**
      * Creates a new instance of this menu.
+     *
      * @param data Menu data.
      */
     public PaginatedMenu(MenuData data) {
@@ -47,7 +48,7 @@ public abstract class PaginatedMenu extends Menu{
     /**
      * Maximum slots that are avaliable to put items in one page.
      */
-    protected static final int maxItemsPerPage= 28;
+    protected static final int maxItemsPerPage = 28;
     /**
      * Current page index.
      */
@@ -59,6 +60,7 @@ public abstract class PaginatedMenu extends Menu{
 
     /**
      * A method that should provide the content of this menu.
+     *
      * @return A list of items to display.
      */
     protected abstract List<ItemStack> setItems();
@@ -86,14 +88,14 @@ public abstract class PaginatedMenu extends Menu{
     public void onClick(InventoryClickEvent e) {
         switch (e.getSlot()) {
             case 48 -> {
-                if(page!=0){
+                if (page != 0) {
                     page--;
                     refresh();
                 }
             }
             case 50 -> {
-                int maxPages = (int) Math.ceil((double) items.size() /maxItemsPerPage)-1;
-                if(page<maxPages) {
+                int maxPages = (int) Math.ceil((double) items.size() / maxItemsPerPage) - 1;
+                if (page < maxPages) {
                     page++;
                     e.setCancelled(true);
                     refresh();
@@ -108,25 +110,25 @@ public abstract class PaginatedMenu extends Menu{
     @Override
     public void fill() {
         this.items = setItems();
-        for (Integer i:new Integer[]{0,1,2,3,4,5,6,7,8,9,17,18,26,27,35,36,44,45,46,47,51,52,53}){
-            inventory.setItem(i,createItem(Material.BLACK_STAINED_GLASS_PANE," "));
+        for (Integer i : new Integer[]{0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 17, 18, 26, 27, 35, 36, 44, 45, 46, 47, 51, 52, 53}) {
+            inventory.setItem(i, createItem(Material.BLACK_STAINED_GLASS_PANE, " "));
         }
 
-        inventory.setItem(48,createItem(Material.PAPER, TranslateManager.translateColors(Simpler.getMessageConfiguration().PAGINATED_MENU_PREV)));
-        inventory.setItem(49,createItem(Material.BOOK,TranslateManager.translateColors(Simpler.getMessageConfiguration().PAGINATED_MENU_PAGE
-                .replace("%page%",page+1+"")
-                .replace("%max%", Math.round((float) items.size() /maxItemsPerPage)+1 +"")
+        inventory.setItem(48, createItem(Material.PAPER, TranslateManager.translateColors(Simpler.getMessageConfiguration().PAGINATED_MENU_PREV)));
+        inventory.setItem(49, createItem(Material.BOOK, TranslateManager.translateColors(Simpler.getMessageConfiguration().PAGINATED_MENU_PAGE
+                .replace("%page%", page + 1 + "")
+                .replace("%max%", Math.round((float) items.size() / maxItemsPerPage) + 1 + "")
         )));
-        inventory.setItem(50,createItem(Material.PAPER, TranslateManager.translateColors(Simpler.getMessageConfiguration().PAGINATED_MENU_NEXT)));
+        inventory.setItem(50, createItem(Material.PAPER, TranslateManager.translateColors(Simpler.getMessageConfiguration().PAGINATED_MENU_NEXT)));
 
-        int index = page*maxItemsPerPage;
+        int index = page * maxItemsPerPage;
 
         try {
             for (int i = 0; i <= 27; i++) {
-                if(items.size()>i) inventory.addItem(items.get(index+i));
+                if (items.size() > i) inventory.addItem(items.get(index + i));
             }
-        } catch (Exception e){
-            if(e instanceof ArrayIndexOutOfBoundsException) return;
+        } catch (Exception e) {
+            if (e instanceof ArrayIndexOutOfBoundsException) return;
             e.printStackTrace();
         }
     }

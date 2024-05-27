@@ -29,6 +29,7 @@ package me.efekos.simpler.commands.node;
 public abstract class ArgumentNode extends CommandNode {
     /**
      * Created a new {@link ArgumentNode} to be used in {@link me.efekos.simpler.commands.CommandTree}s.
+     *
      * @param children Children of this node if you would like to add any.
      */
     public ArgumentNode(CommandNode... children) {
@@ -37,6 +38,7 @@ public abstract class ArgumentNode extends CommandNode {
 
     /**
      * Checks for a given argument and ensures that the argument is correct.
+     *
      * @param given Argument that was given for this node.
      * @return Whether the argument is correct or not.
      */

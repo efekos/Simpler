@@ -42,11 +42,13 @@ public class Utilities {
     /**
      * Creates a new instance if you somehow need one.
      */
-    public Utilities() {}
+    public Utilities() {
+    }
 
     /**
      * Checks versions of the current plugin and the current latest resource at spigotmc.org.
-     * @param plugin An instance of your plugin.
+     *
+     * @param plugin     An instance of your plugin.
      * @param resourceId Resource id of your spigot resource.
      * @return true if the current plugin's version and the latest version is same. false if not.
      */
@@ -70,7 +72,8 @@ public class Utilities {
 
     /**
      * Find all the {@link Method}s annotated with the {@link Annotation} given.
-     * @param type {@link Class} reference of the type you want to search for.
+     *
+     * @param type       {@link Class} reference of the type you want to search for.
      * @param annotation {@link Class} reference of teh {@link Annotation} you want to search in methods.
      * @return All the {@link Method}s found.
      */

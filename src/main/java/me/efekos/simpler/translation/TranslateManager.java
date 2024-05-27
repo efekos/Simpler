@@ -43,7 +43,8 @@ public class TranslateManager {
     /**
      * Creates a new manager instance if you somehow need one.
      */
-    public TranslateManager() {}
+    public TranslateManager() {
+    }
 
     /**
      * The pattern used for detecting hex colors.
@@ -52,69 +53,74 @@ public class TranslateManager {
 
     /**
      * Generates a translation key for the {@link Material} given.
+     *
      * @param material A material that {@link Material#isBlock()} or {@link Material#isItem()}.
      * @return A {@link TranslatableComponent} that will show name of the material. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
-    public static TranslatableComponent translateMaterial(@NotNull Material material){
+    public static TranslatableComponent translateMaterial(@NotNull Material material) {
         TranslatableComponent component = new TranslatableComponent();
 
-        if(material.isBlock()){
-            component.setTranslate("block."+material.getKey().getNamespace()+"."+material.getKey().getKey());
-        } else if(material.isItem()){
-            component.setTranslate("item."+material.getKey().getNamespace()+"."+material.getKey().getKey());
+        if (material.isBlock()) {
+            component.setTranslate("block." + material.getKey().getNamespace() + "." + material.getKey().getKey());
+        } else if (material.isItem()) {
+            component.setTranslate("item." + material.getKey().getNamespace() + "." + material.getKey().getKey());
         }
         return component;
     }
 
     /**
      * Generates a translation key for the {@link EntityType} given.
+     *
      * @param type Any entity type.
      * @return A {@link TranslatableComponent} that will show name of the entity. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
-    public static TranslatableComponent translateEntity(@NotNull EntityType type){
-        return new TranslatableComponent("entity."+type.getKey().getNamespace()+"."+type.getKey().getKey());
+    public static TranslatableComponent translateEntity(@NotNull EntityType type) {
+        return new TranslatableComponent("entity." + type.getKey().getNamespace() + "." + type.getKey().getKey());
     }
 
     /**
      * Generates a translation key for the {@link Enchantment} given.
+     *
      * @param enchantment Any enchantment.
      * @return A {@link TranslatableComponent} that will show name of the enchantment. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
-    public static TranslatableComponent translateEnchantment(@NotNull Enchantment enchantment){
-        return new TranslatableComponent("enchantment."+enchantment.getKey().getNamespace()+"."+enchantment.getKey().getKey());
+    public static TranslatableComponent translateEnchantment(@NotNull Enchantment enchantment) {
+        return new TranslatableComponent("enchantment." + enchantment.getKey().getNamespace() + "." + enchantment.getKey().getKey());
     }
 
     /**
      * Generates a translation key for the {@link PotionEffectType} given.
+     *
      * @param type One of the {@link PotionEffectType}s in game.
      * @return A {@link TranslatableComponent} that will show name of the potion effect. You can use it with {@link Spigot#sendMessage(BaseComponent...)}.
      */
     @NotNull
-    public static TranslatableComponent translateEffect(@NotNull PotionEffectType type){
-        return new TranslatableComponent("effect."+type.getKey().getNamespace()+"."+type.getKey().getKey());
+    public static TranslatableComponent translateEffect(@NotNull PotionEffectType type) {
+        return new TranslatableComponent("effect." + type.getKey().getNamespace() + "." + type.getKey().getKey());
     }
 
     /**
      * Translates the colors in the text given. Supports default minecraft color codes that uses the character {@code &} and hex colors.
+     *
      * @param message Message to translate colors.
      * @return Translated message.
      */
     @NotNull
-    public static String translateColors(@NotNull String message){
+    public static String translateColors(@NotNull String message) {
         String newMessage = message;
 
         Matcher matcher = hexColorsPattern.matcher(newMessage);
         StringBuffer buffer = new StringBuffer();
-        while (matcher.find()){
+        while (matcher.find()) {
             String code = matcher.group(1).substring(1);
-            matcher.appendReplacement(buffer, ChatColor.of(code)+"");
+            matcher.appendReplacement(buffer, ChatColor.of(code) + "");
         }
         matcher.appendTail(buffer);
 
-        newMessage = ChatColor.translateAlternateColorCodes('&',buffer.toString());
+        newMessage = ChatColor.translateAlternateColorCodes('&', buffer.toString());
         return newMessage;
     }
 }

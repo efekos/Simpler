@@ -55,6 +55,7 @@ abstract class AbstractCustomItem {
 
     /**
      * Creates a new instance of this item
+     *
      * @param appearance A consumer that changes stacks of this custom item.
      */
     AbstractCustomItem(Consumer<ItemStack> appearance) {
@@ -65,9 +66,10 @@ abstract class AbstractCustomItem {
 
     /**
      * Changes the appearance. Useful if you want to use class fields in your item.
+     *
      * @param appearance New appearance.
      */
-    protected void setAppearance(Consumer<ItemStack> appearance){
+    protected void setAppearance(Consumer<ItemStack> appearance) {
         this.appearance = appearance;
     }
 
@@ -84,6 +86,7 @@ abstract class AbstractCustomItem {
 
     /**
      * Applies the {@link AbstractCustomItem#appearance} consumer to a clone of the {@link ItemStack} given.
+     *
      * @param stack An {@link ItemStack} you want to apply the consumer.
      * @return Changed and cloned {@link ItemStack}.
      */
@@ -97,18 +100,19 @@ abstract class AbstractCustomItem {
 
     /**
      * Runs event handler methods.
-     * @param event The event.
+     *
+     * @param event      The event.
      * @param handleType Handle type to match methods.
      */
-    void runMethods(Event event,HandleType handleType) {
+    void runMethods(Event event, HandleType handleType) {
         methodMap.forEach((handleEvent, method) -> {
-            if(handleEvent.value()==handleType){
+            if (handleEvent.value() == handleType) {
 
                 try {
-                    method.invoke(this,event);
-                } catch (InvocationTargetException ignored) {}
-                catch (IllegalAccessException e){
-                    throw new RuntimeException("Event handler methods must be public, "+method+" is not." /*because there is an illegal access exception*/);
+                    method.invoke(this, event);
+                } catch (InvocationTargetException ignored) {
+                } catch (IllegalAccessException e) {
+                    throw new RuntimeException("Event handler methods must be public, " + method + " is not." /*because there is an illegal access exception*/);
                 }
             }
 
@@ -117,6 +121,7 @@ abstract class AbstractCustomItem {
 
     /**
      * Adds the values of fields annotated with {@link SaveField} to the given object.
+     *
      * @param object An object.
      */
     void putSaveFields(JsonObject object) {
@@ -148,6 +153,7 @@ abstract class AbstractCustomItem {
 
     /**
      * Fills the fields annotated with {@link SaveField} using the object given.
+     *
      * @param object An object.
      */
     void loadSaveFields(JsonObject object) {
@@ -192,7 +198,7 @@ abstract class AbstractCustomItem {
 
             if (!Modifier.isPublic(method.getModifiers()))
                 throw new RuntimeException(new InvalidAnnotationException("me.efekos.simpler.items.HandleEvent must be applied to a public method, " + method.getName() + " is not."));
-            else methodMap.put(annotation,method);
+            else methodMap.put(annotation, method);
 
             if (b) method.setAccessible(false);
         }

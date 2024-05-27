@@ -45,6 +45,7 @@ public class PlayerArgument extends Argument {
 
     /**
      * Crates an instance of {@link PlayerArgument}.
+     *
      * @param priority Priority of the argument.
      */
     public PlayerArgument(ArgumentPriority priority) {
@@ -78,7 +79,8 @@ public class PlayerArgument extends Argument {
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
         OfflinePlayer p = Bukkit.getServer().getPlayer(given);
-        if(p == null) return ArgumentHandleResult.fail(Simpler.getMessageConfiguration().PLR_ARG_NAP.replace("%given%",given));
+        if (p == null)
+            return ArgumentHandleResult.fail(Simpler.getMessageConfiguration().PLR_ARG_NAP.replace("%given%", given));
 
         return ArgumentHandleResult.success();
     }

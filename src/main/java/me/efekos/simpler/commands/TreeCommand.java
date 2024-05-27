@@ -49,6 +49,7 @@ class TreeCommand extends Command {
 
     /**
      * Creates a new tree command.
+     *
      * @param base {@link CommandTree} that this {@link TreeCommand} will handle.
      */
     TreeCommand(@NotNull CommandTree base) {
@@ -58,15 +59,16 @@ class TreeCommand extends Command {
 
     /**
      * execute command.
+     *
      * @param commandSender Source object which is executing this command
-     * @param s The alias of the command used
-     * @param args All arguments passed to the command, split via ' '
+     * @param s             The alias of the command used
+     * @param args          All arguments passed to the command, split via ' '
      * @return {@code true}.
      */
     @Override
     public boolean execute(@NotNull CommandSender commandSender, @NotNull String s, @NotNull String[] args) {
 
-        if(!commandSender.hasPermission(base.getBasePermission())){
+        if (!commandSender.hasPermission(base.getBasePermission())) {
             commandSender.sendMessage(TranslateManager.translateColors(Simpler.getMessageConfiguration().NO_PERMISSION));
             return true;
         }
@@ -76,39 +78,43 @@ class TreeCommand extends Command {
 
         List<CommandNode> children = base.getChildren();
         CommandExecutive finalExecutiveFound = null;
-        while (!argList.isEmpty()){
+        while (!argList.isEmpty()) {
             String arg = argList.get(0);
 
             Optional<CommandNode> first = children.stream().filter(commandNode -> {
-                if(commandNode instanceof ArgumentNode) return ((ArgumentNode) commandNode).isCorrect(arg);
+                if (commandNode instanceof ArgumentNode) return ((ArgumentNode) commandNode).isCorrect(arg);
                 else return commandNode.suggest(commandSender, Arrays.asList(args)).contains(arg);
             }).findFirst();
             if (first.isPresent()) {
                 CommandNode node = first.get();
 
-                if(node instanceof ArgumentNode) argumentList.add(arg);
+                if (node instanceof ArgumentNode) argumentList.add(arg);
 
-                if(argList.size()!=1) {
+                if (argList.size() != 1) {
                     children = node.getChildren();
                 } else {
-                    if(commandSender.hasPermission(node.getPermission())) finalExecutiveFound = commandSender instanceof ConsoleCommandSender ? node.getConsoleExecutive() : node.getExecutive();
-                    else finalExecutiveFound = (context -> context.getSender().sendMessage(TranslateManager.translateColors(Simpler.getMessageConfiguration().NO_PERMISSION)));
+                    if (commandSender.hasPermission(node.getPermission()))
+                        finalExecutiveFound = commandSender instanceof ConsoleCommandSender ? node.getConsoleExecutive() : node.getExecutive();
+                    else
+                        finalExecutiveFound = (context -> context.getSender().sendMessage(TranslateManager.translateColors(Simpler.getMessageConfiguration().NO_PERMISSION)));
                 }
             } else finalExecutiveFound = null;
             argList.remove(0);
         }
 
 
-        if(Objects.nonNull(finalExecutiveFound)) finalExecutiveFound.onExecute(new CommandExecuteContext(commandSender,argumentList));
+        if (Objects.nonNull(finalExecutiveFound))
+            finalExecutiveFound.onExecute(new CommandExecuteContext(commandSender, argumentList));
 
         return true;
     }
 
     /**
      * tab complete command
+     *
      * @param sender Source object which is executing this command
-     * @param alias the alias being used
-     * @param args All arguments passed to the command, split via ' '
+     * @param alias  the alias being used
+     * @param args   All arguments passed to the command, split via ' '
      * @return a list.
      * @throws IllegalArgumentException when something unexpected happens.
      */
@@ -120,6 +126,7 @@ class TreeCommand extends Command {
 
     /**
      * Returns aliases.
+     *
      * @return aliases.
      */
     @NotNull
@@ -131,9 +138,10 @@ class TreeCommand extends Command {
 
     /**
      * actual tab-complete method.
-     * @param sender Source object which is executing this command
-     * @param alias the alias being used
-     * @param args All arguments passed to the command, split via ' '
+     *
+     * @param sender   Source object which is executing this command
+     * @param alias    the alias being used
+     * @param args     All arguments passed to the command, split via ' '
      * @param location The position looked at by the sender, or null if none
      * @return a list of tab completions.
      * @throws IllegalArgumentException when something unexpected happens.
@@ -141,27 +149,27 @@ class TreeCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
-        if(!sender.hasPermission(base.getBasePermission())){
+        if (!sender.hasPermission(base.getBasePermission())) {
             return Collections.emptyList();
         }
 
         List<CommandNode> children = base.getChildren();
         List<String> finalListFound = new ArrayList<>();
 
-        for (int i = 0; i < args.length-1; i++) {
+        for (int i = 0; i < args.length - 1; i++) {
             String arg = args[i];
 
             Optional<CommandNode> first = children.stream().filter(commandNode -> {
-                if(commandNode instanceof ArgumentNode) return ((ArgumentNode) commandNode).isCorrect(arg);
+                if (commandNode instanceof ArgumentNode) return ((ArgumentNode) commandNode).isCorrect(arg);
                 else return commandNode.suggest(sender, Arrays.asList(args)).contains(arg);
             }).findFirst();
 
-            if(first.isPresent()) children = first.get().getChildren();
+            if (first.isPresent()) children = first.get().getChildren();
             else children = Collections.emptyList();
         }
 
         for (CommandNode child : children) {
-            finalListFound.addAll(child.suggest(sender,Arrays.asList(args)));
+            finalListFound.addAll(child.suggest(sender, Arrays.asList(args)));
         }
 
 
@@ -170,6 +178,7 @@ class TreeCommand extends Command {
 
     /**
      * Returns the description of his command.
+     *
      * @return Description.
      */
     @NotNull

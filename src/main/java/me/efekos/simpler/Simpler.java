@@ -16,7 +16,8 @@ public final class Simpler {
     /**
      * Creates a new instance.
      */
-    public Simpler() {}
+    public Simpler() {
+    }
 
     /**
      * Main configuration for messages that Simpler uses.
@@ -25,6 +26,7 @@ public final class Simpler {
 
     /**
      * Returns the message configuration Simpler is using right now.
+     *
      * @return Message config of Simpler.
      */
     public static MessageConfiguration getMessageConfiguration() {
@@ -33,6 +35,7 @@ public final class Simpler {
 
     /**
      * Changes the configuration with the configuration given.
+     *
      * @param configuration New configuration that you want Simpler to use.
      */
     public static void changeMessageConfiguration(MessageConfiguration configuration) {
@@ -42,9 +45,10 @@ public final class Simpler {
     /**
      * Scans your entire plugin source to find commands (anything annotated with {@link Command} will be considered a
      * command) and registers them.
+     *
      * @param plugin Instance of your plugin.
      */
-    public static void registerCommands(JavaPlugin plugin){
+    public static void registerCommands(JavaPlugin plugin) {
         Reflections reflections = new Reflections(plugin.getClass().getPackageName());
 
         Set<Class<?>> commandClasses = reflections.getTypesAnnotatedWith(Command.class);
@@ -53,31 +57,35 @@ public final class Simpler {
 
         for (Class<?> commandClass : commandClasses) {
             try {
-                if(commandClass.getSuperclass()==null) throw new RuntimeException("Command classes must extend something, "+commandClass.getName()+" doesn't");
+                if (commandClass.getSuperclass() == null)
+                    throw new RuntimeException("Command classes must extend something, " + commandClass.getName() + " doesn't");
 
-                if(commandClass.getSuperclass()== BaseCommand.class) CommandManager.registerBaseCommand(plugin, ((Class<? extends BaseCommand>) commandClass));
-                else if (commandClass.getSuperclass()== CoreCommand.class){
+                if (commandClass.getSuperclass() == BaseCommand.class)
+                    CommandManager.registerBaseCommand(plugin, ((Class<? extends BaseCommand>) commandClass));
+                else if (commandClass.getSuperclass() == CoreCommand.class) {
 
                     List<Class<?>> subs = subCommandClasses.stream()
                             .filter(aClass -> aClass.getAnnotation(SubOf.class).value() == commandClass)
                             .filter(aClass -> aClass.getSuperclass() == SubCommand.class)
                             .toList();
 
-                    CommandManager.registerCoreCommand(plugin,commandClass.asSubclass(CoreCommand.class), subs.toArray(Class[]::new));
+                    CommandManager.registerCoreCommand(plugin, commandClass.asSubclass(CoreCommand.class), subs.toArray(Class[]::new));
 
-                } else if (commandClass.getSuperclass()== SubCommand.class){
-                    if(!subCommandClasses.contains(commandClass)) throw new RuntimeException("Sub commands must contain @SubOf, "+commandClass.getName()+" doesn't.");
+                } else if (commandClass.getSuperclass() == SubCommand.class) {
+                    if (!subCommandClasses.contains(commandClass))
+                        throw new RuntimeException("Sub commands must contain @SubOf, " + commandClass.getName() + " doesn't.");
                 }
 
                 for (Class<?> aClass : reflections.getTypesAnnotatedWith(CommandTreeHandler.class)) {
-                    if(aClass.getSuperclass()!= TreeCommandHandler.class) throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, "+aClass.getName()+" doesn't");
+                    if (aClass.getSuperclass() != TreeCommandHandler.class)
+                        throw new RuntimeException("@CommandTreeHandlers must extend TreeCommandHandler, " + aClass.getName() + " doesn't");
 
                     TreeCommandHandler handler = (TreeCommandHandler) aClass.getConstructor().newInstance();
 
-                    CommandManager.registerCommandTree(plugin,handler.getTree());
+                    CommandManager.registerCommandTree(plugin, handler.getTree());
                 }
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }

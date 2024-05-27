@@ -34,10 +34,12 @@ public abstract class TreeCommandHandler {
     /**
      * Creates a new handler.
      */
-    public TreeCommandHandler() {}
+    public TreeCommandHandler() {
+    }
 
     /**
      * Returns a command tree that will be registered.
+     *
      * @return A {@link CommandTree} instance.
      */
     public abstract CommandTree getTree();

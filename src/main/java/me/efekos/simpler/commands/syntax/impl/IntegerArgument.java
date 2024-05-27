@@ -55,10 +55,11 @@ public class IntegerArgument extends Argument {
 
     /**
      * Crates an instance of {@link IntegerArgument}.
-     * @param holder Placeholder of the argument.
+     *
+     * @param holder   Placeholder of the argument.
      * @param priority Priority of the argument.
-     * @param min Minimum value.
-     * @param max Maximum value.
+     * @param min      Minimum value.
+     * @param max      Maximum value.
      */
     public IntegerArgument(String holder, ArgumentPriority priority, int min, int max) {
         this.holder = holder;
@@ -69,7 +70,8 @@ public class IntegerArgument extends Argument {
 
     /**
      * Crates an instance of {@link IntegerArgument}.
-     * @param holder Placeholder of the argument.
+     *
+     * @param holder   Placeholder of the argument.
      * @param priority Priority of the argument.
      */
     public IntegerArgument(String holder, ArgumentPriority priority) {
@@ -121,7 +123,7 @@ public class IntegerArgument extends Argument {
             if (i > max)
                 return ArgumentHandleResult.fail(configuration.NUM_ARG_MAX.replace("%given%", given).replace("%maxValue%", max + ""));
         } catch (Exception ignored) {
-            return ArgumentHandleResult.fail(configuration.NUM_ARG_NAN.replace("%given%",given));
+            return ArgumentHandleResult.fail(configuration.NUM_ARG_NAN.replace("%given%", given));
         }
         return ArgumentHandleResult.success();
     }

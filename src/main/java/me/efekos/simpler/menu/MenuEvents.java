@@ -38,38 +38,39 @@ public class MenuEvents implements Listener {
     /**
      * Creates a new menu events instance.
      */
-    public MenuEvents() {}
+    public MenuEvents() {
+    }
 
     /**
      * Handles menu clicks.
+     *
      * @param e Event.
      */
     @EventHandler
-    public void onMenuClick(InventoryClickEvent e){
+    public void onMenuClick(InventoryClickEvent e) {
         InventoryHolder holder = e.getInventory().getHolder();
 
-        if(holder instanceof Menu){
-            Menu pusula = (Menu) holder;
+        if (holder instanceof Menu pusula) {
 
-            if(e.getCurrentItem()==null){
+            if (e.getCurrentItem() == null) {
                 e.setCancelled(pusula.cancelAllClicks());
                 return;
             }
             pusula.onClick(e);
-            if(!e.isCancelled()&&pusula.cancelAllClicks()) e.setCancelled(true);
+            if (!e.isCancelled() && pusula.cancelAllClicks()) e.setCancelled(true);
         }
     }
 
     /**
      * Handles menu opening.
+     *
      * @param e Event.
      */
     @EventHandler
-    public void onMenuOpen(InventoryOpenEvent e){
+    public void onMenuOpen(InventoryOpenEvent e) {
         InventoryHolder holder = e.getInventory().getHolder();
 
-        if(holder instanceof Menu){
-            Menu pusula = (Menu) holder;
+        if (holder instanceof Menu pusula) {
 
             pusula.onOpen(e);
         }
@@ -77,14 +78,14 @@ public class MenuEvents implements Listener {
 
     /**
      * Handles menu closing.
+     *
      * @param e Event.
      */
     @EventHandler
-    public void onMenuClose(InventoryCloseEvent e){
+    public void onMenuClose(InventoryCloseEvent e) {
         InventoryHolder holder = e.getInventory().getHolder();
 
-        if(holder instanceof Menu){
-            Menu pusula = (Menu) holder;
+        if (holder instanceof Menu pusula) {
 
             pusula.onClose(e);
         }

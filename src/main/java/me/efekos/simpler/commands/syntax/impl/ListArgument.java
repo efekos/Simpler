@@ -52,11 +52,12 @@ public class ListArgument extends Argument {
 
     /**
      * Creates an instance of {@link ListArgument}.
-     * @param holder Placeholder of this argument.
+     *
+     * @param holder   Placeholder of this argument.
      * @param priority Priority of this argument.
-     * @param values Values this argument can approve.
+     * @param values   Values this argument can approve.
      */
-    public ListArgument(String holder, ArgumentPriority priority,String ...values) {
+    public ListArgument(String holder, ArgumentPriority priority, String... values) {
         this.holder = holder;
         this.priority = priority;
         this.values.addAll(Arrays.asList(values));
@@ -84,8 +85,8 @@ public class ListArgument extends Argument {
     @Override
     public ArgumentHandleResult handleCorrection(String given) {
         MessageConfiguration configuration = Simpler.getMessageConfiguration();
-        if(values.contains(given)) return ArgumentHandleResult.success();
-        else return ArgumentHandleResult.fail(configuration.LIST_ARG_NIL.replace("%given%",given));
+        if (values.contains(given)) return ArgumentHandleResult.success();
+        else return ArgumentHandleResult.fail(configuration.LIST_ARG_NIL.replace("%given%", given));
     }
 
     /**

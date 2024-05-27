@@ -50,6 +50,7 @@ public abstract class BaseCommand extends Command {
 
     /**
      * Creates an instance of this command.
+     *
      * @param name Name of the command.
      */
     public BaseCommand(@NotNull String name) {
@@ -58,10 +59,11 @@ public abstract class BaseCommand extends Command {
 
     /**
      * Creates an instance of this command.
-     * @param name Name of the command.
-     * @param description Description of the command.
+     *
+     * @param name         Name of the command.
+     * @param description  Description of the command.
      * @param usageMessage Usage message of the command.
-     * @param aliases Aliases for the command.
+     * @param aliases      Aliases for the command.
      */
     public BaseCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
@@ -69,53 +71,58 @@ public abstract class BaseCommand extends Command {
 
     /**
      * Grabs the value of {@link me.efekos.simpler.commands.Command#name()} and returns it.
+     *
      * @return Command name as a {@link String}.
      */
     @Override
     @NotNull
     public String getName() {
         me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
-        if(command!=null)return command.name();
+        if (command != null) return command.name();
         return super.getName();
     }
 
     /**
      * Grabs the value of {@link me.efekos.simpler.commands.Command#permission()} and returns it.
+     *
      * @return Permission this command needs to be executed as String, null if this command does not need any permission.
      */
     @Override
     @Nullable
     public String getPermission() {
         me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
-        if(command!=null)return command.permission();
+        if (command != null) return command.permission();
         return super.getPermission();
     }
 
     /**
      * Returns whether this command has a permission.
+     *
      * @return Whether this command has a permission.
      */
-    public boolean hasPermission(){
+    public boolean hasPermission() {
         me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
-        if(command!=null)return command.permission()!=null;
+        if (command != null) return command.permission() != null;
         else return false;
     }
 
     /**
      * Grabs the value of {@link me.efekos.simpler.commands.Command#description()} and returns it.
+     *
      * @return A brief description of this command
      */
     @Override
     @NotNull
     public String getDescription() {
         me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
-        if(command!=null)return command.description();
+        if (command != null) return command.description();
         return super.getDescription();
     }
 
 
     /**
      * Used for handling tab completion, making examples and providing valid usages for this command. You can create your own arguments with a class extends {@link Argument}. This is really helpful at making sure your arguments are good.
+     *
      * @return A Syntax class for this command.
      */
     @NotNull
@@ -136,32 +143,35 @@ public abstract class BaseCommand extends Command {
             builder.append(s1);
         });
 
-        return "/"+getName()+builder;
+        return "/" + getName() + builder;
     }
 
     /**
      * Grabs the value of {@link me.efekos.simpler.commands.Command#playerOnly()} and returns it.
+     *
      * @return Is this command can be used by something that is not player?
      */
-    public boolean isPlayerOnly(){
+    public boolean isPlayerOnly() {
         me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
-        if(command!=null)return command.playerOnly();
+        if (command != null) return command.playerOnly();
         return false;
     }
 
     /**
      * Fires when a player executes this command.
+     *
      * @param player Player that sent the command.
-     * @param args The args given by sender.
+     * @param args   The args given by sender.
      */
     public abstract void onPlayerUse(Player player, String[] args);
 
     /**
      * Fires when the console executes this command
+     *
      * @param sender The console
-     * @param args Args given by sender
+     * @param args   Args given by sender
      */
-    public abstract void onConsoleUse(ConsoleCommandSender sender, String[]args);
+    public abstract void onConsoleUse(ConsoleCommandSender sender, String[] args);
 
     /**
      * Executes the command, returning its success
@@ -172,13 +182,14 @@ public abstract class BaseCommand extends Command {
      * @return true if the command was successful, otherwise false
      */
     @Override
-    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args){
+    public boolean execute(@NotNull CommandSender sender, @NotNull String commandLabel, @NotNull String[] args) {
         MessageConfiguration configuration = Simpler.getMessageConfiguration();
-        a:{
-            if(sender instanceof Player p){ //sender is a player
+        a:
+        {
+            if (sender instanceof Player p) { //sender is a player
                 me.efekos.simpler.commands.Command command = this.getClass().getAnnotation(me.efekos.simpler.commands.Command.class);
 
-                if(!command.permission().isEmpty() &&!p.hasPermission(command.permission())){ // @Command has a permission and player don't have the permission
+                if (!command.permission().isEmpty() && !p.hasPermission(command.permission())) { // @Command has a permission and player don't have the permission
 
                     p.sendMessage(TranslateManager.translateColors(configuration.NO_PERMISSION));
 
@@ -186,14 +197,14 @@ public abstract class BaseCommand extends Command {
 
                     for (int i = 0; i < getSyntax().getArguments().size(); i++) {
                         Argument arg = getSyntax().getArguments().get(i);
-                        if((args.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",TranslateManager.translateColors(configuration.USAGE_REASON_REQUIRED))));
+                        if ((args.length - 1) < i && arg.getPriority() == ArgumentPriority.REQUIRED) {
+                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%", getUsage()).replace("%reason%", TranslateManager.translateColors(configuration.USAGE_REASON_REQUIRED))));
                             break a;
                         }
 
                         ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
-                        if(!handleResult.isPassed()){
-                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.hasReason()? Objects.requireNonNull(handleResult.getReason()) :"")));
+                        if (!handleResult.isPassed()) {
+                            p.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%", getUsage()).replace("%reason%", handleResult.hasReason() ? Objects.requireNonNull(handleResult.getReason()) : "")));
                             break a;
                         }
                     }
@@ -201,24 +212,24 @@ public abstract class BaseCommand extends Command {
                     onPlayerUse((Player) sender, args);
                 }
 
-            } else if(sender instanceof ConsoleCommandSender){// sender is not a player but the console
-                if(!isPlayerOnly()){ // command is not player only
+            } else if (sender instanceof ConsoleCommandSender) {// sender is not a player but the console
+                if (!isPlayerOnly()) { // command is not player only
 
                     for (int i = 0; i < getSyntax().getArguments().size(); i++) {
                         Argument arg = getSyntax().getArguments().get(i);
-                        if((args.length-1)<i && arg.getPriority()== ArgumentPriority.REQUIRED){
-                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",arg+" is required.")));
+                        if ((args.length - 1) < i && arg.getPriority() == ArgumentPriority.REQUIRED) {
+                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%", getUsage()).replace("%reason%", arg + " is required.")));
                             break a;
                         }
 
                         ArgumentHandleResult handleResult = arg.handleCorrection(args[i]);
-                        if(!handleResult.isPassed()){
-                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%",getUsage()).replace("%reason%",handleResult.hasReason()? Objects.requireNonNull(handleResult.getReason()) :"")));
+                        if (!handleResult.isPassed()) {
+                            sender.sendMessage(TranslateManager.translateColors(configuration.USAGE.replace("%usage%", getUsage()).replace("%reason%", handleResult.hasReason() ? Objects.requireNonNull(handleResult.getReason()) : "")));
                             break a;
                         }
                     }
 
-                    onConsoleUse((ConsoleCommandSender) sender,args);
+                    onConsoleUse((ConsoleCommandSender) sender, args);
                 } else { // command is player only
                     sender.sendMessage(TranslateManager.translateColors(configuration.ONLY_PLAYER));
                 }
@@ -242,16 +253,16 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args) throws IllegalArgumentException {
-        if(sender instanceof Player p){
+        if (sender instanceof Player p) {
             List<Argument> arguments = getSyntax().getArguments();
 
-            if(hasPermission()&&!p.hasPermission(Objects.requireNonNull(getPermission())))return new ArrayList<>();
+            if (hasPermission() && !p.hasPermission(Objects.requireNonNull(getPermission()))) return new ArrayList<>();
 
-            int num = args.length-1;
+            int num = args.length - 1;
 
-            if(num<arguments.size()&&arguments.get(num)!=null){
+            if (num < arguments.size() && arguments.get(num) != null) {
                 Argument arg = arguments.get(num);
-                return arg.getList(p,args[num]);
+                return arg.getList(p, args[num]);
             }
         }
         return new ArrayList<>();
@@ -272,6 +283,6 @@ public abstract class BaseCommand extends Command {
     @NotNull
     @Override
     public List<String> tabComplete(@NotNull CommandSender sender, @NotNull String alias, @NotNull String[] args, @Nullable Location location) throws IllegalArgumentException {
-       return tabComplete(sender, alias, args);
+        return tabComplete(sender, alias, args);
     }
 }

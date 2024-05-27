@@ -43,14 +43,15 @@ import java.util.UUID;
  * stored as {@link ItemManager}, but you can use it with the methods {@link ItemManager#registerItem(NamespacedKey, Class)},
  * {@link ItemManager#loadCustomItems()} and {@link ItemManager#saveCustomItems()}
  */
-public final class CustomItemRegistry{
+public final class CustomItemRegistry {
 
     /**
      * Returns the {@link Path} simpler will create inside the given plugin's folder.
+     *
      * @param plugin The plugin that is currently using this registry.
      * @return A path that leads do a directory called 'simpler_data' under the given plugin's data folder.
      */
-    private Path getDataPath(JavaPlugin plugin){
+    private Path getDataPath(JavaPlugin plugin) {
         File dataFolder = plugin.getDataFolder();
         dataFolder.mkdirs();
 
@@ -59,10 +60,11 @@ public final class CustomItemRegistry{
 
     /**
      * Saves the given data to a JSON file under the data folder of the plugin given.
+     *
      * @param plugin The plugin that is currently using this registry.
-     * @param items A map of all the {@link CustomItem} instances.
+     * @param items  A map of all the {@link CustomItem} instances.
      */
-    public void save(JavaPlugin plugin, Map<UUID,CustomItem> items){
+    public void save(JavaPlugin plugin, Map<UUID, CustomItem> items) {
 
         Path simplerDataFolderPath = getDataPath(plugin);
 
@@ -76,10 +78,10 @@ public final class CustomItemRegistry{
 
                 JsonObject object = new JsonObject();
 
-                object.addProperty("id",customItem.getKey().toString());
+                object.addProperty("id", customItem.getKey().toString());
 
                 customItem.putSaveFields(object);
-                map.put(uuid.toString(),object);
+                map.put(uuid.toString(), object);
 
             });
 
@@ -88,12 +90,12 @@ public final class CustomItemRegistry{
 
             jsonFilePath.toFile().createNewFile();
             FileWriter writer = new FileWriter(jsonFilePath.toFile());
-            new Gson().toJson(object,writer);
+            new Gson().toJson(object, writer);
 
             writer.flush();
             writer.close();
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -101,24 +103,27 @@ public final class CustomItemRegistry{
 
     /**
      * Does some checks and returns the 'items.json' file path.
+     *
      * @param simplerDataFolderPath 'simpler_data' folder path.
      * @return A path that leads to the 'items.json' file.
      * @throws IOException If an IO process fails.
      */
     @NotNull
     private static Path getItemsJsonPath(Path simplerDataFolderPath) throws IOException {
-        if(!Files.exists(simplerDataFolderPath)) Files.createDirectory(simplerDataFolderPath);
-        if(!Files.isDirectory(simplerDataFolderPath)) throw new NotDirectoryException(simplerDataFolderPath.toString());
+        if (!Files.exists(simplerDataFolderPath)) Files.createDirectory(simplerDataFolderPath);
+        if (!Files.isDirectory(simplerDataFolderPath))
+            throw new NotDirectoryException(simplerDataFolderPath.toString());
 
         return Path.of(simplerDataFolderPath.toString(), "items.json");
     }
 
     /**
      * Loads custom item data from a JSON file under the data folder of the plugin given.
+     *
      * @param plugin The plugin that is currently using this registry.
      * @return A map of all the {@link CustomItem} instances loaded.
      */
-    public Map<UUID,CustomItem> load(JavaPlugin plugin){
+    public Map<UUID, CustomItem> load(JavaPlugin plugin) {
         Path simplerDataPath = getDataPath(plugin);
 
         try {
@@ -126,18 +131,20 @@ public final class CustomItemRegistry{
             HashMap<UUID, CustomItem> map = new HashMap<>();
 
             Path jsonFilePath = getItemsJsonPath(simplerDataPath);
-            if(!Files.exists(jsonFilePath)) return new HashMap<>();
+            if (!Files.exists(jsonFilePath)) return new HashMap<>();
 
             String s = Files.readString(jsonFilePath);
             JsonElement e = JsonParser.parseString(s);
-            if(!e.isJsonObject()) throw new JsonParseException("Expected an object, got something else at plugin '"+plugin.getName()+"'");
+            if (!e.isJsonObject())
+                throw new JsonParseException("Expected an object, got something else at plugin '" + plugin.getName() + "'");
 
             JsonObject object = e.getAsJsonObject();
 
             object.asMap().forEach((uuid, element) -> {
                 UUID itemId = UUID.fromString(uuid);
 
-                if(!element.isJsonObject()) throw new JsonParseException("Expected an object, got something else at plugin '"+plugin.getName()+"'");
+                if (!element.isJsonObject())
+                    throw new JsonParseException("Expected an object, got something else at plugin '" + plugin.getName() + "'");
 
                 JsonObject itemObject = element.getAsJsonObject();
 
@@ -148,9 +155,9 @@ public final class CustomItemRegistry{
 
                     CustomItem instance = constructor.newInstance();
                     instance.loadSaveFields(itemObject);
-                    map.put(itemId,instance);
+                    map.put(itemId, instance);
 
-                } catch (Exception exception){
+                } catch (Exception exception) {
                     exception.printStackTrace();
                 }
 
@@ -158,7 +165,7 @@ public final class CustomItemRegistry{
 
             return map;
 
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return new HashMap<>();
         }
@@ -168,21 +175,23 @@ public final class CustomItemRegistry{
     /**
      * A map of the items registered.
      */
-    private final Map<NamespacedKey,Class<? extends CustomItem>> itemMap = new HashMap<>();
+    private final Map<NamespacedKey, Class<? extends CustomItem>> itemMap = new HashMap<>();
 
     /**
      * Registers a custom item class.
-     * @param key Identifier of this custom item type.
+     *
+     * @param key  Identifier of this custom item type.
      * @param item Class of the custom item.
      * @throws IllegalStateException if you use the same identifier more than once.
      */
-    public void registerItem(NamespacedKey key,Class<? extends CustomItem> item){
-        if(itemMap.containsKey(key)) throw new IllegalStateException("Same key used more than once: "+key);
-        itemMap.put(key,item);
+    public void registerItem(NamespacedKey key, Class<? extends CustomItem> item) {
+        if (itemMap.containsKey(key)) throw new IllegalStateException("Same key used more than once: " + key);
+        itemMap.put(key, item);
     }
 
     /**
      * A non-public constructor to prevent people from creating new instances of {@link CustomItemRegistry}.
      */
-    CustomItemRegistry() {}
+    CustomItemRegistry() {
+    }
 }

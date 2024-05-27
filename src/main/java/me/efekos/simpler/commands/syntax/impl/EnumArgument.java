@@ -32,11 +32,12 @@ import java.util.Locale;
 /**
  * An example extension of a custom {@link Argument}s: This argument is an enum you give at constructor.
  */
-public class EnumArgument extends ListArgument{
+public class EnumArgument extends ListArgument {
     /**
      * Creates an instance of {@link ListArgument}.
-     * @param holder Placeholder of this argument.
-     * @param priority Priority of this argument.
+     *
+     * @param holder    Placeholder of this argument.
+     * @param priority  Priority of this argument.
      * @param enumValue An enumerator.
      */
     public EnumArgument(String holder, ArgumentPriority priority, Class<? extends Enum<?>> enumValue) {
@@ -45,6 +46,7 @@ public class EnumArgument extends ListArgument{
 
     /**
      * Generated an argument list using the enum class given.
+     *
      * @param enumValue An enum to generate an array.
      * @return An array of {@link String}s, every {@link String} being lower-cased.
      */
@@ -53,7 +55,7 @@ public class EnumArgument extends ListArgument{
         List<String> things = new ArrayList<>();
 
         for (Enum<?> constant : constants) {
-            things.add(constant.name().toLowerCase(Locale.ENGLISH).replaceAll(" ","_"));
+            things.add(constant.name().toLowerCase(Locale.ENGLISH).replaceAll(" ", "_"));
         }
 
         return things.toArray(String[]::new);

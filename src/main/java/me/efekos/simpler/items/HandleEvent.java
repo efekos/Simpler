@@ -36,6 +36,7 @@ public @interface HandleEvent {
     /**
      * Type of this handler. The event parameter you must use changes according to this type. see all members of
      * {@link HandleType} for more.
+     *
      * @return Type of this handler.
      */
     HandleType value() default HandleType.RIGHT_CLICK;

@@ -31,6 +31,7 @@ public interface Storable {
 
     /**
      * Returns a unique id for this instance.
+     *
      * @return id of this instance.
      */
     UUID getUniqueId();

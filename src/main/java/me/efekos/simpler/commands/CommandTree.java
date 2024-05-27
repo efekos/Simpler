@@ -56,12 +56,13 @@ public class CommandTree {
 
     /**
      * Creates a new command tree.
-     * @param baseName Base name of the command.
+     *
+     * @param baseName        Base name of the command.
      * @param baseDescription Base description of the command that will be used by spigot.
-     * @param basePermission Base permission needed to run ANY sub command under this tree.
-     * @param children {@link CommandNode}s to add if you would like to. You can use {@link #addChild(CommandNode)} too.
+     * @param basePermission  Base permission needed to run ANY sub command under this tree.
+     * @param children        {@link CommandNode}s to add if you would like to. You can use {@link #addChild(CommandNode)} too.
      */
-    public CommandTree(String baseName,String baseDescription,String basePermission,CommandNode... children) {
+    public CommandTree(String baseName, String baseDescription, String basePermission, CommandNode... children) {
         this.children = Arrays.asList(children);
         this.baseName = baseName;
         this.baseDescription = baseDescription;
@@ -70,11 +71,12 @@ public class CommandTree {
 
     /**
      * Creates a new command tree.
-     * @param baseName Base name of the command.
+     *
+     * @param baseName        Base name of the command.
      * @param baseDescription Base description of the command that will be used by spigot.
-     * @param basePermission Base permission needed to run ANY sub command under this tree.
+     * @param basePermission  Base permission needed to run ANY sub command under this tree.
      */
-    public CommandTree(String baseName,String baseDescription,String basePermission) {
+    public CommandTree(String baseName, String baseDescription, String basePermission) {
         this.baseName = baseName;
         this.baseDescription = baseDescription;
         this.basePermission = basePermission;
@@ -82,6 +84,7 @@ public class CommandTree {
 
     /**
      * Returns the base description that will be used by bukkit.
+     *
      * @return Description of this tree.
      */
     public String getBaseDescription() {
@@ -90,6 +93,7 @@ public class CommandTree {
 
     /**
      * Returns the base permission that is needed to run ANY command under this tree.
+     *
      * @return Permission of this tree.
      */
     public String getBasePermission() {
@@ -98,6 +102,7 @@ public class CommandTree {
 
     /**
      * Returns a list of the child nodes that this tree contain.
+     *
      * @return Children of this tree.
      */
     public List<CommandNode> getChildren() {
@@ -106,6 +111,7 @@ public class CommandTree {
 
     /**
      * Returns the base name that will be the main command of this tree.
+     *
      * @return Base name.
      */
     public String getBaseName() {
@@ -114,20 +120,22 @@ public class CommandTree {
 
     /**
      * Adds the given {@link CommandNode} to the children of this tree and returns it.
+     *
      * @param node New child node to add to this tree.
      * @return {@link CommandTree} itself.
      */
-    public CommandTree addChild(CommandNode node){
+    public CommandTree addChild(CommandNode node) {
         children.add(node);
         return this;
     }
 
     /**
      * Adds the given string as a {@link LabelNode} to the children of this tree and returns it.
+     *
      * @param label New label node to add to this one.
      * @return {@link CommandTree} itself.
      */
-    public CommandTree addChild(String label){
+    public CommandTree addChild(String label) {
         return addChild(new LabelNode(label));
     }
 }

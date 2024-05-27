@@ -40,6 +40,7 @@ public class ArgumentHandleResult {
 
     /**
      * Returns {@code true} if the command executor passes (gave a correct argument for) whatever you get this result from.
+     *
      * @return {@code true} if this result is passed. {@code false} otherwise
      */
     public boolean isPassed() {
@@ -48,6 +49,7 @@ public class ArgumentHandleResult {
 
     /**
      * Returns the reason of why this result does not pass, if it doesn't.
+     *
      * @return A reason if this result didn't passed.
      */
     public @org.jetbrains.annotations.Nullable String getReason() {
@@ -56,15 +58,17 @@ public class ArgumentHandleResult {
 
     /**
      * Returns {@code true} if this result has a reason. {@code false} otherwise.
+     *
      * @return Whether this handle result has a reason (probably for failing)
      */
-    public boolean hasReason(){
-        return reason!=null;
+    public boolean hasReason() {
+        return reason != null;
     }
 
     /**
      * Private constructor.
-     * @param pass Is this result passed?
+     *
+     * @param pass   Is this result passed?
      * @param reason Reason of the failure on this result.
      */
     private ArgumentHandleResult(boolean pass, @org.jetbrains.annotations.Nullable String reason) {
@@ -74,18 +78,20 @@ public class ArgumentHandleResult {
 
     /**
      * Constructs a new {@link ArgumentHandleResult}, leading to success.
+     *
      * @return An instance of a {@link ArgumentHandleResult} with {@link #isPassed()} being {@code true}.
      */
-    public static ArgumentHandleResult success(){
-        return new ArgumentHandleResult(true,null);
+    public static ArgumentHandleResult success() {
+        return new ArgumentHandleResult(true, null);
     }
 
     /**
      * Constructs a new {@link ArgumentHandleResult}, leading to failure with the reason given.
+     *
      * @param reason A reason on the failure that this result will cause.
      * @return An instance of a {@link ArgumentHandleResult} with a reason and {@link #isPassed()} being {@code false}
      */
-    public static ArgumentHandleResult fail(String reason){
-        return new ArgumentHandleResult(false,reason);
+    public static ArgumentHandleResult fail(String reason) {
+        return new ArgumentHandleResult(false, reason);
     }
 }

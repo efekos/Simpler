@@ -37,6 +37,7 @@ import java.util.stream.Collectors;
 public class PlayerArgumentNode extends ArgumentNode {
     /**
      * Creates a new node.
+     *
      * @param children Any child nodes if you would like to add to this node. You can use {@link PlayerArgumentNode#addChild(CommandNode)}
      *                 for later.
      */
@@ -49,7 +50,7 @@ public class PlayerArgumentNode extends ArgumentNode {
      */
     @Override
     public boolean isCorrect(String given) {
-        return Bukkit.getPlayer(given)!=null;
+        return Bukkit.getPlayer(given) != null;
     }
 
     /**

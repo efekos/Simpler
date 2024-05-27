@@ -38,6 +38,7 @@ import java.lang.annotation.Target;
 public @interface SubOf {
     /**
      * Returns a {@link CoreCommand} class.
+     *
      * @return A {@link CoreCommand} class that will contain this {@link SubCommand}.
      */
     Class<? extends CoreCommand> value();

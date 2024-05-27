@@ -36,6 +36,7 @@ public class EnumArgumentNode extends ListArgumentNode {
 
     /**
      * Constructs a new node.
+     *
      * @param enumClass An {@code enum} class to generate a list of valid strings of this node.
      */
     public EnumArgumentNode(Class<? extends Enum<?>> enumClass) {
@@ -44,8 +45,9 @@ public class EnumArgumentNode extends ListArgumentNode {
 
     /**
      * Constructs a new node.
+     *
      * @param enumClass An {@code enum} class to generate a list of valid strings of this node.
-     * @param children Children of this node
+     * @param children  Children of this node
      */
     public EnumArgumentNode(Class<? extends Enum<?>> enumClass, CommandNode... children) {
         super(Arrays.stream(enumClass.getEnumConstants()).map(anEnum -> anEnum.name().toLowerCase(Locale.ENGLISH)).collect(Collectors.toList()), children);

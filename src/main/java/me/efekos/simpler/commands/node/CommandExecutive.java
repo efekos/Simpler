@@ -32,6 +32,7 @@ public interface CommandExecutive {
 
     /**
      * Runs when a {@link CommandNode} that has this executive gets executed.
+     *
      * @param context Context of the command run event. All the information is from {@link org.bukkit.command.Command#execute(CommandSender, String, String[])}.
      */
     void onExecute(CommandExecuteContext context);

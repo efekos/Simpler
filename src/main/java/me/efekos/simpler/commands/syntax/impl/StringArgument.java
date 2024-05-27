@@ -55,8 +55,9 @@ public class StringArgument extends Argument {
 
     /**
      * Creates a new instance of {@link StringArgument}.
-     * @param holder Placeholder of the argument.
-     * @param priority Priority of the argument.
+     *
+     * @param holder    Placeholder of the argument.
+     * @param priority  Priority of the argument.
      * @param minLength Minimum length for the value {@link String}.
      * @param maxLength Maximum length for the value {@link String}.
      */
@@ -98,8 +99,10 @@ public class StringArgument extends Argument {
     public ArgumentHandleResult handleCorrection(String given) {
         int length = given.length();
         MessageConfiguration configuration = Simpler.getMessageConfiguration();
-        if(length < minLength) return ArgumentHandleResult.fail(configuration.STR_ARG_SHT.replace("%given%",given).replace("%min%",minLength+""));
-        if(length > maxLength) return ArgumentHandleResult.fail(configuration.STR_ARG_LNG.replace("%given%",given).replace("%max%",maxLength+""));
+        if (length < minLength)
+            return ArgumentHandleResult.fail(configuration.STR_ARG_SHT.replace("%given%", given).replace("%min%", minLength + ""));
+        if (length > maxLength)
+            return ArgumentHandleResult.fail(configuration.STR_ARG_LNG.replace("%given%", given).replace("%max%", maxLength + ""));
         return ArgumentHandleResult.success();
     }
 }

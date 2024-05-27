@@ -43,6 +43,7 @@ public class Syntax {
 
     /**
      * Returns a list of the {@link Argument}s on this syntax.
+     *
      * @return List of the {@link Argument}s.
      */
     public List<Argument> getArguments() {
@@ -51,10 +52,11 @@ public class Syntax {
 
     /**
      * Adds an argument to the list.
+     *
      * @param arg Argument to add
      * @return The {@link Syntax} itself, making it able to repeat this method for multiple arguments.
      */
-    public Syntax withArgument(Argument arg){
+    public Syntax withArgument(Argument arg) {
         arguments.add(arg);
         return this;
     }

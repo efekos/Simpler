@@ -41,6 +41,7 @@ public class ListArgumentNode extends ArgumentNode {
 
     /**
      * Creates a new node.
+     *
      * @param list Values that this argument can have.
      */
     public ListArgumentNode(String... list) {
@@ -50,7 +51,8 @@ public class ListArgumentNode extends ArgumentNode {
 
     /**
      * Creates a new node.
-     * @param list List of the values that this argument can have.
+     *
+     * @param list     List of the values that this argument can have.
      * @param children Any child node to add to this node if you would like to. You can use {@link ListArgumentNode#addChild(CommandNode)}
      *                 later.
      */
@@ -64,7 +66,7 @@ public class ListArgumentNode extends ArgumentNode {
      */
     @Override
     public boolean isCorrect(String given) {
-     return list.contains(given);
+        return list.contains(given);
     }
 
     /**

@@ -45,8 +45,9 @@ public class IntegerArgumentNode extends ArgumentNode {
 
     /**
      * Creates a new node for use.
-     * @param min Minimum number for this argument.
-     * @param max Maximum number for this argument.
+     *
+     * @param min      Minimum number for this argument.
+     * @param max      Maximum number for this argument.
      * @param children Any child to add to this node if you would like to. You can still add children using
      *                 {@link IntegerArgumentNode#addChild(CommandNode)} later.
      */
@@ -58,6 +59,7 @@ public class IntegerArgumentNode extends ArgumentNode {
 
     /**
      * Creates a new node for use.
+     *
      * @param children Any child to add to this node if you would like to. You can still add children using
      *                 {@link IntegerArgumentNode#addChild(CommandNode)} later.
      */
@@ -66,16 +68,16 @@ public class IntegerArgumentNode extends ArgumentNode {
     }
 
     /**
-     {@inheritDoc}
+     * {@inheritDoc}
      */
     @Override
     public boolean isCorrect(String given) {
-       try {
-           int i = Integer.parseInt(given);
-           return min<i && i<max;
-       } catch (Exception ignored){
-           return false;
-       }
+        try {
+            int i = Integer.parseInt(given);
+            return min < i && i < max;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
     /**

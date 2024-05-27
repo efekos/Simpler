@@ -35,18 +35,21 @@ import java.lang.annotation.Target;
 public @interface Command {
     /**
      * Name of this command.
+     *
      * @return Name of this command.
      */
     String name();
 
     /**
      * Description of this command.
+     *
      * @return Description of this command.
      */
     String description();
 
     /**
      * Permission required from player to use this command. If not specified, every player can use this command without any permission.
+     *
      * @return Permission of this command.
      */
     String permission() default "";
@@ -54,6 +57,7 @@ public @interface Command {
     /**
      * Is this command player only? <br>
      * If true, the console can't use this command. If false, console can use this command too.
+     *
      * @return Is this command player only?
      */
     boolean playerOnly() default false;

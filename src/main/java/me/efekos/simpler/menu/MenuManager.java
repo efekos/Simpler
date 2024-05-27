@@ -38,12 +38,13 @@ public class MenuManager {
     /**
      * Creates a new menu manager instance if you somehow need one.
      */
-    public MenuManager() {}
+    public MenuManager() {
+    }
 
     /**
      * A map used to store a {@link MenuData} for every {@link Player}.
      */
-    private static final HashMap<Player,MenuData> menuDataStore = new HashMap<>();
+    private static final HashMap<Player, MenuData> menuDataStore = new HashMap<>();
     /**
      * Used to quickly do setup checks
      */
@@ -55,25 +56,27 @@ public class MenuManager {
 
     /**
      * Set up the {@link MenuManager} by giving it a {@link JavaPlugin}.
+     *
      * @param plugin Instance of your plugin.
      */
     public static void setPlugin(JavaPlugin plugin) {
         MenuManager.plugin = plugin;
-        if(!isSetup){
-            plugin.getServer().getPluginManager().registerEvents(new MenuEvents(),plugin);
+        if (!isSetup) {
+            plugin.getServer().getPluginManager().registerEvents(new MenuEvents(), plugin);
             isSetup = true;
         }
     }
 
     /**
      * Get someone's menu data outside the menus, so you can change some data.
+     *
      * @param player {@link Player} who you need to get menu data.
      * @return {@link MenuData} stored for the {@link Player} given.
      */
-    public static MenuData getMenuData(Player player){
+    public static MenuData getMenuData(Player player) {
         MenuData data = menuDataStore.get(player);
-        if(data==null){
-            menuDataStore.put(player,new MenuData(player));
+        if (data == null) {
+            menuDataStore.put(player, new MenuData(player));
             data = menuDataStore.get(player);
         }
 
@@ -82,31 +85,35 @@ public class MenuManager {
 
     /**
      * Updates menu data of someone. Recommended to use right before {@link #Open(Player, Class)} if the data is changed from the code.
-     * @param player {@link Player} who has a different {@link MenuData}.
+     *
+     * @param player      {@link Player} who has a different {@link MenuData}.
      * @param newMenuData new instance of {@link MenuData} to replace with old one.
      * @throws InvalidParameterException If new {@link MenuData}'s owner is not the {@link Player} given.
      */
-    public static void updateMenuData(Player player,MenuData newMenuData) throws InvalidParameterException{
-        try{
-            if(!newMenuData.getOwner().getUniqueId().equals(player.getUniqueId())) throw new InvalidParameterException("Owners does not match.");
+    public static void updateMenuData(Player player, MenuData newMenuData) throws InvalidParameterException {
+        try {
+            if (!newMenuData.getOwner().getUniqueId().equals(player.getUniqueId()))
+                throw new InvalidParameterException("Owners does not match.");
             menuDataStore.put(player, newMenuData);
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     /**
      * Opens a menu for a {@link Player}.
-     * @param p {@link Player} that will see this menu.
+     *
+     * @param p         {@link Player} that will see this menu.
      * @param menuClazz {@link Class} reference of your {@link Menu}.
      */
-    public static void Open(Player p , Class<? extends Menu> menuClazz){
+    public static void Open(Player p, Class<? extends Menu> menuClazz) {
         try {
-            if(!isSetup) throw new NoPluginException("Call method me.efekos.simpler.menu.MenuManager#setPlugin first.");
+            if (!isSetup)
+                throw new NoPluginException("Call method me.efekos.simpler.menu.MenuManager#setPlugin first.");
 
             MenuData data = menuDataStore.get(p);
-            if(data==null){
-                menuDataStore.put(p,new MenuData(p));
+            if (data == null) {
+                menuDataStore.put(p, new MenuData(p));
                 data = menuDataStore.get(p);
             }
 
@@ -116,7 +123,7 @@ public class MenuManager {
             Menu menu = constructor.newInstance(data);
 
             menu.open();
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 

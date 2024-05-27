@@ -97,19 +97,20 @@ public class MessageConfiguration {
 
     /**
      * Constructs a new {@link MessageConfiguration} for your use. {@link MessageConfiguration.Builder} is more recommended though, due to it is more understandable than constructor.
-     * @param NO_PERMISSION No-Permission message. Appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.
-     * @param USAGE Usage message. Appears when the player used a command wrong according to its {@link me.efekos.simpler.commands.syntax.Syntax}.
-     * @param ONLY_PLAYER Only-Player message. Appears when the console tried to use a command that is player-only.
+     *
+     * @param NO_PERMISSION         No-Permission message. Appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.
+     * @param USAGE                 Usage message. Appears when the player used a command wrong according to its {@link me.efekos.simpler.commands.syntax.Syntax}.
+     * @param ONLY_PLAYER           Only-Player message. Appears when the console tried to use a command that is player-only.
      * @param USAGE_REASON_REQUIRED A reason text that is provided by Simpler. Appears when the player didn't provide a {@link me.efekos.simpler.commands.syntax.ArgumentPriority#REQUIRED} argument.
-     * @param LIST_ARG_NIL Appears when the player provides an invalid value to {@link me.efekos.simpler.commands.syntax.impl.ListArgument}.
-     * @param NUM_ARG_IMIN Appears when the player provides a number smaller than {@link Integer#MIN_VALUE} to {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument}.
-     * @param NUM_ARG_IMAX Appears when the player provides a number smaller than {@link Integer#MAX_VALUE} to {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument}.
-     * @param NUM_ARG_MIN Appears when the player provides a number smaller than maximum value sett in {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument#IntegerArgument(String, ArgumentPriority, int, int)}.
-     * @param NUM_ARG_MAX Appears when the player provides a number bigger than maximum value sett in {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument#IntegerArgument(String, ArgumentPriority, int, int)}.
-     * @param NUM_ARG_NAN Appears when the player provides a NaN to a {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument}.
-     * @param PLR_ARG_NAP Appears when the player provides an invalid player name to {@link me.efekos.simpler.commands.syntax.impl.PlayerArgument}.
-     * @param STR_ARG_SHT Appears when the player provides a string shorter than minimum length sett in {@link me.efekos.simpler.commands.syntax.impl.StringArgument#StringArgument(String, ArgumentPriority, int, int)}.
-     * @param STR_ARG_LNG Appears when the player provides a string longer than maximum length sett in {@link me.efekos.simpler.commands.syntax.impl.StringArgument#StringArgument(String, ArgumentPriority, int, int)}.
+     * @param LIST_ARG_NIL          Appears when the player provides an invalid value to {@link me.efekos.simpler.commands.syntax.impl.ListArgument}.
+     * @param NUM_ARG_IMIN          Appears when the player provides a number smaller than {@link Integer#MIN_VALUE} to {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument}.
+     * @param NUM_ARG_IMAX          Appears when the player provides a number smaller than {@link Integer#MAX_VALUE} to {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument}.
+     * @param NUM_ARG_MIN           Appears when the player provides a number smaller than maximum value sett in {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument#IntegerArgument(String, ArgumentPriority, int, int)}.
+     * @param NUM_ARG_MAX           Appears when the player provides a number bigger than maximum value sett in {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument#IntegerArgument(String, ArgumentPriority, int, int)}.
+     * @param NUM_ARG_NAN           Appears when the player provides a NaN to a {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument}.
+     * @param PLR_ARG_NAP           Appears when the player provides an invalid player name to {@link me.efekos.simpler.commands.syntax.impl.PlayerArgument}.
+     * @param STR_ARG_SHT           Appears when the player provides a string shorter than minimum length sett in {@link me.efekos.simpler.commands.syntax.impl.StringArgument#StringArgument(String, ArgumentPriority, int, int)}.
+     * @param STR_ARG_LNG           Appears when the player provides a string longer than maximum length sett in {@link me.efekos.simpler.commands.syntax.impl.StringArgument#StringArgument(String, ArgumentPriority, int, int)}.
      */
     private MessageConfiguration(String NO_PERMISSION, String USAGE, String ONLY_PLAYER, String USAGE_REASON_REQUIRED, String LIST_ARG_NIL, String NUM_ARG_IMIN, String NUM_ARG_IMAX, String NUM_ARG_MIN, String NUM_ARG_MAX, String NUM_ARG_NAN, String PLR_ARG_NAP, String STR_ARG_SHT, String STR_ARG_LNG, String PAGINATED_MENU_NEXT, String PAGINATED_MENU_PREV, String PAGINATED_MENU_PAGE) {
         this.NO_PERMISSION = NO_PERMISSION;
@@ -138,7 +139,8 @@ public class MessageConfiguration {
         /**
          * Creates a new builder.
          */
-        public Builder() {}
+        public Builder() {
+        }
 
         /**
          * No-Permission message. Appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.
@@ -208,6 +210,7 @@ public class MessageConfiguration {
 
         /**
          * Changes the no-permission message. Which is a message that appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.
+         *
          * @param noPerm Your No-Permission message to replace with default one.
          * @return Itself after changing the no-permission message.
          */
@@ -218,6 +221,7 @@ public class MessageConfiguration {
 
         /**
          * Changes the usage message, which is a message that appears when the player used a command wrong according to its {@link me.efekos.simpler.commands.syntax.Syntax}.
+         *
          * @param usage Your Usage message to replace with default one.
          * @return Itself after changing the usage message.
          */
@@ -228,6 +232,7 @@ public class MessageConfiguration {
 
         /**
          * Changes the only-player message, which is a message that appears when the console tried to use a command that is player-only.
+         *
          * @param onlyPlayer Your Only-Player message to replace with default one.
          * @return Itself after changing the only-player message.
          */
@@ -238,6 +243,7 @@ public class MessageConfiguration {
 
         /**
          * Changes the 'Next' shown at the buttons of {@link me.efekos.simpler.menu.PaginatedMenu}s.
+         *
          * @param paginatedMenuNext Your paginated menu's 'Next' button message to replace with the default one.
          * @return Itself after changing the paginated menu text.
          */
@@ -248,6 +254,7 @@ public class MessageConfiguration {
 
         /**
          * Changes the 'Prev' shown at the buttons of {@link me.efekos.simpler.menu.PaginatedMenu}s.
+         *
          * @param paginatedMenuPrev Your paginated menu's 'Prev' button message to replace with the default one.
          * @return Itself after changing the paginated menu text.
          */
@@ -258,6 +265,7 @@ public class MessageConfiguration {
 
         /**
          * Changes the 'Page 1/?' shown at the buttons of {@link me.efekos.simpler.menu.PaginatedMenu}s.
+         *
          * @param paginatedMenuPage Your paginated menu's page message to replace with the default one. %page% is the
          *                          current page, %max% is the amount of pages.
          * @return Itself after changing the paginated menu text.
@@ -269,16 +277,18 @@ public class MessageConfiguration {
 
         /**
          * Changes the required message, which is a message that appears when the player didn't provide a {@link me.efekos.simpler.commands.syntax.ArgumentPriority#REQUIRED} argument.
+         *
          * @param required new required message.
          * @return Itself after changing the required message.
          */
-        public Builder required(String required){
+        public Builder required(String required) {
             this.usageRequiredReason = required;
             return this;
         }
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.ListArgument} got an invalid value.
+         *
          * @param listArgumentNotValid New message.
          * @return itself for continuing to build.
          */
@@ -289,6 +299,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument} got a value smaller than {@link Integer#MIN_VALUE}.
+         *
          * @param numberArgumentIntMin New message
          * @return itself for continuing to build.
          */
@@ -299,6 +310,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument} got a value bigger than {@link Integer#MAX_VALUE}.
+         *
          * @param numberArgumentIntMax New message.
          * @return itself for continuing to build.
          */
@@ -309,6 +321,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument} got a value smaller than its min.
+         *
          * @param numberArgumentMin New message.
          * @return itself for continuing to build.
          */
@@ -319,6 +332,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument} got a value bigger than its max.
+         *
          * @param numberArgumentMax New message.
          * @return itself for continuing to build.
          */
@@ -329,6 +343,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.IntegerArgument} got a value that isn't an {@link Integer}.
+         *
          * @param numberArgumentNaN New message.
          * @return itself for continuing to build.
          */
@@ -339,6 +354,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.PlayerArgument} got an invalid player name.
+         *
          * @param playerArgumentNotPlayer New message.
          * @return itself for continuing to build.
          */
@@ -349,6 +365,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.StringArgument} got a value shorter than it's min length.
+         *
          * @param stringArgumentShort New message.
          * @return itself for continuing to build.
          */
@@ -359,6 +376,7 @@ public class MessageConfiguration {
 
         /**
          * Appears when a {@link me.efekos.simpler.commands.syntax.impl.StringArgument} got a value longer than it's max length.
+         *
          * @param stringArgumentLong New message.
          * @return itself for continuing to build.
          */
@@ -369,10 +387,11 @@ public class MessageConfiguration {
 
         /**
          * Builds a {@link MessageConfiguration} using this builder.
+         *
          * @return {@link MessageConfiguration} built.
          */
-        public MessageConfiguration build(){
-            return new MessageConfiguration(noPerm,usage,onlyPlayer,usageRequiredReason,listArgumentNotValid,numberArgumentIntMin,numberArgumentIntMax,numberArgumentMin,numberArgumentMax,numberArgumentNaN,playerArgumentNotPlayer,stringArgumentShort,stringArgumentLong,paginatedMenuNext,paginatedMenuPrev,paginatedMenuPage);
+        public MessageConfiguration build() {
+            return new MessageConfiguration(noPerm, usage, onlyPlayer, usageRequiredReason, listArgumentNotValid, numberArgumentIntMin, numberArgumentIntMax, numberArgumentMin, numberArgumentMax, numberArgumentNaN, playerArgumentNotPlayer, stringArgumentShort, stringArgumentLong, paginatedMenuNext, paginatedMenuPrev, paginatedMenuPage);
         }
     }
 }

@@ -52,6 +52,7 @@ public abstract class CoreCommand extends Command {
     /**
      * Creates a new core command instance. Not really needed for usage, but you have to override this constructor in
      * your class.
+     *
      * @param name Name of the command, not important in this case though.
      */
     protected CoreCommand(@NotNull String name) {
@@ -61,10 +62,11 @@ public abstract class CoreCommand extends Command {
     /**
      * Creates a new core command instance. Not really needed for usage, but you have to override this constructor in
      * your class.
-     * @param name Name of the command, not important in this case though.
-     * @param description Description.
+     *
+     * @param name         Name of the command, not important in this case though.
+     * @param description  Description.
      * @param usageMessage Usage message.
-     * @param aliases Alias list.
+     * @param aliases      Alias list.
      */
     protected CoreCommand(@NotNull String name, @NotNull String description, @NotNull String usageMessage, @NotNull List<String> aliases) {
         super(name, description, usageMessage, aliases);
@@ -184,7 +186,8 @@ public abstract class CoreCommand extends Command {
                     me.efekos.simpler.commands.Command commandA = sub.getAnnotation(me.efekos.simpler.commands.Command.class);
                     SubCommand command = constructor.newInstance(commandA.name());
                     subCommands.add(command);
-                } catch (Exception ignored) {}
+                } catch (Exception ignored) {
+                }
             }
 
             renderHelpList(sender, subCommands);
@@ -219,7 +222,7 @@ public abstract class CoreCommand extends Command {
                 }
 
                 // SubCommand's @Command don't have a permission or player has the permission
-               doExecution(sender,cmdA,cmd,subArgs,configuration);
+                doExecution(sender, cmdA, cmd, subArgs, configuration);
 
             } else if (sender instanceof ConsoleCommandSender) {// sender is not a player but the console
                 if (isPlayerOnly()) {
@@ -237,9 +240,10 @@ public abstract class CoreCommand extends Command {
     }
 
     private void doExecution(@NotNull CommandSender sender, me.efekos.simpler.commands.Command cmdA, Class<? extends SubCommand> cmd, String[] subArgs, MessageConfiguration configuration) throws NoSuchMethodException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        a:{
+        a:
+        {
 
-            if (cmdA.playerOnly()&&!(sender instanceof Player)) { // SubCommand's @Command is player only
+            if (cmdA.playerOnly() && !(sender instanceof Player)) { // SubCommand's @Command is player only
                 sender.sendMessage(TranslateManager.translateColors(configuration.ONLY_PLAYER));
                 return;
             }
@@ -277,8 +281,8 @@ public abstract class CoreCommand extends Command {
                 }
             }
 
-            if(sender instanceof Player) instance.onPlayerUse((Player) sender, subArgs);
-            else instance.onConsoleUse((ConsoleCommandSender) sender,subArgs);
+            if (sender instanceof Player) instance.onPlayerUse((Player) sender, subArgs);
+            else instance.onConsoleUse((ConsoleCommandSender) sender, subArgs);
 
         }
     }

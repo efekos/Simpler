@@ -45,8 +45,9 @@ public class DoubleArgumentNode extends ArgumentNode {
 
     /**
      * Creates a new node for use.
-     * @param min Minimum number for this argument.
-     * @param max Maximum number for this argument.
+     *
+     * @param min      Minimum number for this argument.
+     * @param max      Maximum number for this argument.
      * @param children Any child to add to this node if you would like to. You can still add children using
      *                 {@link DoubleArgumentNode#addChild(CommandNode)} later.
      */
@@ -58,6 +59,7 @@ public class DoubleArgumentNode extends ArgumentNode {
 
     /**
      * Creates a new node for use.
+     *
      * @param children Any child to add to this node if you would like to. You can still add children using
      *                 {@link DoubleArgumentNode#addChild(CommandNode)} later.
      */
@@ -70,12 +72,12 @@ public class DoubleArgumentNode extends ArgumentNode {
      */
     @Override
     public boolean isCorrect(String given) {
-       try {
-           double i = Double.parseDouble(given);
-           return min<i && i<max;
-       } catch (Exception ignored){
-           return false;
-       }
+        try {
+            double i = Double.parseDouble(given);
+            return min < i && i < max;
+        } catch (Exception ignored) {
+            return false;
+        }
     }
 
     /**

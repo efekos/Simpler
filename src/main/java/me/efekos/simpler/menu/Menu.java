@@ -58,6 +58,7 @@ public abstract class Menu implements InventoryHolder {
 
     /**
      * Crates an instance of this menu.
+     *
      * @param data Data of the owner {@link Player} of this menu. Got using {@link MenuManager#getMenuData(Player)}
      */
     public Menu(MenuData data) {
@@ -67,24 +68,28 @@ public abstract class Menu implements InventoryHolder {
 
     /**
      * Returns a boolean that indicates click cancels for this menu.
+     *
      * @return Should all the clicks at this menu get cancelled?
      */
     public abstract boolean cancelAllClicks();
 
     /**
      * Returns a row amount for this menu.
+     *
      * @return How many rows this menu will have. Your menu will have {@link #getRows()}*9 slots, since every row makes 9 slot.
      */
     public abstract int getRows();
 
     /**
      * Returns a title for this menu.
+     *
      * @return A title for this menu.
      */
     public abstract String getTitle();
 
     /**
      * Executes when someone clicks to an item in this menu.
+     *
      * @param event Instance of the event.
      */
     public abstract void onClick(InventoryClickEvent event);
@@ -98,6 +103,7 @@ public abstract class Menu implements InventoryHolder {
 
     /**
      * Executes when someone opens this menu.
+     *
      * @param event Instance of the event.
      */
     public abstract void onOpen(InventoryOpenEvent event);
@@ -120,8 +126,8 @@ public abstract class Menu implements InventoryHolder {
     /**
      * Creates an inventory for this menu and shows it to the {@link #owner}.
      */
-    public void open(){
-        this.inventory = Bukkit.createInventory(this,getSlots(),getTitle());
+    public void open() {
+        this.inventory = Bukkit.createInventory(this, getSlots(), getTitle());
         fill();
 
         data.addMenu(this);
@@ -130,18 +136,19 @@ public abstract class Menu implements InventoryHolder {
 
     /**
      * Quickly crates an {@link ItemStack} according to the parameters.
-     * @param material Type of the item.
+     *
+     * @param material    Type of the item.
      * @param displayName Display name of the item.
-     * @param lore Lore of the item.
+     * @param lore        Lore of the item.
      * @return {@link ItemStack} generated.
      */
-    protected ItemStack createItem(Material material, String displayName, String ...lore){
-        ItemStack item = new ItemStack(material,1);
+    protected ItemStack createItem(Material material, String displayName, String... lore) {
+        ItemStack item = new ItemStack(material, 1);
         ItemMeta itemMeta = item.getItemMeta();
 
         assert itemMeta != null;
         itemMeta.setDisplayName(displayName);
-        itemMeta.setLore(Arrays.stream(lore).map(r-> ChatColor.translateAlternateColorCodes('&',r)).collect(Collectors.toList()));
+        itemMeta.setLore(Arrays.stream(lore).map(r -> ChatColor.translateAlternateColorCodes('&', r)).collect(Collectors.toList()));
         item.setItemMeta(itemMeta);
 
         return item;
@@ -149,13 +156,14 @@ public abstract class Menu implements InventoryHolder {
 
     /**
      * Quickly creates a skull owned by {@link Player} given.
-     * @param owner Owner of the skull
+     *
+     * @param owner       Owner of the skull
      * @param displayName Display name for the item
-     * @param lore Lore for the item
+     * @param lore        Lore for the item
      * @return {@link ItemStack} generated. Guaranteed to be an {@link Material#PLAYER_HEAD}.
      */
-    protected ItemStack createSkull(Player owner,String displayName,String ...lore){
-        ItemStack item = createItem(Material.PLAYER_HEAD,displayName,lore);
+    protected ItemStack createSkull(Player owner, String displayName, String... lore) {
+        ItemStack item = createItem(Material.PLAYER_HEAD, displayName, lore);
         SkullMeta meta = (SkullMeta) item.getItemMeta();
         assert meta != null;
         meta.setOwningPlayer(owner);
@@ -166,7 +174,7 @@ public abstract class Menu implements InventoryHolder {
     /**
      * Closes this menu and open the last menu player visited before this one.
      */
-    protected void back(){
+    protected void back() {
         owner.closeInventory();
         MenuManager.Open(owner.getPlayer(), data.lastMenu().getClass());
     }
@@ -174,26 +182,28 @@ public abstract class Menu implements InventoryHolder {
     /**
      * Refreshes the menu items.
      */
-    protected void refresh(){
+    protected void refresh() {
         getInventory().clear();
         fill();
     }
 
     /**
      * Fills all the empty slots with the {@link ItemStack} given.
+     *
      * @param tem An {@link ItemStack} to put in every empty slot.
      */
-    protected void fillEmptyWith(ItemStack tem){
+    protected void fillEmptyWith(ItemStack tem) {
         for (int i = 0; i < getSlots(); i++) {
-            if(getInventory().getItem(i)==null) getInventory().setItem(i,tem);
+            if (getInventory().getItem(i) == null) getInventory().setItem(i, tem);
         }
     }
 
     /**
      * Returns the real slot amount of this menu, which is {@link #getRows()}*9.
+     *
      * @return Slot amount of this menu.
      */
-    public int getSlots(){
-        return getRows()*9;
+    public int getSlots() {
+        return getRows() * 9;
     }
 }

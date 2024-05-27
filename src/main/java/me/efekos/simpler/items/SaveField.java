@@ -35,6 +35,7 @@ import java.lang.annotation.Target;
 public @interface SaveField {
     /**
      * Key that will be used to save the value of this field.
+     *
      * @return Key.
      */
     String value();
@@ -42,6 +43,7 @@ public @interface SaveField {
     /**
      * Field type that tells the type of this field. Only primitive types and {@link String} is supported. You should not
      * use other types inside a {@link CustomItem}.
+     *
      * @return Field type.
      */
     FieldType fieldType() default FieldType.STRING;
