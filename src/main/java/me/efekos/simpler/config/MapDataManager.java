@@ -29,6 +29,7 @@ import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
 import java.io.*;
+import java.nio.file.Path;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
 import java.util.List;
@@ -122,9 +123,9 @@ public class MapDataManager<K, V extends Storable> {
     public void save() {
         Gson gson = new Gson();
 
-        String absPath = plugin.getDataFolder().getAbsolutePath() + "\\" + path;
+        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath() , path);
 
-        File file = new File(absPath);
+        File file = absPath.toFile();
         file.getParentFile().mkdir();
         try {
             file.createNewFile();
@@ -142,8 +143,8 @@ public class MapDataManager<K, V extends Storable> {
      */
     public void load() {
         Gson gson = new Gson();
-        String absPath = plugin.getDataFolder().getAbsolutePath() + "\\" + path;
-        File file = new File(absPath);
+        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath() , path);
+        File file = absPath.toFile();
 
         if (file.exists()) {
             try {

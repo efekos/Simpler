@@ -149,3 +149,7 @@ command classes yourself.\
 
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added icons to changelogs.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Changed `ListDataManager` and `MapDataManager`'s `#load` methods. Now they don't need a parameter.
+
+## 1.7.2
+
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-fix.svg) Fixed a bug that saves files to wrong places in data managers when the plugin is running on an ubuntu server

@@ -23,12 +23,18 @@
 package me.efekos.simpler.config;
 
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
 import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.List;
@@ -90,10 +96,7 @@ public class ListDataManager<T extends Storable> {
      */
     @Nullable
     public T get(@NotNull UUID id) {
-        for (T data : datas) {
-            if (data.getUniqueId().equals(id)) return data;
-        }
-        return null;
+        return datas.stream().filter(t -> t.getUniqueId().equals(id)).findFirst().orElse(null);
     }
 
     /**
@@ -140,9 +143,8 @@ public class ListDataManager<T extends Storable> {
     public void save() {
         Gson gson = new Gson();
 
-        String absPath = plugin.getDataFolder().getAbsolutePath() + path;
+        File file = Path.of(plugin.getDataFolder().getAbsolutePath(), path).toFile();
 
-        File file = new File(absPath);
         file.getParentFile().mkdir();
         try {
             file.createNewFile();
@@ -160,22 +162,18 @@ public class ListDataManager<T extends Storable> {
      */
     public void load() {
         Gson gson = new Gson();
-        String absPath = plugin.getDataFolder().getAbsolutePath() + path;
-        File file = new File(absPath);
+        Path path1 = Path.of(plugin.getDataFolder().getAbsolutePath(),path);
 
-        if (file.exists()) {
+        if (Files.exists(path1)) {
             try {
-                Reader reader = new FileReader(file);
+                String s = Files.readString(path1, StandardCharsets.UTF_8);
 
-
-                Type tType = new com.google.common.reflect.TypeToken<List<T>>() {
+                Type tType = new com.google.common.reflect.TypeToken<List<LinkedTreeMap<String, Object>>>() {
                 }.getType();
-                List<T> n = gson.fromJson(reader, tType);
+                List<T> n = (List<T>) gson.fromJson(s, tType);
 
                 datas.clear();
                 datas.addAll(n);
-
-                reader.close();
             } catch (Exception e) {
                 e.printStackTrace();
             }
