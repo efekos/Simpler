@@ -46,6 +46,33 @@ import java.util.UUID;
 public final class CustomItemRegistry {
 
     /**
+     * A map of the items registered.
+     */
+    private final Map<NamespacedKey, Class<? extends CustomItem>> itemMap = new HashMap<>();
+
+    /**
+     * A non-public constructor to prevent people from creating new instances of {@link CustomItemRegistry}.
+     */
+    CustomItemRegistry() {
+    }
+
+    /**
+     * Does some checks and returns the 'items.json' file path.
+     *
+     * @param simplerDataFolderPath 'simpler_data' folder path.
+     * @return A path that leads to the 'items.json' file.
+     * @throws IOException If an IO process fails.
+     */
+    @NotNull
+    private static Path getItemsJsonPath(Path simplerDataFolderPath) throws IOException {
+        if (!Files.exists(simplerDataFolderPath)) Files.createDirectory(simplerDataFolderPath);
+        if (!Files.isDirectory(simplerDataFolderPath))
+            throw new NotDirectoryException(simplerDataFolderPath.toString());
+
+        return Path.of(simplerDataFolderPath.toString(), "items.json");
+    }
+
+    /**
      * Returns the {@link Path} simpler will create inside the given plugin's folder.
      *
      * @param plugin The plugin that is currently using this registry.
@@ -99,22 +126,6 @@ public final class CustomItemRegistry {
             e.printStackTrace();
         }
 
-    }
-
-    /**
-     * Does some checks and returns the 'items.json' file path.
-     *
-     * @param simplerDataFolderPath 'simpler_data' folder path.
-     * @return A path that leads to the 'items.json' file.
-     * @throws IOException If an IO process fails.
-     */
-    @NotNull
-    private static Path getItemsJsonPath(Path simplerDataFolderPath) throws IOException {
-        if (!Files.exists(simplerDataFolderPath)) Files.createDirectory(simplerDataFolderPath);
-        if (!Files.isDirectory(simplerDataFolderPath))
-            throw new NotDirectoryException(simplerDataFolderPath.toString());
-
-        return Path.of(simplerDataFolderPath.toString(), "items.json");
     }
 
     /**
@@ -173,11 +184,6 @@ public final class CustomItemRegistry {
     }
 
     /**
-     * A map of the items registered.
-     */
-    private final Map<NamespacedKey, Class<? extends CustomItem>> itemMap = new HashMap<>();
-
-    /**
      * Registers a custom item class.
      *
      * @param key  Identifier of this custom item type.
@@ -187,11 +193,5 @@ public final class CustomItemRegistry {
     public void registerItem(NamespacedKey key, Class<? extends CustomItem> item) {
         if (itemMap.containsKey(key)) throw new IllegalStateException("Same key used more than once: " + key);
         itemMap.put(key, item);
-    }
-
-    /**
-     * A non-public constructor to prevent people from creating new instances of {@link CustomItemRegistry}.
-     */
-    CustomItemRegistry() {
     }
 }

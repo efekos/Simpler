@@ -59,10 +59,6 @@ import java.util.UUID;
 public class MapDataManager<K, V extends Storable> {
 
     /**
-     * Main map of all the data stored inside this database.
-     */
-    private Map<K, V> data = new HashMap<>();
-    /**
      * Path to the file where all the data will be saved with {@link #save()}.
      */
     private final String path;
@@ -70,6 +66,10 @@ public class MapDataManager<K, V extends Storable> {
      * Instance of the plugin that uses this database.
      */
     private final JavaPlugin plugin;
+    /**
+     * Main map of all the data stored inside this database.
+     */
+    private Map<K, V> data = new HashMap<>();
 
     /**
      * Constructs a new manager.
@@ -123,7 +123,7 @@ public class MapDataManager<K, V extends Storable> {
     public void save() {
         Gson gson = new Gson();
 
-        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath() , path);
+        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath(), path);
 
         File file = absPath.toFile();
         file.getParentFile().mkdir();
@@ -143,7 +143,7 @@ public class MapDataManager<K, V extends Storable> {
      */
     public void load() {
         Gson gson = new Gson();
-        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath() , path);
+        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath(), path);
         File file = absPath.toFile();
 
         if (file.exists()) {

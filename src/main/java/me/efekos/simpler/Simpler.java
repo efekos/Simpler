@@ -14,15 +14,15 @@ import java.util.Set;
 public final class Simpler {
 
     /**
+     * Main configuration for messages that Simpler uses.
+     */
+    private static MessageConfiguration configuration = new MessageConfiguration.Builder().build();
+
+    /**
      * Creates a new instance.
      */
     public Simpler() {
     }
-
-    /**
-     * Main configuration for messages that Simpler uses.
-     */
-    private static MessageConfiguration configuration = new MessageConfiguration.Builder().build();
 
     /**
      * Returns the message configuration Simpler is using right now.

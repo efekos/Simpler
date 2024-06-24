@@ -41,10 +41,6 @@ import java.util.function.Consumer;
  */
 abstract class AbstractCustomItem {
     /**
-     * A consumer that changes an {@link ItemStack} to give it the appearance user wanted.
-     */
-    private Consumer<ItemStack> appearance;
-    /**
      * A map that contains event handler methods annotated with {@link HandleEvent}.
      */
     private final Map<HandleEvent, Method> methodMap = new HashMap<>();
@@ -52,6 +48,10 @@ abstract class AbstractCustomItem {
      * A map that contains fields annotated with {@link SaveField}.
      */
     private final Map<SaveField, Field> saveFieldsMap = new HashMap<>();
+    /**
+     * A consumer that changes an {@link ItemStack} to give it the appearance user wanted.
+     */
+    private Consumer<ItemStack> appearance;
 
     /**
      * Creates a new instance of this item

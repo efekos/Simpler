@@ -37,15 +37,6 @@ import java.util.List;
  */
 public abstract class PaginatedMenu extends Menu {
     /**
-     * Creates a new instance of this menu.
-     *
-     * @param data Menu data.
-     */
-    public PaginatedMenu(MenuData data) {
-        super(data);
-    }
-
-    /**
      * Maximum slots that are avaliable to put items in one page.
      */
     protected static final int maxItemsPerPage = 28;
@@ -57,6 +48,14 @@ public abstract class PaginatedMenu extends Menu {
      * Current item list.
      */
     private List<ItemStack> items = new ArrayList<>();
+    /**
+     * Creates a new instance of this menu.
+     *
+     * @param data Menu data.
+     */
+    public PaginatedMenu(MenuData data) {
+        super(data);
+    }
 
     /**
      * A method that should provide the content of this menu.

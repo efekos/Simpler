@@ -62,10 +62,6 @@ import java.util.UUID;
 public class ListDataManager<T extends Storable> {
 
     /**
-     * Main list of all the data stored inside this database.
-     */
-    private List<T> datas = new ArrayList<>();
-    /**
      * Path to the file where all the data will be saved with {@link #save()}.
      */
     private final String path;
@@ -73,6 +69,10 @@ public class ListDataManager<T extends Storable> {
      * Instance of the plugin that uses this database.
      */
     private final JavaPlugin plugin;
+    /**
+     * Main list of all the data stored inside this database.
+     */
+    private List<T> datas = new ArrayList<>();
 
     /**
      * Constructs a new manager.
@@ -162,7 +162,7 @@ public class ListDataManager<T extends Storable> {
      */
     public void load() {
         Gson gson = new Gson();
-        Path path1 = Path.of(plugin.getDataFolder().getAbsolutePath(),path);
+        Path path1 = Path.of(plugin.getDataFolder().getAbsolutePath(), path);
 
         if (Files.exists(path1)) {
             try {
@@ -170,7 +170,7 @@ public class ListDataManager<T extends Storable> {
 
                 Type tType = new com.google.common.reflect.TypeToken<List<LinkedTreeMap<String, Object>>>() {
                 }.getType();
-                List<T> n = (List<T>) gson.fromJson(s, tType);
+                List<T> n = gson.fromJson(s, tType);
 
                 datas.clear();
                 datas.addAll(n);

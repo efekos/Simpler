@@ -39,33 +39,6 @@ public class ArgumentHandleResult {
     private final String reason;
 
     /**
-     * Returns {@code true} if the command executor passes (gave a correct argument for) whatever you get this result from.
-     *
-     * @return {@code true} if this result is passed. {@code false} otherwise
-     */
-    public boolean isPassed() {
-        return pass;
-    }
-
-    /**
-     * Returns the reason of why this result does not pass, if it doesn't.
-     *
-     * @return A reason if this result didn't passed.
-     */
-    public @org.jetbrains.annotations.Nullable String getReason() {
-        return reason;
-    }
-
-    /**
-     * Returns {@code true} if this result has a reason. {@code false} otherwise.
-     *
-     * @return Whether this handle result has a reason (probably for failing)
-     */
-    public boolean hasReason() {
-        return reason != null;
-    }
-
-    /**
      * Private constructor.
      *
      * @param pass   Is this result passed?
@@ -93,5 +66,32 @@ public class ArgumentHandleResult {
      */
     public static ArgumentHandleResult fail(String reason) {
         return new ArgumentHandleResult(false, reason);
+    }
+
+    /**
+     * Returns {@code true} if the command executor passes (gave a correct argument for) whatever you get this result from.
+     *
+     * @return {@code true} if this result is passed. {@code false} otherwise
+     */
+    public boolean isPassed() {
+        return pass;
+    }
+
+    /**
+     * Returns the reason of why this result does not pass, if it doesn't.
+     *
+     * @return A reason if this result didn't passed.
+     */
+    public @org.jetbrains.annotations.Nullable String getReason() {
+        return reason;
+    }
+
+    /**
+     * Returns {@code true} if this result has a reason. {@code false} otherwise.
+     *
+     * @return Whether this handle result has a reason (probably for failing)
+     */
+    public boolean hasReason() {
+        return reason != null;
     }
 }

@@ -56,6 +56,23 @@ public abstract class CommandNode {
      * Description of this node
      */
     private String description;
+    /**
+     * Permission required to execute {@link CommandNode#executive}.
+     */
+    private String permission = "";
+
+    /**
+     * Creates a new {@link CommandNode}.
+     *
+     * @param children Any amount of child nodes if you would like to add now. You can still add child nodes using
+     *                 {@link CommandNode#addChild(CommandNode)} later.
+     */
+    public CommandNode(CommandNode... children) {
+        for (CommandNode child : children) {
+            child.setParent(this);
+            this.children.add(child);
+        }
+    }
 
     /**
      * Returns the description of this node
@@ -79,11 +96,6 @@ public abstract class CommandNode {
     }
 
     /**
-     * Permission required to execute {@link CommandNode#executive}.
-     */
-    private String permission = "";
-
-    /**
      * Returns a list of the child nodes that this node contain.
      *
      * @return Children of this node.
@@ -99,6 +111,17 @@ public abstract class CommandNode {
      */
     public CommandExecutive getExecutive() {
         return executive;
+    }
+
+    /**
+     * Changes the executive of this node.
+     *
+     * @param executive New executive to use.
+     * @return CommandNode itself.
+     */
+    public CommandNode setExecutive(CommandExecutive executive) {
+        this.executive = executive;
+        return this;
     }
 
     /**
@@ -119,30 +142,6 @@ public abstract class CommandNode {
     public CommandNode setConsoleExecutive(CommandExecutive consoleExecutive) {
         this.consoleExecutive = consoleExecutive;
         return this;
-    }
-
-    /**
-     * Changes the executive of this node.
-     *
-     * @param executive New executive to use.
-     * @return CommandNode itself.
-     */
-    public CommandNode setExecutive(CommandExecutive executive) {
-        this.executive = executive;
-        return this;
-    }
-
-    /**
-     * Creates a new {@link CommandNode}.
-     *
-     * @param children Any amount of child nodes if you would like to add now. You can still add child nodes using
-     *                 {@link CommandNode#addChild(CommandNode)} later.
-     */
-    public CommandNode(CommandNode... children) {
-        for (CommandNode child : children) {
-            child.setParent(this);
-            this.children.add(child);
-        }
     }
 
     /**

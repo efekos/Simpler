@@ -37,10 +37,6 @@ import java.util.List;
  */
 public class CommandTree {
     /**
-     * List of the child nodes that this tree contain. Used for command executing and tab completion.
-     */
-    private List<CommandNode> children = new ArrayList<>();
-    /**
      * Name of the actual command.
      */
     private final String baseName;
@@ -53,6 +49,10 @@ public class CommandTree {
      * this permission.
      */
     private final String basePermission;
+    /**
+     * List of the child nodes that this tree contain. Used for command executing and tab completion.
+     */
+    private List<CommandNode> children = new ArrayList<>();
 
     /**
      * Creates a new command tree.

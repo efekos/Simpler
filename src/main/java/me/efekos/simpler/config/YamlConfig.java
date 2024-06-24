@@ -39,21 +39,18 @@ public class YamlConfig {
      * Name of the resource that will be cloned from plugin resources. This makes it really easy to make custom configs. All you have to do it change the resource name.
      */
     private final String resourceName;
-
-    /**
-     * A file that will be used to load configuration from.
-     */
-    private File file;
-
-    /**
-     * Main configuration of this config.
-     */
-    private FileConfiguration fileConfiguration;
-
     /**
      * The plugin that uses this config.
      */
     private final JavaPlugin plugin;
+    /**
+     * A file that will be used to load configuration from.
+     */
+    private File file;
+    /**
+     * Main configuration of this config.
+     */
+    private FileConfiguration fileConfiguration;
 
     /**
      * Can be used as a YamlConfiguration. Adds some extra features to default configuration.

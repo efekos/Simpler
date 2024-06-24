@@ -36,12 +36,6 @@ import java.util.HashMap;
 public class MenuManager {
 
     /**
-     * Creates a new menu manager instance if you somehow need one.
-     */
-    public MenuManager() {
-    }
-
-    /**
      * A map used to store a {@link MenuData} for every {@link Player}.
      */
     private static final HashMap<Player, MenuData> menuDataStore = new HashMap<>();
@@ -53,6 +47,11 @@ public class MenuManager {
      * An instance of the plugin that is currently using this manager.
      */
     private static JavaPlugin plugin;
+    /**
+     * Creates a new menu manager instance if you somehow need one.
+     */
+    public MenuManager() {
+    }
 
     /**
      * Set up the {@link MenuManager} by giving it a {@link JavaPlugin}.

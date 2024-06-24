@@ -41,15 +41,15 @@ import java.util.regex.Pattern;
 public class TranslateManager {
 
     /**
+     * The pattern used for detecting hex colors.
+     */
+    public static final Pattern hexColorsPattern = Pattern.compile("(&#[0-9a-fA-F]{6})");
+
+    /**
      * Creates a new manager instance if you somehow need one.
      */
     public TranslateManager() {
     }
-
-    /**
-     * The pattern used for detecting hex colors.
-     */
-    public static final Pattern hexColorsPattern = Pattern.compile("(&#[0-9a-fA-F]{6})");
 
     /**
      * Generates a translation key for the {@link Material} given.

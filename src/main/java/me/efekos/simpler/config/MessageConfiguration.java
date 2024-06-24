@@ -137,12 +137,6 @@ public class MessageConfiguration {
     public static class Builder {
 
         /**
-         * Creates a new builder.
-         */
-        public Builder() {
-        }
-
-        /**
          * No-Permission message. Appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.
          */
         private String noPerm = "&cYou do not have permission to do that!";
@@ -158,7 +152,6 @@ public class MessageConfiguration {
          * A reason text that is provided by Simpler. Appears when the player didn't provide a {@link me.efekos.simpler.commands.syntax.ArgumentPriority#REQUIRED} argument.
          */
         private String usageRequiredReason = "&c%argument% is required";
-
         /**
          * Appears when the player provides an invalid value to {@link me.efekos.simpler.commands.syntax.impl.ListArgument}.
          */
@@ -207,6 +200,11 @@ public class MessageConfiguration {
          * Appears as the name of the item that indicates the current page in a {@link me.efekos.simpler.menu.PaginatedMenu}.
          */
         private String paginatedMenuPage = "&ePage %page% / %max%";
+        /**
+         * Creates a new builder.
+         */
+        public Builder() {
+        }
 
         /**
          * Changes the no-permission message. Which is a message that appears when the player tried to execute a {@link me.efekos.simpler.commands.BaseCommand} or a {@link me.efekos.simpler.commands.SubCommand}, but he doesn't have the permission for it.

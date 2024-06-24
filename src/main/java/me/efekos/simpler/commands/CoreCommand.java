@@ -49,6 +49,8 @@ import java.util.stream.Collectors;
  * Used for core commands like /friends invite,/friends list,/friends remove etc. {@link #getSubs()} will return a list of the {@link SubCommand}s that belong to this command. Must be annotated with {@link me.efekos.simpler.commands.Command} to be registered properly.
  */
 public abstract class CoreCommand extends Command {
+    private List<Class<? extends SubCommand>> subList = new ArrayList<>();
+
     /**
      * Creates a new core command instance. Not really needed for usage, but you have to override this constructor in
      * your class.
@@ -115,8 +117,6 @@ public abstract class CoreCommand extends Command {
     public String getUsage() {
         return "/" + getName() + " <sub> <args>";
     }
-
-    private List<Class<? extends SubCommand>> subList = new ArrayList<>();
 
     public void setSubList(List<Class<? extends SubCommand>> subList) {
         this.subList = subList;

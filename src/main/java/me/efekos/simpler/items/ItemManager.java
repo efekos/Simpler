@@ -43,11 +43,9 @@ import java.util.UUID;
 public class ItemManager {
 
     /**
-     * Creates a new instance if you somehow need one.
+     * Key that is used to save item ids of {@link CustomItem}s on {@link ItemStack}s.
      */
-    public ItemManager() {
-    }
-
+    public static final NamespacedKey ITEM_UUID_KEY = new NamespacedKey("simpler", "item_uuid");
     /**
      * Singleton instance of the custom item registry.
      */
@@ -63,6 +61,12 @@ public class ItemManager {
      */
     private static JavaPlugin plugin = null;
 
+
+    /**
+     * Creates a new instance if you somehow need one.
+     */
+    public ItemManager() {
+    }
 
     /**
      * Returns true if there is a plugin instance.
@@ -81,7 +85,6 @@ public class ItemManager {
             throw new IllegalStateException("Call me.efekos.simpler.ItemManager.setPlugin(JavaPlugin) before calling me.efekos.simpler.ItemManager.saveCustomItems()");
         registry.save(plugin, itemMap);
     }
-
 
     /**
      * Loads the custom item data from the plugin given before using {@link #setPlugin(JavaPlugin)}
@@ -167,11 +170,6 @@ public class ItemManager {
     public static void giveItem(Player player, CustomItem item) {
         player.getInventory().addItem(createStack(item));
     }
-
-    /**
-     * Key that is used to save item ids of {@link CustomItem}s on {@link ItemStack}s.
-     */
-    public static final NamespacedKey ITEM_UUID_KEY = new NamespacedKey("simpler", "item_uuid");
 
     /**
      * Gives someone an {@link ItemStack} of the {@link Material} given.
