@@ -26,20 +26,20 @@ import com.google.gson.JsonArray;
 
 import java.util.List;
 
-public class DataArray implements DataObject<List<DataObject<?,?>>, JsonArray> {
+public class DataArray implements DataObject<List<DataObject<?, ?>>, JsonArray> {
 
-    private final List<DataObject<?,?>> list;
+    private final List<DataObject<?, ?>> list;
 
-    private DataArray(DataObject<?,?>... array) {
+    private DataArray(DataObject<?, ?>... array) {
         list = List.of(array);
     }
 
-    public static DataArray of(DataObject<?,?>... array){
+    public static DataArray of(DataObject<?, ?>... array) {
         return new DataArray();
     }
 
     @Override
-    public List<DataObject<?,?>> value() {
+    public List<DataObject<?, ?>> value() {
         return list;
     }
 
@@ -48,47 +48,47 @@ public class DataArray implements DataObject<List<DataObject<?,?>>, JsonArray> {
         return true;
     }
 
-    public DataArray add(DataObject<?,?> value) {
+    public DataArray add(DataObject<?, ?> value) {
         list.add(value);
         return this;
     }
 
-    public DataArray add(String value){
+    public DataArray add(String value) {
         list.add(DataString.of(value));
         return this;
     }
 
-    public DataArray add(Boolean value){
+    public DataArray add(Boolean value) {
         list.add(DataBool.of(value));
         return this;
     }
 
-    public DataArray add(int value){
+    public DataArray add(int value) {
         list.add(DataInt.of(value));
         return this;
     }
 
-    public DataArray add(long value){
+    public DataArray add(long value) {
         list.add(DataLong.of(value));
         return this;
     }
 
-    public DataArray add(float value){
+    public DataArray add(float value) {
         list.add(DataFloat.of(value));
         return this;
     }
 
-    public DataArray add(double value){
+    public DataArray add(double value) {
         list.add(DataDouble.of(value));
         return this;
     }
 
-    public DataArray add(short value){
+    public DataArray add(short value) {
         list.add(DataShort.of(value));
         return this;
     }
 
-    public DataArray add(DataCompound value){
+    public DataArray add(DataCompound value) {
         list.add(value);
         return this;
     }

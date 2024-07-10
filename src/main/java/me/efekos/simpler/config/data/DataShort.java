@@ -26,7 +26,7 @@ import com.google.gson.JsonPrimitive;
 
 public class DataShort implements DataObject<Short, JsonPrimitive> {
 
-    private Short v;
+    private final Short v;
 
     private DataShort(Short v) {
         this.v = v;

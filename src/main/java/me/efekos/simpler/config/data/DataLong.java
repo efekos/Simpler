@@ -26,7 +26,7 @@ import com.google.gson.JsonPrimitive;
 
 public class DataLong implements DataObject<Long, JsonPrimitive> {
 
-    private Long v;
+    private final Long v;
 
     private DataLong(Long v) {
         this.v = v;

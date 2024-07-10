@@ -24,9 +24,9 @@ package me.efekos.simpler.config.data;
 
 import com.google.gson.JsonPrimitive;
 
-public class DataBool implements DataObject<Boolean,JsonPrimitive> {
+public class DataBool implements DataObject<Boolean, JsonPrimitive> {
 
-    private Boolean v;
+    private final Boolean v;
 
     private DataBool(Boolean v) {
         this.v = v;

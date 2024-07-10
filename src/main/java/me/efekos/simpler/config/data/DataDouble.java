@@ -26,7 +26,7 @@ import com.google.gson.JsonPrimitive;
 
 public class DataDouble implements DataObject<Double, JsonPrimitive> {
 
-    private Double v;
+    private final Double v;
 
     private DataDouble(Double v) {
         this.v = v;

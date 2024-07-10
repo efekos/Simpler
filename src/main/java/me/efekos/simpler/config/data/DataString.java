@@ -26,7 +26,7 @@ import com.google.gson.JsonPrimitive;
 
 public class DataString implements DataObject<String, JsonPrimitive> {
 
-    private String v;
+    private final String v;
 
     private DataString(String v) {
         this.v = v;

@@ -26,7 +26,7 @@ import com.google.gson.JsonPrimitive;
 
 public class DataInt implements DataObject<Integer, JsonPrimitive> {
 
-    private Integer v;
+    private final Integer v;
 
     private DataInt(Integer v) {
         this.v = v;

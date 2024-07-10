@@ -26,7 +26,7 @@ import com.google.gson.JsonPrimitive;
 
 public class DataFloat implements DataObject<Float, JsonPrimitive> {
 
-    private Float v;
+    private final Float v;
 
     private DataFloat(Float v) {
         this.v = v;
