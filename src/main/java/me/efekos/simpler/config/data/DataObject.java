@@ -22,9 +22,12 @@
 
 package me.efekos.simpler.config.data;
 
-public interface DataObject<T> {
+import com.google.gson.JsonElement;
+
+public interface DataObject<T,J extends JsonElement> {
 
     T value();
     boolean isCompound();
+    J toJson();
 
 }
