@@ -20,30 +20,34 @@
  * SOFTWARE.
  */
 
-package me.efekos.simpler.config;
+package me.efekos.simpler.config.data;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
+import me.efekos.simpler.config.Storable;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.Writer;
+import java.lang.reflect.Type;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.security.InvalidParameterException;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 /**
- * A basic database class made using {@link Gson}. You can store a {@link java.util.Map<K,V>} in this data. Use {@link #save()}
+ * A basic database class made using {@link Gson}. You can store a {@link List<T>} in this data. Use {@link #save()}
  * and {@link #load()} to load your data.
  *
- * @param <K> Type of the keys you will use. Probably {@link String} but you can change it to something else if you want.
- * @param <V> Type of the data you want to store as a list. Be aware that using incompatible types
+ * @param <T> Type of the data you want to store as a list. Be aware that using incompatible types
  *            in this type might cause errors. Just to let you know, there is a list of the classes
- *            compatible to be used inside V.
+ *            compatible to be used inside T of database.
  *            <ul>
  *            <li>{@link String}.</li>
  *            <li>{@link Boolean}.</li>
@@ -56,7 +60,7 @@ import java.util.UUID;
  *            <li>Any class that does not contain any type other than the ones above.</li>
  *            </ul>
  */
-public class MapDataManager<K, V extends Storable> {
+public class ListDataManager<T extends Storable> {
 
     /**
      * Path to the file where all the data will be saved with {@link #save()}.
@@ -67,9 +71,9 @@ public class MapDataManager<K, V extends Storable> {
      */
     private final JavaPlugin plugin;
     /**
-     * Main map of all the data stored inside this database.
+     * Main list of all the data stored inside this database.
      */
-    private Map<K, V> data = new HashMap<>();
+    private List<T> datas = new ArrayList<>();
 
     /**
      * Constructs a new manager.
@@ -79,22 +83,21 @@ public class MapDataManager<K, V extends Storable> {
      * @param plugin Instance of the plugin that will use this database. Recommended to be {@code this}, assuming that
      *               you are constructing a database inside your {@link JavaPlugin#onEnable()} method.
      */
-    public MapDataManager(String path, JavaPlugin plugin) {
+    public ListDataManager(String path, JavaPlugin plugin) {
         if (!path.endsWith(".json")) throw new InvalidParameterException("path must end with .json");
         this.path = path;
         this.plugin = plugin;
     }
 
     /**
-     * Grabs a data from the map using its {@link UUID}.
+     * Grabs a data from the list using its {@link UUID}.
      *
      * @param id ID of the data you want to get.
      * @return Data if found, {@code null} otherwise.
      */
     @Nullable
-    public V get(@NotNull K id) {
-        if (data.containsKey(id)) return data.get(id);
-        return null;
+    public T get(@NotNull UUID id) {
+        return datas.stream().filter(t -> t.getUniqueId().equals(id)).findFirst().orElse(null);
     }
 
     /**
@@ -102,35 +105,52 @@ public class MapDataManager<K, V extends Storable> {
      *
      * @param id ID of the data you want to delete
      */
-    public void delete(K id) {
-        data.remove(id);
+    public void delete(UUID id) {
+        List<T> newList = new ArrayList<>();
+
+        for (T data : datas) {
+            if (!data.getUniqueId().equals(id)) newList.add(data);
+        }
+
+        datas = newList;
     }
 
     /**
-     * Puts the given data to map.
+     * Adds the given data to list.
      *
-     * @param key  Key of the data in map.
-     * @param data Data you want to put to the map.
+     * @param data Data you want to add to the list.
      */
-    public void set(K key, V data) {
-        this.data.put(key, data);
+    public void add(T data) {
+        datas.add(data);
+    }
+
+    /**
+     * Finds a data with the given id, and replaces it with the new one.
+     *
+     * @param id      ID of the data you want to update. You can just do {@link T#getUniqueId()} for this.
+     * @param newData New data to replace with the old one
+     * @return New data.
+     */
+    public T update(UUID id, T newData) {
+        delete(id);
+        add(newData);
+        return newData;
     }
 
     /**
      * Saves all the data to the plugins data folder using the given path. It will save the data as a '.json' file, to
-     * {@link MapDataManager#path} under plugins data folder.
+     * {@link ListDataManager#path} under plugins data folder.
      */
     public void save() {
         Gson gson = new Gson();
 
-        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath(), path);
+        File file = Path.of(plugin.getDataFolder().getAbsolutePath(), path).toFile();
 
-        File file = absPath.toFile();
         file.getParentFile().mkdir();
         try {
             file.createNewFile();
             Writer writer = new FileWriter(file, false);
-            gson.toJson(data, writer);
+            gson.toJson(datas, writer);
             writer.flush();
             writer.close();
         } catch (Exception e) {
@@ -143,19 +163,18 @@ public class MapDataManager<K, V extends Storable> {
      */
     public void load() {
         Gson gson = new Gson();
-        Path absPath = Path.of(plugin.getDataFolder().getAbsolutePath(), path);
-        File file = absPath.toFile();
+        Path path1 = Path.of(plugin.getDataFolder().getAbsolutePath(), path);
 
-        if (file.exists()) {
+        if (Files.exists(path1)) {
             try {
-                Reader reader = new FileReader(file);
+                String s = Files.readString(path1, StandardCharsets.UTF_8);
 
-                TypeToken<Map<K, V>> token = new TypeToken<>() {
-                };
+                Type tType = new com.google.common.reflect.TypeToken<List<LinkedTreeMap<String, Object>>>() {
+                }.getType();
+                List<T> n = gson.fromJson(s, tType);
 
-                data = gson.fromJson(reader, token.getType());
-
-                reader.close();
+                datas.clear();
+                datas.addAll(n);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -163,11 +182,11 @@ public class MapDataManager<K, V extends Storable> {
     }
 
     /**
-     * Grabs the entire map and returns it.
+     * Grabs the entire list and returns it.
      *
-     * @return All the map of data.
+     * @return All the list of datas.
      */
-    public Map<K, V> getAll() {
-        return data;
+    public List<T> getAll() {
+        return datas;
     }
 }

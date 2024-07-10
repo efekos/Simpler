@@ -22,6 +22,9 @@
 
 package me.efekos.simpler.config;
 
+import me.efekos.simpler.config.data.ListDataManager;
+import me.efekos.simpler.config.data.MapDataManager;
+
 import java.util.UUID;
 
 /**
