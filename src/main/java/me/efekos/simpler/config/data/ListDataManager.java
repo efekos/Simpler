@@ -150,7 +150,7 @@ public class ListDataManager<T extends Storable> {
         try {
             file.createNewFile();
             Writer writer = new FileWriter(file, false);
-            gson.toJson(datas, writer);
+            gson.toJson(datas.stream().map(t -> t.toCompound().toJson()).toList(), writer);
             writer.flush();
             writer.close();
         } catch (Exception e) {
