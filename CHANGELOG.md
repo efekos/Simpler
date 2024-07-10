@@ -153,3 +153,19 @@ command classes yourself.\
 ## 1.7.2
 
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-fix.svg) Fixed a bug that saves files to wrong places in data managers when the plugin is running on an ubuntu server
+
+# 1.8
+
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data`: All classes about data.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataObject`: Main interface for data objects.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataString`: String holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataBool`: Boolean holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataDouble`: Double holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataFloat`: Float holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataInt`: Integer holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataLong`: Long holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataShort`: Short holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataArray`: Array holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataCompound`: Object holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.config.ListDataManager` to `@.config.data.ListDataManager`.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.config.MapDataManager` to `@.config.data.MapDataManager`.
