@@ -22,7 +22,9 @@
 
 package me.efekos.simpler.config.data;
 
-public class DataBool implements DataObject<Boolean> {
+import com.google.gson.JsonPrimitive;
+
+public class DataBool implements DataObject<Boolean,JsonPrimitive> {
 
     private Boolean v;
 
@@ -43,4 +45,10 @@ public class DataBool implements DataObject<Boolean> {
     public boolean isCompound() {
         return false;
     }
+
+    @Override
+    public JsonPrimitive toJson() {
+        return new JsonPrimitive(v);
+    }
+
 }

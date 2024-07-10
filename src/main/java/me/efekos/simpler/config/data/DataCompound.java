@@ -22,12 +22,14 @@
 
 package me.efekos.simpler.config.data;
 
+import com.google.gson.JsonObject;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class DataCompound implements DataObject<Map<String, DataObject<?>>> {
+public class DataCompound implements DataObject<Map<String, DataObject<?,?>>,JsonObject> {
 
-    private Map<String,DataObject<?>> values = new HashMap<>();
+    private Map<String,DataObject<?,?>> values = new HashMap<>();
 
     public DataCompound(){
 
@@ -73,7 +75,7 @@ public class DataCompound implements DataObject<Map<String, DataObject<?>>> {
     }
 
     @Override
-    public Map<String, DataObject<?>> value() {
+    public Map<String, DataObject<?,?>> value() {
         return Map.copyOf(values);
     }
 
@@ -81,4 +83,12 @@ public class DataCompound implements DataObject<Map<String, DataObject<?>>> {
     public boolean isCompound() {
         return false;
     }
+
+    @Override
+    public JsonObject toJson() {
+        JsonObject object = new JsonObject();
+        values.forEach((s, dataObject) -> object.add(s,dataObject.toJson()));
+        return object;
+    }
+
 }

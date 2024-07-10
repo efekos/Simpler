@@ -22,7 +22,9 @@
 
 package me.efekos.simpler.config.data;
 
-public class DataShort implements DataObject<Short> {
+import com.google.gson.JsonPrimitive;
+
+public class DataShort implements DataObject<Short, JsonPrimitive> {
 
     private Short v;
 
@@ -42,5 +44,10 @@ public class DataShort implements DataObject<Short> {
     @Override
     public boolean isCompound() {
         return false;
+    }
+
+    @Override
+    public JsonPrimitive toJson() {
+        return new JsonPrimitive(v);
     }
 }
