@@ -72,12 +72,6 @@ public class DataCompound implements DataObject<Map<String, DataObject<?>>> {
         return this;
     }
 
-
-    public DataCompound put(String key,Integer value){
-        values.put(key,DataInt.of(value));
-        return this;
-    }
-
     @Override
     public Map<String, DataObject<?>> value() {
         return Map.copyOf(values);
