@@ -133,7 +133,7 @@ public class MapDataManager<K, V extends Storable> {
             Writer writer = new FileWriter(file, false);
 
             DataCompound compound = new DataCompound();
-            data.forEach((k, v) -> compound.putCompound(k.toString(),v.toCompound()));
+            data.forEach((k, v) -> compound.putCompound(k.toString(), v.toCompound()));
 
             gson.toJson(compound.toJson(), writer);
             writer.flush();

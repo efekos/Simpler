@@ -47,6 +47,7 @@ public class MenuManager {
      * An instance of the plugin that is currently using this manager.
      */
     private static JavaPlugin plugin;
+
     /**
      * Creates a new menu manager instance if you somehow need one.
      */

@@ -200,6 +200,7 @@ public class MessageConfiguration {
          * Appears as the name of the item that indicates the current page in a {@link me.efekos.simpler.menu.PaginatedMenu}.
          */
         private String paginatedMenuPage = "&ePage %page% / %max%";
+
         /**
          * Creates a new builder.
          */

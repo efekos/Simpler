@@ -48,6 +48,7 @@ public abstract class PaginatedMenu extends Menu {
      * Current item list.
      */
     private List<ItemStack> items = new ArrayList<>();
+
     /**
      * Creates a new instance of this menu.
      *
