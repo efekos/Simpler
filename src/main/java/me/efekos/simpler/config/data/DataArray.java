@@ -23,24 +23,23 @@
 package me.efekos.simpler.config.data;
 
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 
 import java.util.List;
 
-public class DataArray implements DataObject<List<DataObject<?,JsonElement>>, JsonArray> {
+public class DataArray implements DataObject<List<DataObject<?,?>>, JsonArray> {
 
-    private final List<DataObject<?,JsonElement>> list;
+    private final List<DataObject<?,?>> list;
 
-    private DataArray(DataObject<?,JsonElement>... array) {
+    private DataArray(DataObject<?,?>... array) {
         list = List.of(array);
     }
 
-    public static DataArray of(DataObject<?,JsonElement>... array){
+    public static DataArray of(DataObject<?,?>... array){
         return new DataArray();
     }
 
     @Override
-    public List<DataObject<?,JsonElement>> value() {
+    public List<DataObject<?,?>> value() {
         return list;
     }
 
@@ -49,7 +48,7 @@ public class DataArray implements DataObject<List<DataObject<?,JsonElement>>, Js
         return true;
     }
 
-    public DataArray add(DataObject<?,JsonElement> value) {
+    public DataArray add(DataObject<?,?> value) {
         list.add(value);
         return this;
     }
@@ -97,7 +96,7 @@ public class DataArray implements DataObject<List<DataObject<?,JsonElement>>, Js
     @Override
     public JsonArray toJson() {
         JsonArray array = new JsonArray();
-        for (DataObject<?, JsonElement> dataObject : list) array.add(dataObject.toJson());
+        for (DataObject<?, ?> dataObject : list) array.add(dataObject.toJson());
         return array;
     }
 }
