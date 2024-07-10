@@ -168,4 +168,5 @@ command classes yourself.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataArray`: Array holder for data compounds.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataCompound`: Object holder for data compounds.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.config.ListDataManager` to `@.config.data.ListDataManager`.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.config.MapDataManager` to `@.config.data.MapDataManager`.
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.config.MapDataManager` to `@.config.data.MapDataManager`.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Updated SpigotMC version to 1.21
