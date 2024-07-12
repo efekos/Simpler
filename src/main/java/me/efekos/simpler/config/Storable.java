@@ -40,5 +40,6 @@ public interface Storable {
      */
     UUID getUniqueId();
 
-    DataCompound toCompound();
+    DataCompound writeCompound();
+    void readCompound(DataCompound compound);
 }
