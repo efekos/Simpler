@@ -152,7 +152,7 @@ public class ListDataManager<T extends Storable> {
             file.createNewFile();
             Writer writer = new FileWriter(file, false);
             JsonArray array = new JsonArray();
-            datas.stream().map(DataReader::write).forEach(array::add);
+            datas.stream().map(DataSerializer::write).forEach(array::add);
             gson.toJson(array, writer);
             writer.flush();
             writer.close();

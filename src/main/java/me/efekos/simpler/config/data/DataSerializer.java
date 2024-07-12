@@ -31,7 +31,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-public class DataReader {
+public class DataSerializer {
 
     public static <T> T read(Class<T> clazz,JsonObject object){
         try {

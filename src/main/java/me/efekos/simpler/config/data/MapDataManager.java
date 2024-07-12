@@ -134,7 +134,7 @@ public class MapDataManager<K, V extends Storable> {
             Writer writer = new FileWriter(file, false);
 
             JsonObject object = new JsonObject();
-            data.forEach((k, v) -> object.add(k.toString(), DataReader.write(v)));
+            data.forEach((k, v) -> object.add(k.toString(), DataSerializer.write(v)));
 
             gson.toJson(object, writer);
             writer.flush();
