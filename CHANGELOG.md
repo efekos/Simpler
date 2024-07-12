@@ -157,16 +157,9 @@ command classes yourself.\
 # 1.8
 
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data`: All classes about data.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataObject`: Main interface for data objects.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataString`: String holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataBool`: Boolean holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataDouble`: Double holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataFloat`: Float holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataInt`: Integer holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataLong`: Long holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataShort`: Short holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataArray`: Array holder for data compounds.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataCompound`: Object holder for data compounds.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataSerializer`: Main serializer object to read and write data.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.Store`: Annotation used to store fields.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.UniqueID`: Annotation used to mark unique fields.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.config.ListDataManager` to `@.config.data.ListDataManager`.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-moved.svg) Moved `@.config.MapDataManager` to `@.config.data.MapDataManager`.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Updated SpigotMC version to 1.21
