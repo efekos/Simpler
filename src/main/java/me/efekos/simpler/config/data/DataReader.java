@@ -23,6 +23,7 @@
 package me.efekos.simpler.config.data;
 
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Field;
@@ -32,12 +33,45 @@ import java.util.UUID;
 
 public class DataReader {
 
+    public static <T> T read(Class<T> clazz,JsonObject object){
+        try {
+            T instance = clazz.getConstructor().newInstance();
+
+            for (Field field : clazz.getDeclaredFields()) {
+                if(!field.isAnnotationPresent(Store.class))continue;
+                String name = field.getAnnotation(Store.class).value();
+                JsonElement element = object.get(name);
+                Class<?> type = field.getType();
+
+                boolean b = field.canAccess(instance);
+                if(!b) field.setAccessible(true);
+
+                if(element.isJsonNull()) field.set(instance,null);
+                if(type==Boolean.class||type==boolean.class)field.set(instance, object.get(name).getAsBoolean());
+                if(type==Integer.class||type==int.class)field.set(instance, object.get(name).getAsInt());
+                if(type==Short.class||type==short.class)field.set(instance, object.get(name).getAsShort());
+                if(type==Long.class||type==long.class)field.set(instance, object.get(name).getAsLong());
+                if(type==Double.class||type==double.class)field.set(instance, object.get(name).getAsDouble());
+                if(type==Float.class||type==float.class)field.set(instance, object.get(name).getAsFloat());
+                if(type==String.class)field.set(instance, object.get(name).getAsString());
+                if(type==UUID.class)field.set(instance, UUID.fromString(object.get(name).getAsString()));
+
+                //TODO Maps
+                //TODO Arrays
+            }
+
+            return instance;
+        } catch (Exception e){
+            throw new RuntimeException("Simpler error. Please report to https://github.com/efekos/Simpler/issues",e);
+        }
+    }
+
     public static <T> JsonObject write(T instance){
         JsonObject object = new JsonObject();
         Class<?> clazz = instance.getClass();
 
         try {
-            for (Field field : clazz.getFields()) {
+            for (Field field : clazz.getDeclaredFields()) {
                 if(!field.isAnnotationPresent(Store.class)) continue;
                 String name = field.getAnnotation(Store.class).value();
                 if(object.has(name)) throw new RuntimeException("Simpler error: "+clazz+" has multiple fields stored with name "+name+".");
@@ -48,6 +82,7 @@ public class DataReader {
 
                 //primitive
                 wrt(object, name, value, field);
+                if(!b) field.setAccessible(false);
             }
 
             return object;
@@ -69,9 +104,9 @@ public class DataReader {
         if(type==String.class)object.addProperty(name, (String) value);
         if(type==UUID.class)object.addProperty(name, value.toString());
 
-        if(type == Map.class) {
+        if(type == Map.class || value instanceof Map<?,?>) {
             JsonObject objectToPut = new JsonObject();
-            Map<?,?> casted = (Map) value;
+            Map<?,?> casted = (Map<?,?>) value;
             casted.forEach((o, o2) -> {
                 if(!(o instanceof UUID)&& !(o instanceof String)) throw new RuntimeException("Simpler error: Maps inside storable classes must have String or UUID keys.");
                 objectToPut.add(o.toString(), write(o2));
@@ -85,7 +120,6 @@ public class DataReader {
             for (Object o : casted) arrayToAdd.add(write(o));
             object.add(name, arrayToAdd);
         }
-
 
     }
 
