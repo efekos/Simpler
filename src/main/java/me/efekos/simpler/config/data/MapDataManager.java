@@ -24,6 +24,7 @@ package me.efekos.simpler.config.data;
 
 import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import me.efekos.simpler.config.Storable;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -132,10 +133,10 @@ public class MapDataManager<K, V extends Storable> {
             file.createNewFile();
             Writer writer = new FileWriter(file, false);
 
-            DataCompound compound = new DataCompound();
-            data.forEach((k, v) -> compound.putCompound(k.toString(), v.writeCompound()));
+            JsonObject object = new JsonObject();
+            data.forEach((k, v) -> object.add(k.toString(), DataReader.write(v)));
 
-            gson.toJson(compound.toJson(), writer);
+            gson.toJson(object, writer);
             writer.flush();
             writer.close();
         } catch (Exception e) {

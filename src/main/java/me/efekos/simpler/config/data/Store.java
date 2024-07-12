@@ -22,14 +22,13 @@
 
 package me.efekos.simpler.config.data;
 
-import com.google.gson.JsonElement;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 
-public interface DataObject<T, J extends JsonElement> {
-
-    T value();
-
-    boolean isCompound();
-
-    J toJson();
-
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface Store {
+    String value();
 }

@@ -23,6 +23,7 @@
 package me.efekos.simpler.config.data;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
 import com.google.gson.internal.LinkedTreeMap;
 import me.efekos.simpler.config.Storable;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -150,7 +151,9 @@ public class ListDataManager<T extends Storable> {
         try {
             file.createNewFile();
             Writer writer = new FileWriter(file, false);
-            gson.toJson(datas.stream().map(t -> t.writeCompound().toJson()).toList(), writer);
+            JsonArray array = new JsonArray();
+            datas.stream().map(DataReader::write).forEach(array::add);
+            gson.toJson(array, writer);
             writer.flush();
             writer.close();
         } catch (Exception e) {
