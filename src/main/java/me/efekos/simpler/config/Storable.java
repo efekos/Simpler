@@ -22,7 +22,6 @@
 
 package me.efekos.simpler.config;
 
-import me.efekos.simpler.config.data.DataCompound;
 import me.efekos.simpler.config.data.ListDataManager;
 import me.efekos.simpler.config.data.MapDataManager;
 
@@ -40,6 +39,4 @@ public interface Storable {
      */
     UUID getUniqueId();
 
-    DataCompound writeCompound();
-    void readCompound(DataCompound compound);
 }
