@@ -24,6 +24,7 @@ package me.efekos.simpler.config.data;
 
 import com.google.gson.JsonArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class DataArray implements DataObject<List<DataObject<?, ?>>, JsonArray> {
@@ -31,11 +32,11 @@ public class DataArray implements DataObject<List<DataObject<?, ?>>, JsonArray> 
     private final List<DataObject<?, ?>> list;
 
     private DataArray(DataObject<?, ?>... array) {
-        list = List.of(array);
+        list = new ArrayList<>(List.of(array));
     }
 
     public static DataArray of(DataObject<?, ?>... array) {
-        return new DataArray();
+        return new DataArray(array);
     }
 
     @Override
