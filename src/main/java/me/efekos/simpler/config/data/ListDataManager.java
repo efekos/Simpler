@@ -24,7 +24,7 @@ package me.efekos.simpler.config.data;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
-import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.JsonElement;
 import me.efekos.simpler.config.Storable;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +33,6 @@ import javax.annotation.Nullable;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
-import java.lang.reflect.Type;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -46,20 +45,9 @@ import java.util.UUID;
  * A basic database class made using {@link Gson}. You can store a {@link List<T>} in this data. Use {@link #save()}
  * and {@link #load()} to load your data.
  *
- * @param <T> Type of the data you want to store as a list. Be aware that using incompatible types
- *            in this type might cause errors. Just to let you know, there is a list of the classes
- *            compatible to be used inside T of database.
- *            <ul>
- *            <li>{@link String}.</li>
- *            <li>{@link Boolean}.</li>
- *            <li>{@link Integer}.</li>
- *            <li>{@link Double}.</li>
- *            <li>{@link Long}.</li>
- *            <li>{@link List<Object>}.</li>
- *            <li>{@code null}.</li>
- *            <li>{@code enum} classes.</li>
- *            <li>Any class that does not contain any type other than the ones above.</li>
- *            </ul>
+ * @param <T> Type of the data that you want to store in the list. Beware that only fields annotated with {@link Store}
+ *            will actually be stored and all fields annotated with {@link Store} must be a primitive type, {@link String}
+ *            or {@link UUID}.
  */
 public class ListDataManager<T extends Storable> {
 
@@ -76,6 +64,8 @@ public class ListDataManager<T extends Storable> {
      */
     private List<T> datas = new ArrayList<>();
 
+    private final Class<T> clazz;
+
     /**
      * Constructs a new manager.
      *
@@ -84,10 +74,11 @@ public class ListDataManager<T extends Storable> {
      * @param plugin Instance of the plugin that will use this database. Recommended to be {@code this}, assuming that
      *               you are constructing a database inside your {@link JavaPlugin#onEnable()} method.
      */
-    public ListDataManager(String path, JavaPlugin plugin) {
+    public ListDataManager(String path, JavaPlugin plugin, Class<T> clazz) {
         if (!path.endsWith(".json")) throw new InvalidParameterException("path must end with .json");
         this.path = path;
         this.plugin = plugin;
+        this.clazz = clazz;
     }
 
     /**
@@ -172,12 +163,9 @@ public class ListDataManager<T extends Storable> {
             try {
                 String s = Files.readString(path1, StandardCharsets.UTF_8);
 
-                Type tType = new com.google.common.reflect.TypeToken<List<LinkedTreeMap<String, Object>>>() {
-                }.getType();
-                List<T> n = gson.fromJson(s, tType);
-
                 datas.clear();
-                datas.addAll(n);
+                for (JsonElement element : gson.fromJson(s, JsonArray.class)) datas.add(DataSerializer.read(clazz,element.getAsJsonObject()));
+
             } catch (Exception e) {
                 e.printStackTrace();
             }

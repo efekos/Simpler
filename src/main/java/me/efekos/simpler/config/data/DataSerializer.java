@@ -22,13 +22,10 @@
 
 package me.efekos.simpler.config.data;
 
-import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.lang.reflect.Field;
-import java.util.List;
-import java.util.Map;
 import java.util.UUID;
 
 public class DataSerializer {
@@ -57,8 +54,6 @@ public class DataSerializer {
                 if (type == String.class) field.set(instance, object.get(name).getAsString());
                 if (type == UUID.class) field.set(instance, UUID.fromString(object.get(name).getAsString()));
 
-                //TODO Maps
-                //TODO Arrays
             }
 
             return instance;
@@ -103,26 +98,9 @@ public class DataSerializer {
         if (type == Long.class || type == long.class) object.addProperty(name, (long) value);
         if (type == Float.class || type == float.class) object.addProperty(name, (float) value);
         if (type == Double.class || type == double.class) object.addProperty(name, (double) value);
+        if (type == Integer.class || type == int.class) object.addProperty(name, (int) value);
         if (type == String.class) object.addProperty(name, (String) value);
         if (type == UUID.class) object.addProperty(name, value.toString());
-
-        if (type == Map.class || value instanceof Map<?, ?>) {
-            JsonObject objectToPut = new JsonObject();
-            Map<?, ?> casted = (Map<?, ?>) value;
-            casted.forEach((o, o2) -> {
-                if (!(o instanceof UUID) && !(o instanceof String))
-                    throw new RuntimeException("Simpler error: Maps inside storable classes must have String or UUID keys.");
-                objectToPut.add(o.toString(), write(o2));
-            });
-            object.add(name, objectToPut);
-        }
-
-        if (type == List.class || value instanceof List<?>) {
-            List<?> casted = (List<?>) value;
-            JsonArray arrayToAdd = new JsonArray();
-            for (Object o : casted) arrayToAdd.add(write(o));
-            object.add(name, arrayToAdd);
-        }
 
     }
 

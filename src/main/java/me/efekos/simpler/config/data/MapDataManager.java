@@ -22,7 +22,6 @@
 
 package me.efekos.simpler.config.data;
 
-import com.google.common.reflect.TypeToken;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import me.efekos.simpler.config.Storable;
@@ -34,31 +33,18 @@ import java.io.*;
 import java.nio.file.Path;
 import java.security.InvalidParameterException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
 /**
- * A basic database class made using {@link Gson}. You can store a {@link java.util.Map<K,V>} in this data. Use {@link #save()}
+ * A basic database class made using {@link Gson}. You can store a {@link java.util.Map<String,V>} in this data. Use {@link #save()}
  * and {@link #load()} to load your data.
  *
- * @param <K> Type of the keys you will use. Probably {@link String} but you can change it to something else if you want.
- * @param <V> Type of the data you want to store as a list. Be aware that using incompatible types
- *            in this type might cause errors. Just to let you know, there is a list of the classes
- *            compatible to be used inside V.
- *            <ul>
- *            <li>{@link String}.</li>
- *            <li>{@link Boolean}.</li>
- *            <li>{@link Integer}.</li>
- *            <li>{@link Double}.</li>
- *            <li>{@link Long}.</li>
- *            <li>{@link List<Object>}.</li>
- *            <li>{@code null}.</li>
- *            <li>{@code enum} classes.</li>
- *            <li>Any class that does not contain any type other than the ones above.</li>
- *            </ul>
+ * @param <V> Type of the data that you want to store in the list. Beware that only fields annotated with {@link Store}
+ *            will actually be stored and all fields annotated with {@link Store} must be a primitive type, {@link String}
+ *            or {@link UUID}.
  */
-public class MapDataManager<K, V extends Storable> {
+public class MapDataManager<V extends Storable> {
 
     /**
      * Path to the file where all the data will be saved with {@link #save()}.
@@ -71,7 +57,9 @@ public class MapDataManager<K, V extends Storable> {
     /**
      * Main map of all the data stored inside this database.
      */
-    private Map<K, V> data = new HashMap<>();
+    private Map<String, V> data = new HashMap<>();
+
+    private final Class<V> clazz;
 
     /**
      * Constructs a new manager.
@@ -81,10 +69,11 @@ public class MapDataManager<K, V extends Storable> {
      * @param plugin Instance of the plugin that will use this database. Recommended to be {@code this}, assuming that
      *               you are constructing a database inside your {@link JavaPlugin#onEnable()} method.
      */
-    public MapDataManager(String path, JavaPlugin plugin) {
+    public MapDataManager(String path, JavaPlugin plugin, Class<V> clazz) {
         if (!path.endsWith(".json")) throw new InvalidParameterException("path must end with .json");
         this.path = path;
         this.plugin = plugin;
+        this.clazz = clazz;
     }
 
     /**
@@ -94,7 +83,7 @@ public class MapDataManager<K, V extends Storable> {
      * @return Data if found, {@code null} otherwise.
      */
     @Nullable
-    public V get(@NotNull K id) {
+    public V get(@NotNull String id) {
         if (data.containsKey(id)) return data.get(id);
         return null;
     }
@@ -104,7 +93,7 @@ public class MapDataManager<K, V extends Storable> {
      *
      * @param id ID of the data you want to delete
      */
-    public void delete(K id) {
+    public void delete(String id) {
         data.remove(id);
     }
 
@@ -114,7 +103,7 @@ public class MapDataManager<K, V extends Storable> {
      * @param key  Key of the data in map.
      * @param data Data you want to put to the map.
      */
-    public void set(K key, V data) {
+    public void set(String key, V data) {
         this.data.put(key, data);
     }
 
@@ -134,7 +123,7 @@ public class MapDataManager<K, V extends Storable> {
             Writer writer = new FileWriter(file, false);
 
             JsonObject object = new JsonObject();
-            data.forEach((k, v) -> object.add(k.toString(), DataSerializer.write(v)));
+            data.forEach((k, v) -> object.add(k, DataSerializer.write(v)));
 
             gson.toJson(object, writer);
             writer.flush();
@@ -156,10 +145,12 @@ public class MapDataManager<K, V extends Storable> {
             try {
                 Reader reader = new FileReader(file);
 
-                TypeToken<Map<K, V>> token = new TypeToken<>() {
-                };
+                JsonObject object = gson.fromJson(reader, JsonObject.class);
+                data = new HashMap<>();
 
-                data = gson.fromJson(reader, token.getType());
+                object.asMap().forEach((s, jsonElement) ->
+                    data.put(s,DataSerializer.read(clazz,jsonElement.getAsJsonObject()))
+                );
 
                 reader.close();
             } catch (Exception e) {
@@ -173,7 +164,7 @@ public class MapDataManager<K, V extends Storable> {
      *
      * @return All the map of data.
      */
-    public Map<K, V> getAll() {
+    public Map<String, V> getAll() {
         return data;
     }
 }
