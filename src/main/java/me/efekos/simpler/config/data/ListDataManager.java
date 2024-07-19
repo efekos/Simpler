@@ -42,7 +42,7 @@ import java.util.List;
 import java.util.UUID;
 
 /**
- * A basic database class made using {@link Gson}. You can store a {@link List<T>} in this data. Use {@link #save()}
+ * A basic database class made using {@link Gson}. You can store a {@link List}<{@link T}> in this data. Use {@link #save()}
  * and {@link #load()} to load your data.
  *
  * @param <T> Type of the data that you want to store in the list. Beware that only fields annotated with {@link Store}
