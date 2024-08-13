@@ -49,6 +49,7 @@ import java.util.UUID;
  *            will actually be stored and all fields annotated with {@link Store} must be a primitive type, {@link String}
  *            or {@link UUID}.
  */
+@Deprecated
 public class ListDataManager<T extends Storable> {
 
     /**

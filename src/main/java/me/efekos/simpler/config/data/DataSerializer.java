@@ -28,6 +28,7 @@ import com.google.gson.JsonObject;
 import java.lang.reflect.Field;
 import java.util.UUID;
 
+@Deprecated
 public class DataSerializer {
 
     public static <T> T read(Class<T> clazz, JsonObject object) {
