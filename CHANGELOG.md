@@ -158,4 +158,5 @@ command classes yourself.\
 
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-removed.svg) Removed `@.config.ListDataManager`.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-removed.svg) Removed `@.config.MapDataManager`.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Updated SpigotMC version to 1.21
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Updated SpigotMC version to 1.21.\
+![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Updated Java version to 21.
