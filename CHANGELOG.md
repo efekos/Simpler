@@ -156,10 +156,6 @@ command classes yourself.\
 
 # 1.8
 
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data`: All classes about data.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.DataSerializer`: Main serializer object to read and write data.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.Store`: Annotation used to store fields.\
-![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-plus.svg) Added `@.config.data.UniqueID`: Annotation used to mark unique fields.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-removed.svg) Removed `@.config.ListDataManager`.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-removed.svg) Removed `@.config.MapDataManager`.\
 ![](https://raw.githubusercontent.com/efekos/efekos/main/icons/symbol-change.svg) Updated SpigotMC version to 1.21
