@@ -1,3 +1,9 @@
+
+> [!IMPORTANT]
+> This project is breaking down into multiple libraries in order to make it easier to maintain, and won't get any updates anymore. The new libraries will support Paper as well.
+> Libraries out so far:
+> * [Arn](https://github.com/efekos/Arn) for commands.
+
 [![](https://jitpack.io/v/efekos/Simpler.svg)](https://jitpack.io/#efekos/Simpler)
 [![License: MIT](https://flat.badgen.net/badge/Lisence/MIT)](https://opensource.org/licenses/MIT)
 ![version](https://flat.badgen.net/github/release/efekos/Simpler)
